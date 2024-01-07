@@ -1,12 +1,33 @@
 html {
   font-size: 62.5%;
 }
-
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 body {
+  margin: 0;
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 1.6rem;
+
+  display: grid;
+  grid-template-columns: 1fr 25%;
+  grid-template-rows: 20vh 70vh 10vh;
 }
 
-h1 {
-  color: red;
+nav {
+  grid-column: 1/-1;
+  display: flex;
+  padding: 1rem;
+  background-color: gray;
+}
+
+.logo__img {
+  width: 10%;
+}
+footer {
+  grid-column: 1/-1;
+  background-color: black;
+  color: white;
 }
