@@ -26,6 +26,17 @@ nav {
 .logo__img {
   width: 10%;
 }
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: aquamarine;
+}
+.add-note {
+  background-color: blanchedalmond;
+  font-size: 15rem;
+  padding: 5rem;
+}
 footer {
   grid-column: 1/-1;
   background-color: black;
