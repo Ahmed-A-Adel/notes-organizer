@@ -1,5 +1,8 @@
 html {
   font-size: 62.5%;
+  --padding: 1rem;
+  --prim-color: rgb(246, 164, 64);
+  --second-color: bisque;
 }
 *,
 *::before,
@@ -12,33 +15,62 @@ body {
   font-size: 1.6rem;
 
   display: grid;
-  grid-template-columns: 1fr 25%;
   grid-template-rows: 20vh 70vh 10vh;
 }
 
 nav {
   grid-column: 1/-1;
   display: flex;
-  padding: 1rem;
-  background-color: gray;
+  padding: var(--padding);
+  background-color: var(--prim-color);
 }
 
 .logo__img {
   width: 10%;
 }
 main {
+  display: grid;
+  grid-template-columns: 75% 25%;
+  background-color: var(--second-color);
+
+  padding: var(--padding);
+}
+.add-note {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: aquamarine;
 }
-.add-note {
-  background-color: blanchedalmond;
+.add-note__pluse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 30%;
+  max-height: 50%;
+
+  padding: 2rem;
   font-size: 15rem;
-  padding: 5rem;
+  color: var(--prim-color);
+  text-shadow: 5px 5px rgba(246, 164, 64, 0.616);
+
+  border: 2px dashed var(--prim-color);
+}
+
+aside {
+  padding: var(--padding);
+  overflow-y: auto;
+  background-color: var(--prim-color);
+}
+
+.prev-note {
+  background-color: var(--second-color);
+
+  padding: 1rem 0.5rem;
+  margin-block: 1rem;
+
+  text-transform: capitalize;
 }
 footer {
   grid-column: 1/-1;
   background-color: black;
-  color: white;
+  color: var(--prim-color);
 }
