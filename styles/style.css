@@ -4,11 +4,13 @@ html {
   --prim-color: rgb(246, 164, 64);
   --second-color: bisque;
 }
+/* ______________________________________________________ */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
+/* ______________________________________________________ */
 body {
   margin: 0;
   font-family: Georgia, "Times New Roman", Times, serif;
@@ -17,17 +19,22 @@ body {
   display: grid;
   grid-template-rows: 15vh 75vh 10vh;
 }
-
+/* ______________________________________________________ */
+li {
+  list-style: none;
+  cursor: pointer;
+}
+/* ______________________________________________________ */
 nav {
   grid-column: 1/-1;
-  display: flex;
+  display: grid;
+  grid-template-columns: 10vw 1fr;
+  justify-content: space-between;
   padding: var(--padding);
+
   background-color: var(--prim-color);
 }
-
-.logo__img {
-  width: 10%;
-}
+/* ______________________________________________________ */
 main {
   display: grid;
   grid-template-columns: 75% 25%;
@@ -35,6 +42,38 @@ main {
 
   padding: var(--padding);
 }
+/* ______________________________________________________ */
+aside {
+  padding: var(--padding);
+  overflow-y: auto;
+  background-color: var(--prim-color);
+}
+/* ______________________________________________________ */
+footer {
+  grid-column: 1/-1;
+  background-color: black;
+  color: var(--prim-color);
+}
+/* ______________________________________________________ */
+.logo__img {
+  width: 10vh;
+}
+/* ______________________________________________________ */
+
+.tools {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.tools__delete-note {
+}
+.tools__edit-note {
+}
+.tools__save-note {
+}
+.tools__color-note {
+}
+
 .add-note {
   display: flex;
   align-items: center;
@@ -75,12 +114,6 @@ main {
   display: none;
 }
 
-aside {
-  padding: var(--padding);
-  overflow-y: auto;
-  background-color: var(--prim-color);
-}
-
 .prev-note {
   background-color: var(--second-color);
 
@@ -88,9 +121,4 @@ aside {
   margin-block: 1rem;
 
   text-transform: capitalize;
-}
-footer {
-  grid-column: 1/-1;
-  background-color: black;
-  color: var(--prim-color);
 }
