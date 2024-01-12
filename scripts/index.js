@@ -42,6 +42,18 @@ const addNote = () => {
 
   sideNotes.innerHTML = elements.join("");
 };
+// ______________________________________________________________
+const loadNotes = () => {
+  const elements = state.notes
+    .map((note) => {
+      return `<li class="prev-note">${note.heading}</li>`;
+    })
+    .join(" ");
+
+  sideNotes.innerHTML = elements;
+};
 
 // Events Lesteners
 saveInput.addEventListener("click", addNote);
+// ______________________________________________________________
+window.addEventListener("load", loadNotes);
