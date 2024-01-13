@@ -80,16 +80,18 @@ aside:focus {
 /* _______________________________ */
 aside ul {
   padding: var(--padding);
+  display: grid;
+  gap: var(--margin);
 }
 /* _______________________________ */
 .prev-note {
   background-color: var(--second-color);
 
   padding: 1rem 0.5rem;
-  margin-block: 1rem;
 
   text-transform: capitalize;
 }
+
 /* _______________________________ */
 .add-note {
   width: 100%;
