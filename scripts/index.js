@@ -1,9 +1,58 @@
 const saveInput = document.getElementById("save-input");
 const addInput = document.getElementById("add-input");
 const sideNotes = document.getElementById("side-notes");
+const sideNotesList = document.getElementById("side-notes__list");
 // --------- App State --------------
 const state = {
   notes: [
+    {
+      id: null,
+      heading: "morning routine",
+      content: "",
+      color: "",
+      tags: [],
+      edit: false,
+    },
+    {
+      id: null,
+      heading: "afternoon routine",
+      content: "",
+      color: "",
+      tags: [],
+      edit: false,
+    },
+    {
+      id: null,
+      heading: "evening routine",
+      content: "",
+      color: "",
+      tags: [],
+      edit: false,
+    },
+    {
+      id: null,
+      heading: "morning routine",
+      content: "",
+      color: "",
+      tags: [],
+      edit: false,
+    },
+    {
+      id: null,
+      heading: "afternoon routine",
+      content: "",
+      color: "",
+      tags: [],
+      edit: false,
+    },
+    {
+      id: null,
+      heading: "evening routine",
+      content: "",
+      color: "",
+      tags: [],
+      edit: false,
+    },
     {
       id: null,
       heading: "morning routine",
@@ -32,15 +81,15 @@ const state = {
   darkmode: false,
 };
 
-//  Functions
+// ------------ Functions -----------------
 const addNote = () => {
   const elements = [`<li class="prev-note">${addInput.value}</li>`];
 
-  Object.values(sideNotes.children).map((note) =>
+  Object.values(sideNotesList.children).map((note) =>
     elements.push(`<li class="prev-note">${note.innerHTML}</li>`)
   );
 
-  sideNotes.innerHTML = elements.join("");
+  sideNotesList.innerHTML = elements.join("");
 };
 // ______________________________________________________________
 const loadNotes = () => {
@@ -50,10 +99,10 @@ const loadNotes = () => {
     })
     .join(" ");
 
-  sideNotes.innerHTML = elements;
+  sideNotesList.innerHTML = elements;
 };
 
-// Events Lesteners
+//------------ Events Lesteners ------------------
 saveInput.addEventListener("click", addNote);
 // ______________________________________________________________
 window.addEventListener("load", loadNotes);

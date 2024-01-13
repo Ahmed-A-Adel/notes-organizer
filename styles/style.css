@@ -1,23 +1,29 @@
 html {
   font-size: 62.5%;
   --padding: 1rem;
+  --margin: 2rem;
   --prim-color: rgb(246, 164, 64);
   --second-color: bisque;
+  --ligh-brown: rgb(209, 84, 16);
 }
 /* ______________________________________________________ */
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 /* ______________________________________________________ */
 body {
-  margin: 0;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  font-size: 1.6rem;
+  box-sizing: border-box;
 
   display: grid;
   grid-template-rows: 15vh 75vh 10vh;
+
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.6rem;
+
+  background-color: var(--second-color);
 }
 /* ______________________________________________________ */
 li {
@@ -30,36 +36,14 @@ nav {
   display: grid;
   grid-template-columns: 10vw 1fr;
   justify-content: space-between;
-  padding: var(--padding);
-
+  align-items: center;
   background-color: var(--prim-color);
 }
-/* ______________________________________________________ */
-main {
-  display: grid;
-  grid-template-columns: 75% 25%;
-  background-color: var(--second-color);
-
-  padding: var(--padding);
-}
-/* ______________________________________________________ */
-aside {
-  padding: var(--padding);
-  overflow-y: auto;
-  background-color: var(--prim-color);
-}
-/* ______________________________________________________ */
-footer {
-  grid-column: 1/-1;
-  background-color: black;
-  color: var(--prim-color);
-}
-/* ______________________________________________________ */
+/* ___________________________________ */
 .logo__img {
   width: 10vh;
 }
-/* ______________________________________________________ */
-
+/* ___________________________________ */
 .tools {
   display: flex;
   justify-content: space-evenly;
@@ -73,30 +57,69 @@ footer {
 }
 .tools__color-note {
 }
+/* ______________________________________________________ */
+main {
+  display: grid;
+  grid-template-columns: 75% 25%;
+  column-gap: var(--margin);
 
-.add-note {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: var(--margin);
 }
+/* ______________________________________________________ */
+aside {
+  background-color: var(--prim-color);
+  border-top: 5px solid var(--prim-color);
+  border-bottom: 5px solid var(--prim-color);
+  outline: 2px solid var(--ligh-brown);
+
+  overflow-y: auto;
+}
+aside:focus {
+  outline: 2px solid black;
+}
+/* _______________________________ */
+aside ul {
+  padding: var(--padding);
+}
+/* _______________________________ */
+.prev-note {
+  background-color: var(--second-color);
+
+  padding: 1rem 0.5rem;
+  margin-block: 1rem;
+
+  text-transform: capitalize;
+}
+/* _______________________________ */
+.add-note {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-items: center;
+}
+/* _______________________________ */
 
 .add-note__input {
-  width: 80%;
-  height: 90%;
+  width: inherit;
 
   font-size: 2rem;
   text-align: center;
   text-transform: capitalize;
-  padding: 1rem 2rem 0;
   background-color: var(--prim-color);
+
+  padding: 1rem 2rem 0;
+  resize: none;
   border: none;
-  outline: 2px solid transparent;
+  outline: 2px solid var(--ligh-brown);
 
   transition: outline 0.2s;
 }
+/* _______________________________ */
 .add-note__input:focus {
   outline: 2px solid black;
 }
+/* _______________________________ */
 .add-note__pluse {
   display: flex;
   align-items: center;
@@ -114,11 +137,10 @@ footer {
   display: none;
 }
 
-.prev-note {
-  background-color: var(--second-color);
-
-  padding: 1rem 0.5rem;
-  margin-block: 1rem;
-
-  text-transform: capitalize;
+/* ______________________________________________________ */
+footer {
+  grid-column: 1/-1;
+  background-color: black;
+  color: var(--prim-color);
 }
+/* ______________________________________________________ */
