@@ -88,7 +88,8 @@ const state = {
 
 // ------------ Functions -----------------
 const addNote = () => {
-  const elements = [`<li class="prev-note">${addInput.value}</li>`];
+  const noteTitle = addInput[0].value;
+  const elements = [`<li class="prev-note">${noteTitle}</li>`];
 
   Object.values(sideNotesList.children).map((note) =>
     elements.push(`<li class="prev-note">${note.innerHTML}</li>`)

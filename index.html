@@ -28,10 +28,12 @@
       </ul>
     </nav>
     <main>
-      <div class="add-note">
-        <textarea class="add-note__input" name="" id="add-input"></textarea>
+      <form class="add-note" id="add-input" tabindex="5">
+        <input type="text" id="add-input__heading" placeholder="title" />
+        <textarea name="" id="add-input__content" placeholder="content">
+        </textarea>
         <div class="add-note__pluse">+</div>
-      </div>
+      </form>
       <aside id="side-notes">
         <ul id="side-notes__list"></ul>
       </aside>

@@ -62,7 +62,6 @@ main {
   display: grid;
   grid-template-columns: 75% 25%;
   column-gap: var(--margin);
-
   margin: var(--margin);
 }
 /* ______________________________________________________ */
@@ -94,32 +93,57 @@ aside ul {
 
 /* _______________________________ */
 .add-note {
-  width: 100%;
-  height: 100%;
-  display: flex;
+  display: grid;
+  grid-template-rows: 10%;
   align-items: stretch;
-  justify-items: center;
-}
-/* _______________________________ */
+  justify-items: stretch;
 
-.add-note__input {
-  width: inherit;
-
-  font-size: 2rem;
   text-align: center;
-  text-transform: capitalize;
   background-color: var(--prim-color);
 
-  padding: 1rem 2rem 0;
-  resize: none;
-  border: none;
   outline: 2px solid var(--ligh-brown);
 
   transition: outline 0.2s;
 }
-/* _______________________________ */
-.add-note__input:focus {
+.add-note:focus-visible {
   outline: 2px solid black;
+}
+/* _______________________________ */
+.add-note input,
+.add-note textarea {
+  padding: 1rem 2rem 0;
+  box-sizing: border-box;
+}
+.add-note input {
+  width: 100%;
+
+  font-size: 3rem;
+  font-weight: lighter;
+  text-transform: uppercase;
+  text-align: center;
+
+  background-color: inherit;
+  border: none;
+}
+.add-note input:focus {
+  outline: none;
+}
+/* _______________________________ */
+.add-note textarea {
+  width: inherit;
+  padding: 1rem 2rem 0;
+
+  font-size: 2rem;
+  background-color: inherit;
+  text-transform: capitalize;
+
+  resize: none;
+  border: none;
+}
+/* _______________________________ */
+.add-note textarea:focus {
+  outline: none;
+  border: none;
 }
 /* _______________________________ */
 .add-note__pluse {
