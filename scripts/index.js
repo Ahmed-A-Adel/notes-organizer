@@ -1,4 +1,9 @@
-const saveInput = document.getElementById("save-input");
+// --- Nav List ----
+const saveNote = document.getElementById("save-note");
+const editNote = document.getElementById("edit-note");
+const deleteNote = document.getElementById("delete-note");
+const colorNote = document.getElementById("color-note");
+//--- Main section Add Note & Side Note ---
 const addInput = document.getElementById("add-input");
 const sideNotes = document.getElementById("side-notes");
 const sideNotesList = document.getElementById("side-notes__list");
@@ -103,6 +108,6 @@ const loadNotes = () => {
 };
 
 //------------ Events Lesteners ------------------
-saveInput.addEventListener("click", addNote);
+saveNote.addEventListener("click", addNote);
 // ______________________________________________________________
 window.addEventListener("load", loadNotes);
