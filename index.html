@@ -28,9 +28,15 @@
       </ul>
     </nav>
     <main>
-      <form class="add-note" id="add-input" tabindex="5">
-        <input type="text" id="add-input__heading" placeholder="title" />
-        <textarea name="" id="add-input__content" placeholder="content">
+      <form class="add-note" id="add-note" tabindex="5">
+        <ul class="add-note__nav">
+          <li class="add-note__Save" id="save-note">save</li>
+          <li class="add-note__clear" id="clear-note">clear</li>
+          <li class="add-note__Edit" id="edit-note">Edit</li>
+          <li class="add-note__tag" id="tag-note">add tag</li>
+        </ul>
+        <input type="text" id="add-note__title" placeholder="title" />
+        <textarea name="" id="add-note__content" placeholder="content">
         </textarea>
         <div class="add-note__pluse">+</div>
       </form>
