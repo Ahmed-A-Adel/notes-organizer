@@ -1,10 +1,13 @@
 // ------------ Nav List ---------------------------------------
 const saveNote = document.getElementById("save-note");
+const clearNote = document.getElementById("clear-note");
 const editNote = document.getElementById("edit-note");
 const deleteNote = document.getElementById("delete-note");
 const colorNote = document.getElementById("color-note");
 //------------ Main section Add Note & Side Note ---------------
 const addNote = document.getElementById("add-note");
+const addNoteTitle = document.getElementById("add-note__title");
+const addNoteContent = document.getElementById("add-note__content");
 const sideNotes = document.getElementById("side-notes");
 const sideNotesList = document.getElementById("side-notes__list");
 // ------------ App State --------------------------------------
@@ -108,8 +111,15 @@ const addNoteHandler = () => {
   sideNotesList.innerHTML = elements.join("");
 };
 // ______________________________________________________________
+const clearNoteHandler = () => {
+  if (addNoteContent.value !== "") addNoteContent.value = "";
+  else addNoteTitle.value = "";
+};
+// ______________________________________________________________
 
 //------------ Events Lesteners ---------------------------------
 window.addEventListener("load", loadNotes);
 // ______________________________________________________________
 saveNote.addEventListener("click", addNoteHandler);
+// ______________________________________________________________
+clearNote.addEventListener("click", clearNoteHandler);
