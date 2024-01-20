@@ -37,56 +37,11 @@ const state = {
       tags: [],
       edit: false,
     },
-    {
-      id: null,
-      title: "morning routine",
-      content: "",
-      color: "",
-      tags: [],
-      edit: false,
-    },
-    {
-      id: null,
-      title: "afternoon routine",
-      content: "",
-      color: "",
-      tags: [],
-      edit: false,
-    },
-    {
-      id: null,
-      title: "evening routine",
-      content: "",
-      color: "",
-      tags: [],
-      edit: false,
-    },
-    {
-      id: null,
-      title: "morning routine",
-      content: "",
-      color: "",
-      tags: [],
-      edit: false,
-    },
-    {
-      id: null,
-      title: "afternoon routine",
-      content: "",
-      color: "",
-      tags: [],
-      edit: false,
-    },
-    {
-      id: null,
-      title: "evening routine",
-      content: "",
-      color: "",
-      tags: [],
-      edit: false,
-    },
   ],
   darkmode: false,
+  set AddNote(note) {
+    this.notes = [note, ...this.notes];
+  },
 };
 
 // ------------ Functions ---------------------------------------
@@ -101,21 +56,26 @@ const loadNotes = () => {
 };
 // ______________________________________________________________
 const addNoteHandler = () => {
-  const noteTitle = addNote[0].value;
-  const elements = [`<li class="prev-note">${noteTitle}</li>`];
+  const newNote = {
+    id: null,
+    title: addNoteTitle.value,
+    content: addNoteContent.value,
+    color: "",
+    tags: [],
+    edit: false,
+  };
+  const notes = [newNote, ...state.notes];
+  state.AddNote = newNote;
 
-  Object.values(sideNotesList.children).map((note) =>
-    elements.push(`<li class="prev-note">${note.innerHTML}</li>`)
-  );
-
-  sideNotesList.innerHTML = elements.join("");
+  sideNotesList.innerHTML = notes
+    .map((note) => `<li class="prev-note">${note.title}</li>`)
+    .join(" ");
 };
 // ______________________________________________________________
 const clearNoteHandler = () => {
   if (addNoteContent.value !== "") addNoteContent.value = "";
   else addNoteTitle.value = "";
 };
-// ______________________________________________________________
 
 //------------ Events Lesteners ---------------------------------
 window.addEventListener("load", loadNotes);
