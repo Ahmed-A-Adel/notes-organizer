@@ -59,22 +59,22 @@ const addNoteHandler = (event) => {
   event.preventDefault();
 
   if (
-    /^\s/.test(addNoteTitle.value, "g") ||
+    /^\s/.test(addNoteTitle.value, "g") &&
     /^\s/.test(addNoteContent.value, "g")
   )
     return null;
   if (!addNoteTitle.value && !addNoteContent.value) return null;
+  const tags = addNoteContent.value.split(" ").filter((tag) => tag[0] === "#");
   const newNote = {
     id: null,
     title: addNoteTitle.value,
     content: addNoteContent.value,
     color: "",
-    tags: [],
+    tags: tags,
     edit: false,
   };
-  const notes = [newNote, ...state.notes];
   state.AddNote = newNote;
-
+  const notes = [newNote, ...state.notes];
   sideNotesList.innerHTML = notes
     .map((note) => `<li class="prev-note">${note.title}</li>`)
     .join(" ");
