@@ -28,7 +28,12 @@
       </ul> -->
     </nav>
     <main>
-      <form class="add-note" id="add-note" tabindex="5">
+      <form
+        onsubmit="addNoteHandler(event)"
+        class="add-note"
+        id="add-note"
+        tabindex="5"
+      >
         <ul class="add-note__nav">
           <li class="add-note__Save" id="save-note">save</li>
           <li class="add-note__clear" id="clear-note">clear</li>

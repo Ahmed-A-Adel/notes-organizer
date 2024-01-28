@@ -55,7 +55,15 @@ const loadNotes = () => {
   sideNotesList.innerHTML = elements;
 };
 // ______________________________________________________________
-const addNoteHandler = () => {
+const addNoteHandler = (event) => {
+  event.preventDefault();
+
+  if (
+    /^\s/.test(addNoteTitle.value, "g") ||
+    /^\s/.test(addNoteContent.value, "g")
+  )
+    return null;
+  if (!addNoteTitle.value && !addNoteContent.value) return null;
   const newNote = {
     id: null,
     title: addNoteTitle.value,
@@ -83,3 +91,4 @@ window.addEventListener("load", loadNotes);
 saveNote.addEventListener("click", addNoteHandler);
 // ______________________________________________________________
 clearNote.addEventListener("click", clearNoteHandler);
+// ______________________________________________________________
