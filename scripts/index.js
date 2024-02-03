@@ -59,14 +59,17 @@ const addNoteHandler = (event) => {
   event.preventDefault();
 
   if (
-    /^\s/.test(addNoteTitle.value, "g") &&
+    /^\s/.test(addNoteTitle.value, "g") ||
     /^\s/.test(addNoteContent.value, "g")
   )
     return null;
   if (!addNoteTitle.value && !addNoteContent.value) return null;
+
+  const noteId = new Uint32Array(1);
+  crypto.getRandomValues(noteId);
   const tags = addNoteContent.value.split(" ").filter((tag) => tag[0] === "#");
   const newNote = {
-    id: null,
+    id: noteId,
     title: addNoteTitle.value,
     content: addNoteContent.value,
     color: "",
