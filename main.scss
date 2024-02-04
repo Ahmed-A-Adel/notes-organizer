@@ -6,14 +6,12 @@ html {
   --second-color: bisque;
   --ligh-brown: rgb(209, 84, 16);
 }
-/* ______________________________________________________ */
 *,
 *::before,
 *::after {
   padding: 0;
   margin: 0;
 }
-/* ______________________________________________________ */
 body {
   box-sizing: border-box;
 
@@ -25,12 +23,10 @@ body {
 
   background-color: var(--second-color);
 }
-/* ______________________________________________________ */
 li {
   list-style: none;
   cursor: pointer;
 }
-/* ______________________________________________________ */
 nav {
   grid-column: 1/-1;
   display: grid;
@@ -39,11 +35,9 @@ nav {
   align-items: center;
   background-color: var(--prim-color);
 }
-/* ___________________________________ */
 .logo__img {
   width: 10vh;
 }
-/* ___________________________________ */
 .tools {
   display: flex;
   justify-content: space-evenly;
@@ -57,7 +51,6 @@ nav {
 }
 .tools__color-note {
 }
-/* ______________________________________________________ */
 main {
   display: grid;
   grid-template-columns: 75% 25%;
@@ -65,7 +58,6 @@ main {
   margin: var(--margin);
 }
 
-/* ______________________________________________________ */
 aside {
   background-color: var(--prim-color);
   border-top: 5px solid var(--prim-color);
@@ -77,13 +69,11 @@ aside {
 aside:focus {
   outline: 2px solid black;
 }
-/* _______________________________ */
 aside ul {
   padding: var(--padding);
   display: grid;
   gap: var(--margin);
 }
-/* _______________________________ */
 .prev-note {
   background-color: var(--second-color);
 
@@ -92,7 +82,6 @@ aside ul {
   text-transform: capitalize;
 }
 
-/* _______________________________ */
 .add-note {
   display: grid;
   grid-template-rows: auto auto 1fr;
@@ -108,7 +97,6 @@ aside ul {
 .add-note:focus-visible {
   outline: 2px solid black;
 }
-/* _______________________________ */
 .add-note__nav {
   padding-top: var(--padding);
   display: flex;
@@ -119,7 +107,6 @@ aside ul {
 .add-note li {
   text-decoration: underline;
 }
-/* _______________________________ */
 .add-note input,
 .add-note textarea {
   padding: 1rem 2rem 0;
@@ -139,7 +126,6 @@ aside ul {
 .add-note input:focus {
   outline: none;
 }
-/* _______________________________ */
 .add-note textarea {
   width: inherit;
   padding: 1rem 2rem 0;
@@ -151,12 +137,10 @@ aside ul {
   resize: none;
   border: none;
 }
-/* _______________________________ */
 .add-note textarea:focus {
   outline: none;
   border: none;
 }
-/* _______________________________ */
 .add-note__pluse {
   display: flex;
   align-items: center;
@@ -174,10 +158,8 @@ aside ul {
   display: none;
 }
 
-/* ______________________________________________________ */
 footer {
   grid-column: 1/-1;
   background-color: black;
   color: var(--prim-color);
 }
-/* ______________________________________________________ */

@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "live-server"
+    "watch:sass": "sass main.scss style.css -w",
+    "compile:sass": "sass ./sass/main.scss style.comp.css ",
+    "compress:css": "sass style.comp.css  style.css --style compressed",
+    "build:css": "npm-run-all  compile:sass compress:css"
   },
   "author": "'Ahmed",
   "license": "ISC",
   "devDependencies": {
-    "live-server": "^1.2.2"
+    "live-server": "^1.2.2",
+    "sass": "^1.64.2"
   }
 }
