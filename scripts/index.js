@@ -48,7 +48,7 @@ const state = {
 const loadNotes = () => {
   const elements = state.notes
     .map((note) => {
-      return `<li class="prev-note">${note.title}</li>`;
+      return `<li class="prev-note" id='${note.id}'>${note.title}</li>`;
     })
     .join(" ");
 
@@ -76,10 +76,10 @@ const addNoteHandler = (event) => {
     tags: tags,
     edit: false,
   };
-  state.AddNote = newNote;
   const notes = [newNote, ...state.notes];
+  state.notes = notes;
   sideNotesList.innerHTML = notes
-    .map((note) => `<li class="prev-note">${note.title}</li>`)
+    .map((note) => `<li class="prev-note" id='${note.id}'>${note.title}</li>`)
     .join(" ");
 };
 // ______________________________________________________________
@@ -87,6 +87,29 @@ const clearNoteHandler = () => {
   if (addNoteContent.value !== "") addNoteContent.value = "";
   else addNoteTitle.value = "";
 };
+// ______________________________________________________________
+function editNoteHandler(e) {
+  const target = e.target;
+  if (e.target.localName != "li") return null;
+  const note = state.notes.filter((note) => note.id == target.id)[0];
+  const notes = [
+    ...state.notes.filter((note) => note.id != target.id),
+    { ...note, edit: !note.edit },
+  ];
+  // ________________________________________________________
+  if (note.edit) {
+    addNoteTitle.value = "";
+    addNoteContent.value = "";
+    state.notes = notes;
+    return null;
+  }
+  // ________________________________________________________
+
+  addNoteTitle.value = note.title;
+  addNoteContent.value = note.content;
+  state.notes = notes;
+}
+// ______________________________________________________________
 
 //------------ Events Lesteners ---------------------------------
 window.addEventListener("load", loadNotes);
@@ -95,3 +118,4 @@ saveNote.addEventListener("click", addNoteHandler);
 // ______________________________________________________________
 clearNote.addEventListener("click", clearNoteHandler);
 // ______________________________________________________________
+sideNotesList.addEventListener("click", editNoteHandler);
