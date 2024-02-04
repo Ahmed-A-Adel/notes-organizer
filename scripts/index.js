@@ -12,32 +12,7 @@ const sideNotes = document.getElementById("side-notes");
 const sideNotesList = document.getElementById("side-notes__list");
 // ------------ App State --------------------------------------
 const state = {
-  notes: [
-    {
-      id: null,
-      title: "morning routine",
-      content: "",
-      color: "",
-      tags: [],
-      edit: false,
-    },
-    {
-      id: null,
-      title: "afternoon routine",
-      content: "",
-      color: "",
-      tags: [],
-      edit: false,
-    },
-    {
-      id: null,
-      title: "evening routine",
-      content: "",
-      color: "",
-      tags: [],
-      edit: false,
-    },
-  ],
+  notes: [],
   darkmode: false,
   set AddNote(note) {
     this.notes = [note, ...this.notes];
@@ -81,6 +56,8 @@ const addNoteHandler = (event) => {
   sideNotesList.innerHTML = notes
     .map((note) => `<li class="prev-note" id='${note.id}'>${note.title}</li>`)
     .join(" ");
+  addNoteTitle.value = "";
+  addNoteContent.value = "";
 };
 // ______________________________________________________________
 const clearNoteHandler = () => {
