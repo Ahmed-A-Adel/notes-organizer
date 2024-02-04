@@ -70,7 +70,11 @@ function editNoteHandler(e) {
   if (e.target.localName != "li") return null;
   const note = state.notes.filter((note) => note.id == target.id)[0];
   const notes = [
-    ...state.notes.filter((note) => note.id != target.id),
+    ...state.notes
+      .filter((note) => note.id != target.id)
+      .map((note) => {
+        return { ...note, edit: false };
+      }),
     { ...note, edit: !note.edit },
   ];
   // ________________________________________________________
