@@ -54,6 +54,7 @@ nav {
 main {
   display: grid;
   grid-template-columns: 75% 25%;
+  justify-content: center;
   column-gap: var(--margin);
   margin: var(--margin);
 }
