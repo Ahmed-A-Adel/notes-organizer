@@ -34,13 +34,16 @@
         id="add-note"
         tabindex="5"
       >
-        <ul class="add-note__nav">
-          <li class="add-note__Save" id="save-note">save</li>
-          <li class="add-note__clear" id="clear-note">clear</li>
-        </ul>
         <input type="text" id="add-note__title" placeholder="title" />
         <textarea name="" id="add-note__content" placeholder="content" value="">
         </textarea>
+        <ul class="add-note__nav">
+          <li id="add-note__save">save &#10003;</li>
+          <li id="add-note__list">list &#9776;</li>
+          <li id="add-note__tag">tag #</li>
+          <li id="add-note__done">done &#9872;</li>
+          <li id="add-note__clear">clear &#10005;</li>
+        </ul>
         <div class="add-note__pluse">+</div>
       </form>
       <aside id="side-notes">

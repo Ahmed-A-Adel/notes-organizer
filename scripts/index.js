@@ -1,6 +1,9 @@
 // ------------ Nav List ---------------------------------------
-const saveNote = document.getElementById("save-note");
-const clearNote = document.getElementById("clear-note");
+const saveNote = document.getElementById("add-note__save");
+const listNote = document.getElementById("add-note__list");
+const tagNote = document.getElementById("add-note__tag");
+const doneNote = document.getElementById("add-note__done");
+const clearNote = document.getElementById("add-note__clear");
 const editNote = document.getElementById("edit-note");
 const deleteNote = document.getElementById("delete-note");
 const colorNote = document.getElementById("color-note");
