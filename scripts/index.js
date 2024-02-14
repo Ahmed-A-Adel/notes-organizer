@@ -7,6 +7,7 @@ const clearNote = document.getElementById("add-note__clear");
 const editNote = document.getElementById("edit-note");
 const deleteNote = document.getElementById("delete-note");
 const colorNote = document.getElementById("color-note");
+const prevNote = document.getElementsByClassName(".prev-note");
 //------------ Main section Add Note & Side Note ---------------
 const addNote = document.getElementById("add-note");
 const addNoteTitle = document.getElementById("add-note__title");
@@ -15,7 +16,24 @@ const sideNotes = document.getElementById("side-notes");
 const sideNotesList = document.getElementById("side-notes__list");
 // ------------ App State --------------------------------------
 const state = {
-  notes: [],
+  notes: [
+    {
+      id: null,
+      title: "title",
+      content: "content",
+      color: "",
+      tags: "#",
+      edit: false,
+    },
+    {
+      id: null,
+      title: "title",
+      content: "content",
+      color: "",
+      tags: "#",
+      edit: false,
+    },
+  ],
   darkmode: false,
   set AddNote(note) {
     this.notes = [note, ...this.notes];
@@ -26,7 +44,12 @@ const state = {
 const loadNotes = () => {
   const elements = state.notes
     .map((note) => {
-      return `<li class="prev-note" id='${note.id}'>${note.title}</li>`;
+      return `<li class="prev-note" id='${note.id}'>
+      <span id="prev-note__edit">&#9998;</span>
+      <span id="prev-note__delete">&#10006;</span>
+
+      <span class="prev-note__title"> ${note.title}</span>
+    </li>`;
     })
     .join(" ");
 
@@ -57,7 +80,14 @@ const addNoteHandler = (event) => {
   const notes = [newNote, ...state.notes];
   state.notes = notes;
   sideNotesList.innerHTML = notes
-    .map((note) => `<li class="prev-note" id='${note.id}'>${note.title}</li>`)
+    .map(
+      (note) => `<li class="prev-note" id='${note.id}'>
+      <span id="prev-note__edit">&#9998;</span>
+      <span id="prev-note__delete">&#10006;</span>
+
+      <span class="prev-note__title"> ${note.title}</span>
+    </li>`
+    )
     .join(" ");
   addNoteTitle.value = "";
   addNoteContent.value = "";

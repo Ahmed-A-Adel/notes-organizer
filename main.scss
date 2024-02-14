@@ -5,7 +5,10 @@ html {
   --prim-color: rgb(246, 164, 64);
   --second-color: bisque;
   --ligh-brown: rgb(209, 84, 16);
+  --green: rgb(22, 99, 22);
+  --dark-red: rgb(170, 5, 5);
 }
+
 *,
 *::before,
 *::after {
@@ -76,11 +79,37 @@ aside ul {
   gap: var(--margin);
 }
 .prev-note {
+  display: grid;
+  grid-template-rows: 25% 1fr;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+
   background-color: var(--second-color);
-
-  padding: 1rem 0.5rem;
-
   text-transform: capitalize;
+  overflow: hidden;
+  word-break: break-all;
+  span {
+    font-size: 3rem;
+    color: var(--ligh-brown);
+    &:first-child {
+      color: rgb(194, 113, 8);
+      transform: rotateY(180deg);
+      grid-column: 2/3;
+    }
+    &:nth-child(2) {
+      color: var(--dark-red);
+      grid-column: 3/4;
+    }
+    &:not(:last-child) {
+      grid-row: 1/2;
+    }
+    &:last-child {
+      grid-row: 2/-1;
+      grid-column: 1/-1;
+    }
+  }
 }
 
 .add-note {
