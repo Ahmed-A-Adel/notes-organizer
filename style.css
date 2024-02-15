@@ -87,7 +87,7 @@ aside ul {
   word-break: break-all;
 }
 .prev-note span {
-  font-size: 3rem;
+  font-size: 2rem;
   color: var(--ligh-brown);
 }
 .prev-note span:first-child {

@@ -121,10 +121,36 @@ function editSideNote(id) {
   state.notes = notes;
 }
 // ______________________________________________________________
+function deleteSideNote(id) {
+  const note = state.notes.filter((note) => note.id == id)[0];
+  const notes = [...state.notes.filter((note) => note.id != id)];
+  const notesHtml = notes
+    .map(
+      (note) => `<li class="prev-note" id='${note.id}'>
+      <span id="prev-note__edit">&#9998;</span>
+      <span id="prev-note__delete">&#10006;</span>
+
+      <span class="prev-note__title"> ${note.title}</span>
+    </li>`
+    )
+    .join(" ");
+  // --------------------------------------------------------
+  if (note.edit) {
+    addNoteTitle.value = "";
+    addNoteContent.value = "";
+    state.notes = notes;
+    sideNotesList.innerHTML = notesHtml;
+  } else {
+    state.notes = notes;
+    sideNotesList.innerHTML = notesHtml;
+  }
+}
+// ______________________________________________________________
 function sideNotesHandler(e) {
   const target = e.target;
   const id = target.parentElement.id;
   if (e.target.id === "prev-note__edit") editSideNote(id);
+  if (e.target.id === "prev-note__delete") deleteSideNote(id);
 }
 // ______________________________________________________________
 
