@@ -18,7 +18,7 @@ const sideNotesList = document.getElementById("side-notes__list");
 const state = {
   notes: [
     {
-      id: null,
+      id: 1,
       title: "title",
       content: "content",
       color: "",
@@ -26,7 +26,7 @@ const state = {
       edit: false,
     },
     {
-      id: null,
+      id: 2,
       title: "title",
       content: "content",
       color: "",
@@ -44,7 +44,7 @@ const state = {
 const loadNotes = () => {
   const elements = state.notes
     .map((note) => {
-      return `<li class="prev-note" id='${note.id}'>
+      return `<li class="prev-note" id='${note.id}' >
       <span id="prev-note__edit">&#9998;</span>
       <span id="prev-note__delete">&#10006;</span>
 
@@ -98,30 +98,33 @@ const clearNoteHandler = () => {
   else addNoteTitle.value = "";
 };
 // ______________________________________________________________
-function editNoteHandler(e) {
-  const target = e.target;
-  if (e.target.localName != "li") return null;
-  const note = state.notes.filter((note) => note.id == target.id)[0];
+function editSideNote(id) {
+  const note = state.notes.filter((note) => note.id == id)[0];
   const notes = [
     ...state.notes
-      .filter((note) => note.id != target.id)
+      .filter((note) => note.id != id)
       .map((note) => {
         return { ...note, edit: false };
       }),
     { ...note, edit: !note.edit },
   ];
-  // ________________________________________________________
+  // --------------------------------------------------------
   if (note.edit) {
     addNoteTitle.value = "";
     addNoteContent.value = "";
     state.notes = notes;
     return null;
   }
-  // ________________________________________________________
-
+  // --------------------------------------------------------
   addNoteTitle.value = note.title;
   addNoteContent.value = note.content;
   state.notes = notes;
+}
+// ______________________________________________________________
+function sideNotesHandler(e) {
+  const target = e.target;
+  const id = target.parentElement.id;
+  if (e.target.id === "prev-note__edit") editSideNote(id);
 }
 // ______________________________________________________________
 
@@ -132,4 +135,4 @@ saveNote.addEventListener("click", addNoteHandler);
 // ______________________________________________________________
 clearNote.addEventListener("click", clearNoteHandler);
 // ______________________________________________________________
-sideNotesList.addEventListener("click", editNoteHandler);
+sideNotesList.addEventListener("click", sideNotesHandler);
