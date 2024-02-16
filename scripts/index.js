@@ -21,7 +21,7 @@ const state = {
       id: 1,
       title: "title",
       content: "content",
-      color: "",
+      complate: true,
       tags: "#",
       edit: false,
     },
@@ -29,57 +29,17 @@ const state = {
       id: 2,
       title: "title",
       content: "content",
-      color: "",
+      complate: true,
       tags: "#",
       edit: false,
     },
   ],
   darkmode: false,
-  set AddNote(note) {
-    this.notes = [note, ...this.notes];
-  },
 };
 
 // ------------ Functions ---------------------------------------
-const loadNotes = () => {
-  const elements = state.notes
-    .map((note) => {
-      return `<li class="prev-note" id='${note.id}' >
-      <span id="prev-note__edit">&#9998;</span>
-      <span id="prev-note__delete">&#10006;</span>
-
-      <span class="prev-note__title"> ${note.title}</span>
-    </li>`;
-    })
-    .join(" ");
-
-  sideNotesList.innerHTML = elements;
-};
-// ______________________________________________________________
-const addNoteHandler = (event) => {
-  event.preventDefault();
-
-  if (
-    /^\s/.test(addNoteTitle.value, "g") ||
-    /^\s/.test(addNoteContent.value, "g")
-  )
-    return null;
-  if (!addNoteTitle.value && !addNoteContent.value) return null;
-
-  const noteId = new Uint32Array(1);
-  crypto.getRandomValues(noteId);
-  const tags = addNoteContent.value.split(" ").filter((tag) => tag[0] === "#");
-  const newNote = {
-    id: noteId,
-    title: addNoteTitle.value,
-    content: addNoteContent.value,
-    color: "",
-    tags: tags,
-    edit: false,
-  };
-  const notes = [newNote, ...state.notes];
-  state.notes = notes;
-  sideNotesList.innerHTML = notes
+const notesToHtml = (notes) =>
+  notes
     .map(
       (note) => `<li class="prev-note" id='${note.id}'>
       <span id="prev-note__edit">&#9998;</span>
@@ -89,9 +49,46 @@ const addNoteHandler = (event) => {
     </li>`
     )
     .join(" ");
+
+// ______________________________________________________________
+function renderNotes(notes) {
+  state.notes = notes;
+  sideNotesList.innerHTML = notesToHtml(notes);
   addNoteTitle.value = "";
   addNoteContent.value = "";
-};
+}
+// ______________________________________________________________
+function loadNotes() {
+  const notes = notesToHtml(state.notes);
+  sideNotesList.innerHTML = notes;
+}
+// ______________________________________________________________
+function addNoteHandler(event) {
+  event.preventDefault();
+  // --------------------------------------------------------------
+  if (
+    /^\s/.test(addNoteTitle.value, "g") ||
+    /^\s/.test(addNoteContent.value, "g")
+  )
+    return null;
+  // --------------------------------------------------------------
+  if (!addNoteTitle.value && !addNoteContent.value) return null;
+  // --------------------------------------------------------------
+
+  const noteId = new Uint32Array(1);
+  crypto.getRandomValues(noteId);
+  const tags = addNoteContent.value.split(" ").filter((tag) => tag[0] === "#");
+  const newNote = {
+    id: noteId,
+    title: addNoteTitle.value,
+    content: addNoteContent.value,
+    complate: true,
+    tags: tags,
+    edit: false,
+  };
+  const notes = [newNote, ...state.notes];
+  renderNotes(notes);
+}
 // ______________________________________________________________
 const clearNoteHandler = () => {
   if (addNoteContent.value !== "") addNoteContent.value = "";
@@ -109,6 +106,7 @@ function editSideNote(id) {
     { ...note, edit: !note.edit },
   ];
   // --------------------------------------------------------
+
   if (note.edit) {
     addNoteTitle.value = "";
     addNoteContent.value = "";
@@ -124,16 +122,7 @@ function editSideNote(id) {
 function deleteSideNote(id) {
   const note = state.notes.filter((note) => note.id == id)[0];
   const notes = [...state.notes.filter((note) => note.id != id)];
-  const notesHtml = notes
-    .map(
-      (note) => `<li class="prev-note" id='${note.id}'>
-      <span id="prev-note__edit">&#9998;</span>
-      <span id="prev-note__delete">&#10006;</span>
-
-      <span class="prev-note__title"> ${note.title}</span>
-    </li>`
-    )
-    .join(" ");
+  const notesHtml = notesToHtml(notes);
   // --------------------------------------------------------
   if (note.edit) {
     addNoteTitle.value = "";
