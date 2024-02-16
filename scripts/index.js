@@ -74,6 +74,21 @@ function addNoteHandler(event) {
   // --------------------------------------------------------------
   if (!addNoteTitle.value && !addNoteContent.value) return null;
   // --------------------------------------------------------------
+  if (state.notes.some((note) => note.edit)) {
+    const notes = state.notes.map((note) =>
+      note.edit
+        ? {
+            ...note,
+            title: addNoteTitle.value,
+            content: addNoteContent.value,
+            edit: false,
+          }
+        : note
+    );
+    renderNotes(notes);
+    return null;
+  }
+  // --------------------------------------------------------------
 
   const noteId = new Uint32Array(1);
   crypto.getRandomValues(noteId);
