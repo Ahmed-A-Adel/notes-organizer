@@ -35,7 +35,7 @@ const notesToHtml = (notes) =>
 
 // ______________________________________________________________
 function renderNotes(notes) {
-  state.notes = notes;
+  state.notes = notes.sort((a, b) => a.order > b.order);
   sideNotesList.innerHTML = notesToHtml(notes);
   addNoteTitle.value = "";
   addNoteContent.value = "";
@@ -87,6 +87,7 @@ function addNoteHandler(event) {
     complate: true,
     tags,
     edit: false,
+    order: state.notes.length ?? +1,
   };
   const notes = [newNote, ...state.notes];
   renderNotes(notes);
