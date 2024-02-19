@@ -16,24 +16,7 @@ const sideNotes = document.getElementById("side-notes");
 const sideNotesList = document.getElementById("side-notes__list");
 // ------------ App State --------------------------------------
 const state = {
-  notes: [
-    {
-      id: 1,
-      title: "title",
-      content: "content",
-      complate: true,
-      tags: "#",
-      edit: false,
-    },
-    {
-      id: 2,
-      title: "title",
-      content: "content",
-      complate: true,
-      tags: "#",
-      edit: false,
-    },
-  ],
+  notes: [],
   darkmode: false,
 };
 
@@ -75,6 +58,9 @@ function addNoteHandler(event) {
   if (!addNoteTitle.value && !addNoteContent.value) return null;
   // --------------------------------------------------------------
   if (state.notes.some((note) => note.edit)) {
+    const tags = addNoteContent.value
+      .split(" ")
+      .filter((tag) => tag[0] === "#");
     const notes = state.notes.map((note) =>
       note.edit
         ? {
@@ -82,6 +68,7 @@ function addNoteHandler(event) {
             title: addNoteTitle.value,
             content: addNoteContent.value,
             edit: false,
+            tags,
           }
         : note
     );
@@ -98,7 +85,7 @@ function addNoteHandler(event) {
     title: addNoteTitle.value,
     content: addNoteContent.value,
     complate: true,
-    tags: tags,
+    tags,
     edit: false,
   };
   const notes = [newNote, ...state.notes];
