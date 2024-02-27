@@ -16,7 +16,26 @@ const sideNotes = document.getElementById("side-notes");
 const sideNotesList = document.getElementById("side-notes__list");
 // ------------ App State --------------------------------------
 const state = {
-  notes: [],
+  notes: [
+    {
+      id: 1,
+      title: "title 1",
+      content: "content",
+      complate: true,
+      tags: [],
+      edit: false,
+      order: 1,
+    },
+    {
+      id: 2,
+      title: "title 2",
+      content: "content",
+      complate: true,
+      tags: [],
+      edit: false,
+      order: 2,
+    },
+  ],
   darkmode: false,
 };
 
@@ -24,9 +43,13 @@ const state = {
 const notesToHtml = (notes) =>
   notes
     .map(
-      (note) => `<li class="prev-note" id='${note.id}'>
-      <span id="prev-note__edit">&#9998;</span>
-      <span id="prev-note__delete">&#10006;</span>
+      (note) => `<li tabindex="8" class="prev-note" id='${note.id}'>
+      <span tabindex="9" class="prev-note__edit">
+      <div class="edit__icon">&#9998;
+      <div class="edit__line"></div>
+      </div>
+      </span>
+      <span tabindex="10" class="prev-note__delete">&#10006;</span>
 
       <span class="prev-note__title"> ${note.title}</span>
     </li>`
@@ -98,7 +121,7 @@ const clearNoteHandler = () => {
   else addNoteTitle.value = "";
 };
 // ______________________________________________________________
-function editSideNote(id) {
+function editSideNote(id, pen) {
   const note = state.notes.filter((note) => note.id == id)[0];
   const notes = [
     ...state.notes
@@ -108,18 +131,30 @@ function editSideNote(id) {
       }),
     { ...note, edit: !note.edit },
   ];
-  // --------------------------------------------------------
+
+  //--------------------------------------------------------
+  const pens = document.getElementsByClassName("pen-in");
+  const lines = document.getElementsByClassName("pen-line-in");
+  for (const pen of pens) {
+    pen.classList.remove("pen-in");
+  }
+  for (const line of lines) {
+    line.classList.remove("pen-line-in");
+  }
 
   if (note.edit) {
     addNoteTitle.value = "";
     addNoteContent.value = "";
     state.notes = notes;
-    return null;
+    pen.icon.classList.remove("pen-in");
+    pen.line.classList.remove("pen-line-in");
+  } else {
+    addNoteTitle.value = note.title;
+    addNoteContent.value = note.content;
+    state.notes = notes;
+    pen.icon.classList.add("pen-in");
+    pen.line.classList.add("pen-line-in");
   }
-  // --------------------------------------------------------
-  addNoteTitle.value = note.title;
-  addNoteContent.value = note.content;
-  state.notes = notes;
 }
 // ______________________________________________________________
 function deleteSideNote(id) {
@@ -140,9 +175,29 @@ function deleteSideNote(id) {
 // ______________________________________________________________
 function sideNotesHandler(e) {
   const target = e.target;
-  const id = target.parentElement.id;
-  if (e.target.id === "prev-note__edit") editSideNote(id);
-  if (e.target.id === "prev-note__delete") deleteSideNote(id);
+  const actionElement = target.parentElement;
+  const parentNote = target.parentElement.parentElement;
+
+  switch (target.classList[0]) {
+    case "prev-note__delete":
+      deleteSideNote(actionElement.id);
+      break;
+
+    case "edit__icon":
+      editSideNote(parentNote.id, {
+        icon: target,
+        line: target.firstElementChild,
+        target,
+      });
+      break;
+
+    case "edit__line":
+      editSideNote(parentNote.parentElement.id, {
+        line: target,
+        icon: target.parentElement,
+        target,
+      });
+  }
 }
 // ______________________________________________________________
 
@@ -154,3 +209,4 @@ saveNote.addEventListener("click", addNoteHandler);
 clearNote.addEventListener("click", clearNoteHandler);
 // ______________________________________________________________
 sideNotesList.addEventListener("click", sideNotesHandler);
+// ______________________________________________________________
