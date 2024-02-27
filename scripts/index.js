@@ -65,8 +65,10 @@ function renderNotes(notes) {
 }
 // ______________________________________________________________
 function loadNotes() {
+  addNoteTitle.focus();
   const notes = notesToHtml(state.notes);
   sideNotesList.innerHTML = notes;
+  addNoteTitle.autofocus(true);
 }
 // ______________________________________________________________
 function addNoteHandler(event) {
@@ -122,6 +124,8 @@ const clearNoteHandler = () => {
 };
 // ______________________________________________________________
 function editSideNote(id, pen) {
+  const pens = document.getElementsByClassName("pen-in");
+  const lines = document.getElementsByClassName("pen-line-in");
   const note = state.notes.filter((note) => note.id == id)[0];
   const notes = [
     ...state.notes
@@ -131,16 +135,15 @@ function editSideNote(id, pen) {
       }),
     { ...note, edit: !note.edit },
   ];
-
   //--------------------------------------------------------
-  const pens = document.getElementsByClassName("pen-in");
-  const lines = document.getElementsByClassName("pen-line-in");
+
   for (const pen of pens) {
     pen.classList.remove("pen-in");
   }
   for (const line of lines) {
     line.classList.remove("pen-line-in");
   }
+  //--------------------------------------------------------
 
   if (note.edit) {
     addNoteTitle.value = "";
@@ -155,6 +158,8 @@ function editSideNote(id, pen) {
     pen.icon.classList.add("pen-in");
     pen.line.classList.add("pen-line-in");
   }
+  //---------------------------------------------------------
+  addNoteContent.focus();
 }
 // ______________________________________________________________
 function deleteSideNote(id) {
