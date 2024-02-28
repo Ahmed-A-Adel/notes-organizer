@@ -68,7 +68,6 @@ function loadNotes() {
   addNoteTitle.focus();
   const notes = notesToHtml(state.notes);
   sideNotesList.innerHTML = notes;
-  addNoteTitle.autofocus(true);
 }
 // ______________________________________________________________
 function addNoteHandler(event) {
@@ -205,6 +204,14 @@ function sideNotesHandler(e) {
   }
 }
 // ______________________________________________________________
+function tagNoteHandler() {
+  const noteSplited = addNoteContent.value.split(" ");
+  noteSplited.push("#");
+  addNoteContent.value = noteSplited.join(" ");
+  addNoteContent.focus();
+}
+// ______________________________________________________________
+// ______________________________________________________________
 
 //------------ Events Lesteners ---------------------------------
 window.addEventListener("load", loadNotes);
@@ -214,4 +221,6 @@ saveNote.addEventListener("click", addNoteHandler);
 clearNote.addEventListener("click", clearNoteHandler);
 // ______________________________________________________________
 sideNotesList.addEventListener("click", sideNotesHandler);
+// ______________________________________________________________
+tagNote.addEventListener("click", tagNoteHandler);
 // ______________________________________________________________
