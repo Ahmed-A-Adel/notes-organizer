@@ -193,7 +193,7 @@ aside ul {
 }
 
 .add-note input,
-.add-note textarea {
+.add-note div {
   padding: 1rem 2rem 0;
   box-sizing: border-box;
   grid-column: 1/2;
@@ -213,19 +213,17 @@ aside ul {
   outline: none;
 }
 
-.add-note textarea {
+#add-note__content {
   width: inherit;
   padding: 1rem 2rem 0;
   font-size: 2rem;
   background-color: inherit;
   text-transform: capitalize;
-  resize: none;
-  border: none;
+  border-top: 3px solid var(--ligh-brown);
 }
 
-.add-note textarea:focus {
+#add-note__content:focus {
   outline: none;
-  border: none;
 }
 
 .add-note__pluse {
@@ -236,8 +234,8 @@ aside ul {
   max-height: 50%;
   padding: 2rem;
   font-size: 15rem;
-  color: var(--prim-color);
-  text-shadow: 5px 5px rgba(246, 164, 64, 0.616);
+  color: var(--dark-red);
+  text-shadow: 5px 0px rgb(70, 6, 6);
   border: 2px dashed var(--prim-color);
   display: none;
 }

@@ -61,13 +61,13 @@ function renderNotes(notes) {
   state.notes = notes.sort((a, b) => a.order > b.order);
   sideNotesList.innerHTML = notesToHtml(notes);
   addNoteTitle.value = "";
-  addNoteContent.value = "";
+  addNoteContent.innerHTML = "";
 }
 // ______________________________________________________________
 function loadNotes() {
-  addNoteTitle.focus();
   const notes = notesToHtml(state.notes);
   sideNotesList.innerHTML = notes;
+  addNoteTitle.focus();
 }
 // ______________________________________________________________
 function addNoteHandler(event) {
@@ -75,14 +75,14 @@ function addNoteHandler(event) {
   // --------------------------------------------------------------
   if (
     /^\s/.test(addNoteTitle.value, "g") ||
-    /^\s/.test(addNoteContent.value, "g")
+    /^\s/.test(addNoteContent.innerHTML, "g")
   )
     return null;
   // --------------------------------------------------------------
-  if (!addNoteTitle.value && !addNoteContent.value) return null;
+  if (!addNoteTitle.value && !addNoteContent.innerHTML) return null;
   // --------------------------------------------------------------
   if (state.notes.some((note) => note.edit)) {
-    const tags = addNoteContent.value
+    const tags = addNoteContent.innerHTML
       .split(" ")
       .filter((tag) => tag[0] === "#");
     const notes = state.notes.map((note) =>
@@ -90,7 +90,7 @@ function addNoteHandler(event) {
         ? {
             ...note,
             title: addNoteTitle.value,
-            content: addNoteContent.value,
+            content: addNoteContent.innerHTML,
             edit: false,
             tags,
           }
@@ -103,11 +103,13 @@ function addNoteHandler(event) {
 
   const noteId = new Uint32Array(1);
   crypto.getRandomValues(noteId);
-  const tags = addNoteContent.value.split(" ").filter((tag) => tag[0] === "#");
+  const tags = addNoteContent.innerHTML
+    .split(" ")
+    .filter((tag) => tag[0] === "#");
   const newNote = {
     id: noteId,
     title: addNoteTitle.value,
-    content: addNoteContent.value,
+    content: addNoteContent.innerHTML,
     complate: true,
     tags,
     edit: false,
@@ -118,7 +120,7 @@ function addNoteHandler(event) {
 }
 // ______________________________________________________________
 const clearNoteHandler = () => {
-  if (addNoteContent.value !== "") addNoteContent.value = "";
+  if (addNoteContent.innerHTML !== "") addNoteContent.innerHTML = "";
   else addNoteTitle.value = "";
 };
 // ______________________________________________________________
@@ -146,13 +148,13 @@ function editSideNote(id, pen) {
 
   if (note.edit) {
     addNoteTitle.value = "";
-    addNoteContent.value = "";
+    addNoteContent.innerHTML = "";
     state.notes = notes;
     pen.icon.classList.remove("pen-in");
     pen.line.classList.remove("pen-line-in");
   } else {
     addNoteTitle.value = note.title;
-    addNoteContent.value = note.content;
+    addNoteContent.innerHTML = note.content;
     state.notes = notes;
     pen.icon.classList.add("pen-in");
     pen.line.classList.add("pen-line-in");
@@ -168,7 +170,7 @@ function deleteSideNote(id) {
   // --------------------------------------------------------
   if (note.edit) {
     addNoteTitle.value = "";
-    addNoteContent.value = "";
+    addNoteContent.innerHTML = "";
     state.notes = notes;
     sideNotesList.innerHTML = notesHtml;
   } else {
@@ -205,9 +207,9 @@ function sideNotesHandler(e) {
 }
 // ______________________________________________________________
 function tagNoteHandler() {
-  const noteSplited = addNoteContent.value.split(" ");
+  const noteSplited = addNoteContent.innerHTML.split(" ");
   noteSplited.push("#");
-  addNoteContent.value = noteSplited.join(" ");
+  addNoteContent.innerHTML = noteSplited.join(" ");
   addNoteContent.focus();
 }
 // ______________________________________________________________
