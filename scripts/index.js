@@ -78,14 +78,11 @@ function loadNotes() {
 // ______________________________________________________________
 function addNoteHandler(event) {
   event.preventDefault();
+
   // --------------------------------------------------------------
-  if (
-    /^\s/.test(addNoteTitle.value, "g") ||
-    /^\s/.test(addNoteContent.value, "g")
-  )
-    return null;
+  if (/^\s/.test(addNoteTitle.value, "g")) return null;
   // --------------------------------------------------------------
-  if (!addNoteTitle.value && !addNoteContent.value) return null;
+  if (!addNoteTitle.value) return null;
   // --------------------------------------------------------------
   if (state.notes.some((note) => note.edit)) {
     const tags = addNoteContent.value
