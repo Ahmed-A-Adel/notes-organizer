@@ -34,7 +34,13 @@
         id="add-note"
         tabindex="5"
       >
-        <input type="text" id="add-note__title" placeholder="title" />
+        <div class="title-container">
+          <div class="date-container">
+            <div id="add-note__date">2024/3/13</div>
+            <div id="add-note__time">6:32 AM</div>
+          </div>
+          <input type="text" id="add-note__title" placeholder="title" />
+        </div>
         <textarea contenteditable="true" id="add-note__content"></textarea>
         <ul class="add-note__nav">
           <li id="save-note">save &#10003;</li>

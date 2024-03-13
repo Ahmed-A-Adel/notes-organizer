@@ -1,6 +1,7 @@
 html {
   font-size: 62.5%;
   --padding: 1rem;
+  --half-padding: 0.5rem;
   --margin: 2rem;
   --prim-color: rgb(246, 164, 64);
   --second-color: bisque;
@@ -213,7 +214,19 @@ aside ul {
   outline: none;
 }
 
+.date-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  color: var(--dark-red);
+}
+
+#add-note__time {
+  text-transform: uppercase;
+}
+
 #add-note__title {
+  grid-column: 1/-1;
   border-bottom: 3px solid var(--ligh-brown);
   padding-bottom: 2rem;
 }
@@ -230,16 +243,6 @@ aside ul {
 
 #add-note__content:focus {
   outline: none;
-  border: none;
-}
-
-.add-note__list {
-  background-color: var(--second-color);
-}
-.add-note__list li {
-  list-style-type: decimal;
-  min-height: 2rem;
-  list-style-position: inside;
 }
 
 .list {

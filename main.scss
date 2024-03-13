@@ -1,6 +1,7 @@
 html {
   font-size: 62.5%;
   --padding: 1rem;
+  --half-padding: 0.5rem;
   --margin: 2rem;
   --prim-color: rgb(246, 164, 64);
   --second-color: bisque;
@@ -215,8 +216,21 @@ aside ul {
 .add-note input:focus {
   outline: none;
 }
-
+.title-container {
+}
+.date-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  color: var(--dark-red);
+}
+#add-note__date {
+}
+#add-note__time {
+  text-transform: uppercase;
+}
 #add-note__title {
+  grid-column: 1 /-1;
   border-bottom: 3px solid var(--ligh-brown);
   padding-bottom: 2rem;
 }
