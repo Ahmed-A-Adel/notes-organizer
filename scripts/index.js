@@ -18,6 +18,10 @@ const addNoteContent = document.getElementById("add-note__content");
 const addNoteList = document.querySelector(".add-note__list");
 const sideNotes = document.getElementById("side-notes");
 const sideNotesList = document.getElementById("side-notes__list");
+const timeNow = document.getElementById("time-now");
+const timeNote = document.getElementById("time-note");
+const dateNow = document.getElementById("date-now");
+const dateNote = document.getElementById("date-note");
 // ------------ App State --------------------------------------
 const state = {
   notes: [
@@ -43,9 +47,29 @@ const state = {
   darkmode: false,
   listMode: false,
   listItems: [],
+  date: "",
+  time: "",
 };
 
 // ------------ Functions ---------------------------------------
+function addTime(date) {
+  state.date = date.toLocaleDateString();
+  state.time = date.toLocaleTimeString();
+  dateNow.innerText = date.toLocaleDateString();
+  timeNow.innerText = date.toLocaleTimeString();
+}
+const callAddTime = setInterval(() => {
+  const date = new Date();
+  addTime(date);
+});
+// ______________________________________________________________
+function toggleTime() {
+  timeNow.classList.toggle("remove");
+  timeNote.classList.toggle("remove");
+  dateNow.classList.toggle("remove");
+  dateNote.classList.toggle("remove");
+}
+// ______________________________________________________________
 const notesToHtml = (notes) =>
   notes
     .map(
@@ -61,7 +85,6 @@ const notesToHtml = (notes) =>
     </li>`
     )
     .join(" ");
-
 // ______________________________________________________________
 function renderNotes(notes) {
   state.notes = notes.sort((a, b) => a.order > b.order);
@@ -71,19 +94,21 @@ function renderNotes(notes) {
 }
 // ______________________________________________________________
 function loadNotes() {
-  addNoteTitle.focus();
   const notes = notesToHtml(state.notes);
   sideNotesList.innerHTML = notes;
+  addNoteTitle.focus();
 }
 // ______________________________________________________________
 function addNoteHandler(event) {
   event.preventDefault();
 
-  // --------------------------------------------------------------
+  // ---------------- Authntication ------------------------------
   if (/^\s/.test(addNoteTitle.value, "g")) return null;
-  // --------------------------------------------------------------
+  // -------------------------------------------------------------
   if (!addNoteTitle.value) return null;
-  // --------------------------------------------------------------
+  // ---------------- Authntication ------------------------------
+
+  // ---------------- Save Note When Edit ------------------------
   if (state.notes.some((note) => note.edit)) {
     const tags = addNoteContent.value
       .split(" ")
@@ -100,10 +125,12 @@ function addNoteHandler(event) {
         : note
     );
     renderNotes(notes);
+    toggleTime();
     return null;
   }
-  // --------------------------------------------------------------
+  // ---------------- Save Note When Edit ------------------------
 
+  // ---------------- Add New Note ------------------------
   const noteId = new Uint32Array(1);
   crypto.getRandomValues(noteId);
   const tags = addNoteContent.value.split(" ").filter((tag) => tag[0] === "#");
@@ -111,6 +138,8 @@ function addNoteHandler(event) {
     id: noteId,
     title: addNoteTitle.value,
     content: addNoteContent.value,
+    date: state.date,
+    time: state.time,
     complate: true,
     tags,
     edit: false,
@@ -118,6 +147,9 @@ function addNoteHandler(event) {
   };
   const notes = [newNote, ...state.notes];
   renderNotes(notes);
+  timeNote.innerText = state.time;
+  dateNote.innerText = state.date;
+  // ---------------- Add New Note ------------------------
 }
 // ______________________________________________________________
 const clearNoteHandler = () => {
@@ -137,7 +169,6 @@ function editSideNote(id, pen) {
       }),
     { ...note, edit: !note.edit },
   ];
-  //--------------------------------------------------------
 
   for (const pen of pens) {
     pen.classList.remove("pen-in");
@@ -145,22 +176,28 @@ function editSideNote(id, pen) {
   for (const line of lines) {
     line.classList.remove("pen-line-in");
   }
-  //--------------------------------------------------------
-
+  // ____________ Reset AddNote inputes _______
   if (note.edit) {
     addNoteTitle.value = "";
     addNoteContent.value = "";
     state.notes = notes;
+    // --------- Animation ------------------
     pen.icon.classList.remove("pen-in");
     pen.line.classList.remove("pen-line-in");
+    // --------- Animation ------------------
   } else {
+    // _______ Display current Note _________
     addNoteTitle.value = note.title;
     addNoteContent.value = note.content;
     state.notes = notes;
+    // --------- Animation ------------------
     pen.icon.classList.add("pen-in");
     pen.line.classList.add("pen-line-in");
+    // --------- Animation ------------------
   }
-  //---------------------------------------------------------
+  //  Display Time & Date ----------
+  toggleTime();
+  //  Auto Focus on add Note content input ------
   addNoteContent.focus();
 }
 // ______________________________________________________________
@@ -214,9 +251,6 @@ function tagNoteHandler() {
   addNoteContent.focus();
 }
 // ______________________________________________________________
-// ______________________________________________________________
-
-//------------ Events Lesteners ---------------------------------
 window.addEventListener("load", loadNotes);
 // ______________________________________________________________
 saveNote.addEventListener("click", addNoteHandler);

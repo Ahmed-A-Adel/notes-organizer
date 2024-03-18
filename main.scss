@@ -229,6 +229,10 @@ aside ul {
 #add-note__time {
   text-transform: uppercase;
 }
+
+.remove {
+  display: none;
+}
 #add-note__title {
   grid-column: 1 /-1;
   border-bottom: 3px solid var(--ligh-brown);
