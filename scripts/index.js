@@ -74,12 +74,12 @@ const notesToHtml = (notes) =>
   notes
     .map(
       (note) => `<li tabindex="8" class="prev-note" id='${note.id}'>
-      <span tabindex="9" class="prev-note__edit">
+      <span tabindex="9" title="edit" class="prev-note__edit">
       <div class="edit__icon">&#9998;
       <div class="edit__line"></div>
       </div>
       </span>
-      <span tabindex="10" class="prev-note__delete">&#10006;</span>
+      <span tabindex="10" title="delete" class="prev-note__delete">&#10006;</span>
 
       <span class="prev-note__title"> ${note.title}</span>
     </li>`
