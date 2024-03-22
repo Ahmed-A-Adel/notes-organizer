@@ -298,4 +298,15 @@ footer {
   color: var(--prim-color);
 }
 
+@media screen and (max-width: 720px) {
+  body {
+    grid-template-rows: 10vh 85vh 5vh;
+  }
+  main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 20%;
+    gap: var(--margin);
+  }
+}
+
 /*# sourceMappingURL=style.css.map */
