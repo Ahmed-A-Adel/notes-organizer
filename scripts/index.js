@@ -74,14 +74,19 @@ const notesToHtml = (notes) =>
   notes
     .map(
       (note) => `<li tabindex="8" class="prev-note" id='${note.id}'>
+      <div class="btn-container">
       <span tabindex="9" title="edit" class="prev-note__edit">
       <div class="edit__icon">&#9998;
       <div class="edit__line"></div>
       </div>
       </span>
       <span tabindex="10" title="delete" class="prev-note__delete">&#10006;</span>
+      </div>
 
       <span class="prev-note__title"> ${note.title}</span>
+      <span class="prev-note__content hidden"> "${
+        note.content || "waiting for inspiration"
+      }"</span>
     </li>`
     )
     .join(" ");
@@ -219,8 +224,8 @@ function deleteSideNote(id) {
 // ______________________________________________________________
 function sideNotesHandler(e) {
   const target = e.target;
-  const actionElement = target.parentElement;
-  const parentNote = target.parentElement.parentElement;
+  const actionElement = target.parentElement.parentElement;
+  const parentNote = target.parentElement.parentElement.parentElement;
 
   switch (target.classList[0]) {
     case "prev-note__delete":
