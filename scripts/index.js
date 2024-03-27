@@ -64,11 +64,20 @@ const callAddTime = setInterval(() => {
 });
 
 // ______________________________________________________________
-function toggleTime() {
-  timeNow.classList.toggle("remove");
-  timeNote.classList.toggle("remove");
-  dateNow.classList.toggle("remove");
-  dateNote.classList.toggle("remove");
+function toggleTime(time) {
+  switch (time) {
+    case "note":
+      timeNow.classList.add("remove");
+      dateNow.classList.add("remove");
+      timeNote.classList.remove("remove");
+      dateNote.classList.remove("remove");
+      break;
+    case "now":
+      timeNow.classList.remove("remove");
+      dateNow.classList.remove("remove");
+      timeNote.classList.add("remove");
+      dateNote.classList.add("remove");
+  }
 }
 // ______________________________________________________________
 const notesToHtml = (notes) =>
@@ -198,6 +207,7 @@ function editSideNote(id, pen) {
   for (const line of lines) {
     line.classList.remove("pen-line-in");
   }
+
   // ____________ Reset AddNote inputes _______
   if (note.edit) {
     addNoteTitle.value = "";
@@ -207,6 +217,7 @@ function editSideNote(id, pen) {
     pen.icon.classList.remove("pen-in");
     pen.line.classList.remove("pen-line-in");
     // --------- Animation ------------------
+    toggleTime("now");
   } else {
     // _______ Display current Note _________
     addNoteTitle.value = note.title;
@@ -219,8 +230,8 @@ function editSideNote(id, pen) {
     // --------- Display Date & Time --------
     timeNote.innerText = note.time;
     dateNote.innerText = note.date;
+    toggleTime("note");
   }
-  toggleTime();
   addNoteContent.focus();
 }
 // ______________________________________________________________
