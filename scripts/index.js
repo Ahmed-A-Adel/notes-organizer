@@ -62,6 +62,7 @@ const callAddTime = setInterval(() => {
   const date = new Date();
   addTime(date);
 });
+
 // ______________________________________________________________
 function toggleTime() {
   timeNow.classList.toggle("remove");
@@ -91,6 +92,15 @@ const notesToHtml = (notes) =>
     )
     .join(" ");
 // ______________________________________________________________
+function addToStorage(notes) {
+  const notesString = JSON.stringify(notes);
+  localStorage.setItem("notes", notesString);
+}
+function getFromStorage(notes) {
+  const notesObj = JSON.parse(localStorage.getItem(notes));
+  return notesObj;
+}
+// ______________________________________________________________
 function renderNotes(notes) {
   state.notes = notes.sort((a, b) => a.order > b.order);
   sideNotesList.innerHTML = notesToHtml(notes);
@@ -99,8 +109,10 @@ function renderNotes(notes) {
 }
 // ______________________________________________________________
 function loadNotes() {
-  const notes = notesToHtml(state.notes);
-  sideNotesList.innerHTML = notes;
+  const notes = getFromStorage("notes") || state.notes;
+  const htmlNotes = notesToHtml(notes);
+  sideNotesList.innerHTML = htmlNotes;
+  state.notes = notes;
   addNoteTitle.focus();
 }
 // ______________________________________________________________
@@ -129,7 +141,9 @@ function addNoteHandler(event) {
           }
         : note
     );
+
     renderNotes(notes);
+    addToStorage(notes);
     toggleTime();
     return null;
   }
@@ -139,8 +153,9 @@ function addNoteHandler(event) {
   const noteId = new Uint32Array(1);
   crypto.getRandomValues(noteId);
   const tags = addNoteContent.value.split(" ").filter((tag) => tag[0] === "#");
+  const storageNotes = getFromStorage("notes");
   const newNote = {
-    id: noteId,
+    id: noteId[0],
     title: addNoteTitle.value,
     content: addNoteContent.value,
     date: state.date,
@@ -148,10 +163,13 @@ function addNoteHandler(event) {
     complate: true,
     tags,
     edit: false,
-    order: state.notes.length ?? +1,
+    order: storageNotes.length ?? +1,
   };
-  const notes = [newNote, ...state.notes];
+  const notes = storageNotes
+    ? [newNote, ...storageNotes]
+    : [newNote, ...state.notes];
   renderNotes(notes);
+  addToStorage(notes);
   timeNote.innerText = state.time;
   dateNote.innerText = state.date;
   // ---------------- Add New Note ------------------------
@@ -174,7 +192,6 @@ function editSideNote(id, pen) {
       }),
     { ...note, edit: !note.edit },
   ];
-
   for (const pen of pens) {
     pen.classList.remove("pen-in");
   }
@@ -199,10 +216,11 @@ function editSideNote(id, pen) {
     pen.icon.classList.add("pen-in");
     pen.line.classList.add("pen-line-in");
     // --------- Animation ------------------
+    // --------- Display Date & Time --------
+    timeNote.innerText = note.time;
+    dateNote.innerText = note.date;
   }
-  //  Display Time & Date ----------
   toggleTime();
-  //  Auto Focus on add Note content input ------
   addNoteContent.focus();
 }
 // ______________________________________________________________
@@ -214,12 +232,10 @@ function deleteSideNote(id) {
   if (note.edit) {
     addNoteTitle.value = "";
     addNoteContent.value = "";
-    state.notes = notes;
-    sideNotesList.innerHTML = notesHtml;
-  } else {
-    state.notes = notes;
-    sideNotesList.innerHTML = notesHtml;
   }
+  state.notes = notes;
+  addToStorage(notes);
+  sideNotesList.innerHTML = notesHtml;
 }
 // ______________________________________________________________
 function sideNotesHandler(e) {
