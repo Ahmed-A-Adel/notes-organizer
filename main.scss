@@ -95,8 +95,9 @@ main {
 
   background-color: var(--second-color);
   text-transform: capitalize;
+  text-align: center;
   overflow: hidden;
-  word-break: break-all;
+  // word-break: break-all;
 
   span {
     font-size: 2rem;
@@ -170,7 +171,7 @@ main {
 }
 
 .prev-note__content {
-  transition: all 0.5s;
+  transition: flex-basis 0.5s, opacity 0.5s;
   opacity: 0;
   overflow: hidden;
   flex-basis: 0px;
@@ -178,7 +179,7 @@ main {
 .prev-note:hover .prev-note__content,
 .prev-note:focus .prev-note__content {
   opacity: 1;
-  flex-basis: 120px;
+  flex-basis: 70px;
 }
 .add-note {
   display: grid;
@@ -317,5 +318,10 @@ footer {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 20%;
     gap: var(--margin);
+  }
+  .prev-note:hover .prev-note__content,
+  .prev-note:focus .prev-note__content {
+    opacity: 1;
+    flex-basis: 50px;
   }
 }

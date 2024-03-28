@@ -82,9 +82,10 @@ function toggleTime(time) {
 // ______________________________________________________________
 const notesToHtml = (notes) =>
   notes
-    .map(
-      (note) => `<li tabindex="8" class="prev-note" id='${note.id}'>
-      <div class="btn-container">
+    .map((note) => {
+      const content = note.content.split(" ").slice(0, 9).join(" ");
+      return `<li tabindex="8" class="prev-note" id='${note.id}'>
+        <div class="btn-container">
       <span tabindex="9" title="edit" class="prev-note__edit">
       <div class="edit__icon">&#9998;
       <div class="edit__line"></div>
@@ -95,10 +96,10 @@ const notesToHtml = (notes) =>
 
       <span class="prev-note__title"> ${note.title}</span>
       <span class="prev-note__content hidden"> "${
-        note.content || "waiting for inspiration"
+        content || "waiting for inspiration"
       }"</span>
-    </li>`
-    )
+    </li>`;
+    })
     .join(" ");
 // ______________________________________________________________
 function addToStorage(notes) {
