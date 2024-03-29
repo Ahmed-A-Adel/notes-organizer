@@ -44,8 +44,28 @@ nav {
   display: none;
 }
 
-.logo__img {
-  width: 10vh;
+.logo {
+  display: inline-block;
+  position: relative;
+  margin-left: var(--margin);
+  text-decoration: none;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.614);
+  color: rgb(255, 255, 255);
+  transform: translateY(-60%);
+  font-size: 4vh;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.logo span {
+  display: inline-block;
+  position: absolute;
+  transform: translateY(32%);
+  text-shadow: 0 0 5px rgba(139, 0, 0, 0.614);
+  color: var(--dark-red);
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 7vh;
 }
 
 .tools {
