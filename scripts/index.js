@@ -154,7 +154,7 @@ function addNoteHandler(event) {
 
     renderNotes(notes);
     addToStorage(notes);
-    toggleTime();
+    toggleTime("now");
     return null;
   }
   // ---------------- Save Note When Edit ------------------------
