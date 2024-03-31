@@ -21,7 +21,7 @@ body {
   box-sizing: border-box;
   display: grid;
   grid-template-rows: 15vh 75vh 10vh;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: serif;
   font-size: 1.6rem;
   background-color: var(--second-color);
 }
@@ -52,6 +52,7 @@ nav {
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.614);
   color: rgb(255, 255, 255);
   transform: translateY(-60%);
+  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 4vh;
   text-transform: uppercase;
   cursor: pointer;
@@ -114,6 +115,10 @@ main {
 .prev-note span {
   font-size: 2rem;
   color: var(--ligh-brown);
+}
+
+.prev-note__title {
+  text-transform: uppercase;
 }
 
 .btn-container {
@@ -224,7 +229,10 @@ main {
   display: grid;
   justify-content: space-evenly;
   align-items: center;
+  color: var(--dark-red);
+  font-size: 2rem;
   background-color: var(--prim-color);
+  text-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
   border-left: 2px solid var(--ligh-brown);
 }
 
@@ -233,6 +241,9 @@ main {
   padding: 1rem 2rem 0;
   box-sizing: border-box;
   grid-column: 1/2;
+  font-family: serif;
+  color: white;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.365);
 }
 
 .add-note input {
@@ -262,8 +273,8 @@ main {
 
 #add-note__title {
   grid-column: 1/-1;
-  border-bottom: 3px solid var(--ligh-brown);
   padding-bottom: 2rem;
+  border-bottom: 3px solid var(--ligh-brown);
 }
 
 #add-note__content {
