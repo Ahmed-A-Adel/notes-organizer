@@ -1,0 +1,15 @@
+@media screen and (max-width: 720px) {
+  body {
+    grid-template-rows: 10vh 80vh 10vh;
+  }
+  main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 20%;
+    gap: var(--margin);
+  }
+  .prev-note:hover .prev-note__content,
+  .prev-note:focus .prev-note__content {
+    opacity: 1;
+    flex-basis: 50px;
+  }
+}

@@ -1,0 +1,50 @@
+body {
+  font-family: serif;
+  background-color: var(--second-color);
+}
+
+.add-note {
+  text-align: center;
+}
+
+.add-note__nav {
+  color: var(--dark-red);
+  font-size: 2rem;
+  background-color: var(--prim-color);
+  text-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
+}
+
+.add-note input,
+.add-note textarea {
+  font-family: serif;
+  color: white;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.365);
+}
+.add-note input {
+  font-size: 3rem;
+  font-weight: lighter;
+  text-transform: uppercase;
+  text-align: center;
+
+  background-color: inherit;
+}
+
+.date-container {
+  color: var(--dark-red);
+}
+
+#add-note__time {
+  text-transform: uppercase;
+}
+
+#add-note__content {
+  font-size: 2rem;
+  text-transform: capitalize;
+  background-color: inherit;
+}
+
+footer {
+  background-color: black;
+  color: var(--prim-color);
+  text-transform: capitalize;
+}

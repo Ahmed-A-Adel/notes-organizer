@@ -1,0 +1,17 @@
+#side-notes {
+  background-color: var(--prim-color);
+  border-top: 5px solid var(--prim-color);
+  border-bottom: 5px solid var(--prim-color);
+  outline: 2px solid var(--ligh-brown);
+
+  overflow-y: scroll;
+}
+#side-notes:focus {
+  outline: 2px solid black;
+}
+#side-notes__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--margin);
+  padding: var(--padding);
+}

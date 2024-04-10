@@ -1,0 +1,15 @@
+body {
+  display: grid;
+  grid-template-rows: 15vh 75vh 10vh;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 25%;
+  justify-content: center;
+  column-gap: var(--margin);
+  margin: var(--margin);
+}
+footer {
+  grid-column: 1/-1;
+}

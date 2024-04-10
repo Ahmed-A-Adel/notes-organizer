@@ -1,0 +1,8 @@
+nav {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: 10vw 1fr;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--prim-color);
+}

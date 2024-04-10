@@ -1,0 +1,23 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  box-sizing: border-box;
+  background-color: var(--second-color);
+  font-size: 1.6rem;
+}
+
+li {
+  list-style-type: none;
+  cursor: pointer;
+}
+footer {
+  padding: 1rem;
+}
