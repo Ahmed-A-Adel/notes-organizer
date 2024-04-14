@@ -1,1 +1,3 @@
 /node_modules
+/pages
+/styles/components/_notesGroup.scss

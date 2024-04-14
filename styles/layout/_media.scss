@@ -1,8 +1,8 @@
 @media screen and (max-width: 720px) {
-  body {
+  .body-index {
     grid-template-rows: 10vh 80vh 10vh;
   }
-  main {
+  .main-index {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 20%;
     gap: var(--margin);
