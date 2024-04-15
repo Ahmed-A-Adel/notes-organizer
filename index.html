@@ -16,10 +16,15 @@
     <title>Notes Organizer</title>
   </head>
   <body class="body-index">
+    <!--_________________________ NAVIGATION BAR ___________________-->
     <nav class="nav-index">
       <a href="/" class="logo-text"><span>n</span>go</a>
     </nav>
+    <!--_________________________ NAVIGATION BAR ___________________-->
+
+    <!--_________________________ MAIN SECTION _____________________-->
     <main class="main-index">
+      <!------------ ADD NOTE SECTION ----------->
       <form
         onsubmit="addNoteHandler(event)"
         class="add-note"
@@ -27,6 +32,7 @@
         tabindex="5"
       >
         <div class="title-container">
+          <!------------ ADD NOTE DATE & TIME ------------>
           <div class="date-container">
             <div id="add-note__date">
               <span id="date-now"></span>
@@ -37,9 +43,18 @@
               <span id="time-note" class="remove"></span>
             </div>
           </div>
+          <!------------ ADD NOTE DATE & TIME ------------>
+
+          <!------------ ADD NOTE TITLE INPUT ------------>
           <input type="text" id="add-note__title" placeholder="title" />
+          <!------------ ADD NOTE TITLE INPUT ------------>
         </div>
+
+        <!------------ ADD NOTE CONTENT INPUT ------------>
         <textarea contenteditable="true" id="add-note__content"></textarea>
+        <!------------ ADD NOTE CONTENT INPUT ------------>
+
+        <!------------ ADD NOTE ACTION BUTTONS ------------>
         <ul class="add-note__nav">
           <li id="save-note" title="save">&#10003;</li>
           <li id="list-note" title="list">&#9776;</li>
@@ -47,12 +62,21 @@
           <li id="done-note" title="done">&#9872;</li>
           <li id="clear-note" title="clear">&#10005;</li>
         </ul>
+        <!------------ ADD NOTE ACTION BUTTONS ------------>
       </form>
+      <!------------ ADD NOTE SECTION ----------->
+
+      <!------------ PERVIOUS NOTES SECTION ------>
       <aside id="side-notes">
         <ul id="side-notes__list"></ul>
       </aside>
+      <!------------ PERVIOUS NOTES SECTION ------>
     </main>
+    <!--_________________________ MAIN SECTION _____________________-->
+
+    <!--_______________________ FOOTER _____________________________-->
     <footer class="footer-index">footer</footer>
+    <!--________________________FOOTER _____________________________-->
   </body>
   <script src="./scripts/index.js"></script>
 </html>
