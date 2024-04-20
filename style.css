@@ -54,14 +54,13 @@
 .logo-text {
   display: inline-block;
   position: relative;
-  margin-left: var(--margin);
-  text-decoration: none;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.614);
-  color: rgb(255, 255, 255);
   transform: translateY(-60%);
+  color: rgb(255, 255, 255);
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 4vh;
+  text-decoration: none;
   text-transform: uppercase;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.614);
   cursor: pointer;
 }
 
@@ -69,20 +68,69 @@
   display: inline-block;
   position: absolute;
   transform: translateY(32%);
-  text-shadow: 0 0 5px rgba(139, 0, 0, 0.614);
   color: var(--dark-red);
-  text-transform: uppercase;
-  font-weight: bold;
   font-size: 7vh;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(139, 0, 0, 0.614);
+  text-transform: uppercase;
+}
+
+html {
+  --padding: 1rem;
+  --half-padding: 0.5rem;
+  --margin: 2rem;
+  --shadow: 0 0 5px rgba(0, 0, 0, 0.322);
+  --prim-color: rgb(246, 164, 64);
+  --second-color: bisque;
+  --ligh-brown: rgb(209, 84, 16);
+  --green: rgb(22, 99, 22);
+  --dark-red: rgb(170, 5, 5);
 }
 
 nav {
   grid-column: 1/-1;
-  display: grid;
-  grid-template-columns: 10vw 1fr;
+  display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: var(--margin);
+  font-family: "Courier New", Courier, onospace;
+  text-transform: uppercase;
   background-color: var(--prim-color);
+  box-shadow: 0 5px 6px 0px white;
+}
+
+.nav-index__links {
+  display: flex;
+  gap: var(--margin);
+  justify-items: flex-start;
+  font-size: 2rem;
+}
+.nav-index__links li {
+  padding: 1rem;
+  color: white;
+  text-shadow: var(--shadow);
+  text-emphasis: open;
+}
+.nav-index__links li:active, .nav-index__links li:hover {
+  text-emphasis: circle;
+}
+.nav-index__links a,
+.nav-index__links a:active,
+.nav-index__links a:link {
+  color: inherit;
+}
+
+.nav-index__user {
+  width: 4.5rem;
+  height: 4.5rem;
+  display: flex;
+  place-content: center;
+  place-items: center;
+  font-size: 3rem;
+  border-radius: 100%;
+  background-color: var(--second-color);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.123);
+  cursor: pointer;
 }
 
 .edit__icon {
@@ -153,17 +201,6 @@ nav {
     transform: rotate(360deg) translate(200px) rotate(-360deg);
   }
 }
-html {
-  --padding: 1rem;
-  --half-padding: 0.5rem;
-  --margin: 2rem;
-  --prim-color: rgb(246, 164, 64);
-  --second-color: bisque;
-  --ligh-brown: rgb(209, 84, 16);
-  --green: rgb(22, 99, 22);
-  --dark-red: rgb(170, 5, 5);
-}
-
 #side-notes {
   display: grid;
   gap: var(--margin);
@@ -297,6 +334,11 @@ html {
   .prev-note:focus .prev-note__content {
     opacity: 1;
     flex-basis: 50px;
+  }
+}
+@media screen and (max-width: 650px) {
+  .nav-index__links {
+    display: none;
   }
 }
 @keyframes shake {

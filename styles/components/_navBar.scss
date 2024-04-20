@@ -1,8 +1,52 @@
+@use "../abstracts/variables";
 nav {
   grid-column: 1/-1;
-  display: grid;
-  grid-template-columns: 10vw 1fr;
+  display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: var(--margin);
+
+  font-family: "Courier New", Courier, onospace;
+  text-transform: uppercase;
   background-color: var(--prim-color);
+  box-shadow: 0 5px 6px 0px white;
+}
+
+.nav-index__links {
+  display: flex;
+  gap: var(--margin);
+  justify-items: flex-start;
+  font-size: 2rem;
+
+  & li {
+    padding: 1rem;
+
+    color: white;
+
+    text-shadow: var(--shadow);
+
+    text-emphasis: open;
+    &:active,
+    &:hover {
+      text-emphasis: circle;
+    }
+  }
+  & a,
+  a:active,
+  a:link {
+    color: inherit;
+  }
+}
+.nav-index__user {
+  width: 4.5rem;
+  height: 4.5rem;
+  display: flex;
+  place-content: center;
+  place-items: center;
+
+  font-size: 3rem;
+  border-radius: 100%;
+  background-color: var(--second-color);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.123);
+  cursor: pointer;
 }

@@ -13,3 +13,8 @@
     flex-basis: 50px;
   }
 }
+@media screen and (max-width: 650px) {
+  .nav-index__links {
+    display: none;
+  }
+}

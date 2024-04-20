@@ -1,15 +1,14 @@
 .logo-text {
   display: inline-block;
   position: relative;
-  margin-left: var(--margin);
-
-  text-decoration: none;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.614);
-  color: rgb(255, 255, 255);
   transform: translateY(-60%);
+
+  color: rgb(255, 255, 255);
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 4vh;
+  text-decoration: none;
   text-transform: uppercase;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.614);
   cursor: pointer;
 }
 
@@ -18,10 +17,9 @@
   position: absolute;
   transform: translateY(32%);
 
-  text-shadow: 0 0 5px rgba(139, 0, 0, 0.614);
   color: var(--dark-red);
-  text-transform: uppercase;
-  font-weight: bold;
-
   font-size: 7vh;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(139, 0, 0, 0.614);
+  text-transform: uppercase;
 }
