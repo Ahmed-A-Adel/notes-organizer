@@ -112,17 +112,16 @@ function getFromStorage(notes) {
 }
 // ______________________________________________________________
 function renderNotes(notes) {
-  state.notes = notes.sort((a, b) => a.order > b.order);
-  sideNotesList.innerHTML = notesToHtml(notes);
+  state.notes = notes;
+  // only the first 10 notes to show in the sidebar
+  sideNotesList.innerHTML = notesToHtml(notes.slice(0, 10));
   addNoteTitle.value = "";
   addNoteContent.value = "";
 }
 // ______________________________________________________________
 function loadNotes() {
   const notes = getFromStorage("notes") || state.notes;
-  const htmlNotes = notesToHtml(notes);
-  sideNotesList.innerHTML = htmlNotes;
-  state.notes = notes;
+  renderNotes(notes);
   addNoteTitle.focus();
 }
 // ______________________________________________________________
@@ -140,18 +139,18 @@ function addNoteHandler(event) {
     const tags = addNoteContent.value
       .split(" ")
       .filter((tag) => tag[0] === "#");
-    const notes = state.notes.map((note) =>
-      note.edit
-        ? {
-            ...note,
-            title: addNoteTitle.value,
-            content: addNoteContent.value,
-            edit: false,
-            tags,
-          }
-        : note
-    );
-
+    const note = state.notes.filter((note) => note.edit);
+    const slicedNotes = state.notes.filter((note) => !note.edit);
+    const notes = [
+      {
+        ...note,
+        title: addNoteTitle.value,
+        content: addNoteContent.value,
+        edit: false,
+        tags,
+      },
+      ...slicedNotes,
+    ];
     renderNotes(notes);
     addToStorage(notes);
     toggleTime("now");
@@ -239,7 +238,7 @@ function editSideNote(id, pen) {
 function deleteSideNote(id) {
   const note = state.notes.filter((note) => note.id == id)[0];
   const notes = [...state.notes.filter((note) => note.id != id)];
-  const notesHtml = notesToHtml(notes);
+  const notesHtml = notesToHtml(notes.slice(0, 10));
   // --------------------------------------------------------
   if (note.edit) {
     addNoteTitle.value = "";
