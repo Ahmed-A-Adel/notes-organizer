@@ -139,7 +139,7 @@ function addNoteHandler(event) {
     const tags = addNoteContent.value
       .split(" ")
       .filter((tag) => tag[0] === "#");
-    const note = state.notes.filter((note) => note.edit);
+    const note = state.notes.filter((note) => note.edit)[0];
     const slicedNotes = state.notes.filter((note) => !note.edit);
     const notes = [
       {
@@ -162,7 +162,7 @@ function addNoteHandler(event) {
   const noteId = new Uint32Array(1);
   crypto.getRandomValues(noteId);
   const tags = addNoteContent.value.split(" ").filter((tag) => tag[0] === "#");
-  const storageNotes = getFromStorage("notes");
+  const notes = getFromStorage("notes") || state.notes;
   const newNote = {
     id: noteId[0],
     title: addNoteTitle.value,
@@ -172,13 +172,11 @@ function addNoteHandler(event) {
     complate: true,
     tags,
     edit: false,
-    order: storageNotes.length ?? +1,
+    order: notes.length ?? +1,
   };
-  const notes = storageNotes
-    ? [newNote, ...storageNotes]
-    : [newNote, ...state.notes];
-  renderNotes(notes);
-  addToStorage(notes);
+  const newNotes = notes ? [newNote, ...notes] : [newNote, ...state.notes];
+  renderNotes(newNotes);
+  addToStorage(newNotes);
   timeNote.innerText = state.time;
   dateNote.innerText = state.date;
   // ---------------- Add New Note ------------------------
@@ -253,7 +251,6 @@ function sideNotesHandler(e) {
   const target = e.target;
   const actionElement = target.parentElement.parentElement;
   const parentNote = target.parentElement.parentElement.parentElement;
-
   switch (target.classList[0]) {
     case "prev-note__delete":
       deleteSideNote(actionElement.id);
