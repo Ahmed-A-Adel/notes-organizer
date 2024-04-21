@@ -105,19 +105,19 @@ nav {
   justify-items: flex-start;
   font-size: 2rem;
 }
-.nav-index__links li {
+.nav-index__links a {
   padding: 1rem;
   color: white;
   text-shadow: var(--shadow);
   text-emphasis: open;
+  transition: text-shadow 0.2s;
 }
-.nav-index__links li:active, .nav-index__links li:hover {
-  text-emphasis: circle;
-}
-.nav-index__links a,
 .nav-index__links a:active,
-.nav-index__links a:link {
-  color: inherit;
+.nav-index__links a:hover,
+.nav-index__links a:focus {
+  outline: none;
+  text-shadow: 0px 0px 5px #fff;
+  text-emphasis: circle;
 }
 
 .nav-index__user {
@@ -300,6 +300,7 @@ nav {
   color: var(--dark-red);
   font-size: 2rem;
   background-color: var(--prim-color);
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.548), var(--prim-color));
   text-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
   border-left: 2px solid var(--ligh-brown);
 }

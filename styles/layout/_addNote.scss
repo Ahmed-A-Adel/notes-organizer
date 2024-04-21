@@ -77,6 +77,11 @@
   color: var(--dark-red);
   font-size: 2rem;
   background-color: var(--prim-color);
+  background-image: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.548),
+    var(--prim-color)
+  );
   text-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
   border-left: 2px solid var(--ligh-brown);
 }

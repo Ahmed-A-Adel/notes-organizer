@@ -18,23 +18,20 @@ nav {
   justify-items: flex-start;
   font-size: 2rem;
 
-  & li {
+  & a {
     padding: 1rem;
 
     color: white;
-
     text-shadow: var(--shadow);
-
     text-emphasis: open;
-    &:active,
-    &:hover {
-      text-emphasis: circle;
-    }
+    transition: text-shadow 0.2s;
   }
-  & a,
-  a:active,
-  a:link {
-    color: inherit;
+  & a:active,
+  a:hover,
+  a:focus {
+    outline: none;
+    text-shadow: 0px 0px 5px #fff;
+    text-emphasis: circle;
   }
 }
 .nav-index__user {
