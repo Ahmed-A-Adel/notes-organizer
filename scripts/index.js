@@ -86,12 +86,12 @@ const notesToHtml = (notes) =>
       const content = note.content.split(" ").slice(0, 9).join(" ");
       return `<li tabindex="8" class="prev-note" id='${note.id}'>
         <div class="btn-container">
-      <span tabindex="9" title="edit" class="prev-note__edit">
-      <div class="edit__icon">&#9998;
+      <span  tabindex="9" title="edit" class="prev-note__edit">
+      <button class="edit__icon">&#9998;
       <div class="edit__line"></div>
-      </div>
+      </button>
       </span>
-      <span tabindex="10" title="delete" class="prev-note__delete">&#10006;</span>
+      <button tabindex="10" title="delete" class="prev-note__delete">&#10006;</button>
       </div>
 
       <span class="prev-note__title"> ${note.title}</span>

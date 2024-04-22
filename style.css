@@ -5,13 +5,18 @@
   gap: 1rem;
   padding: 1rem;
   background-color: var(--second-color);
+  color: var(--ligh-brown);
   text-transform: capitalize;
   text-align: center;
   overflow: hidden;
-}
-.prev-note span {
   font-size: 2rem;
+}
+.prev-note button {
+  border: none;
+  font-size: inherit;
+  background-color: transparent;
   color: var(--ligh-brown);
+  cursor: pointer;
 }
 
 .prev-note__title {
@@ -24,7 +29,6 @@
 }
 
 .prev-note__delete {
-  color: var(--dark-red);
   text-shadow: 0 8px 2px rgba(0, 0, 0, 0.156);
   transition: transform 2s;
   animation-name: shake;
@@ -34,7 +38,8 @@
   animation-timing-function: ease-in-out;
   animation-play-state: paused;
 }
-.prev-note__delete:hover {
+.prev-note__delete:hover, .prev-note__delete:focus {
+  outline: none;
   animation-play-state: running;
 }
 
