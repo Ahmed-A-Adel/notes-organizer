@@ -1,0 +1,24 @@
+.footer-index {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  box-shadow: 0 -5px 5px var(--prim-color);
+  background-image: linear-gradient(to right, black, rgb(143, 59, 10));
+
+  a,
+  a:link,
+  a:active {
+    display: inline-block;
+    color: var(--second-color);
+    text-decoration: none;
+    transition: all 0.2s;
+    text-shadow: 0 0 5px black;
+    outline: none;
+  }
+  a:hover,
+  a:focus {
+    text-shadow: 0 0 5px white;
+  }
+}
