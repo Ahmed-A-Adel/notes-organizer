@@ -1,3 +1,6 @@
 /node_modules
 /pages
 /styles/components/_notesGroup.scss
+/login.html
+/scripts/login.js
+/styles/components/_login.scss

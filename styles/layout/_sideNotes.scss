@@ -4,9 +4,11 @@
   padding: var(--padding);
 
   background-color: var(--prim-color);
-  border-top: 5px solid var(--prim-color);
-  border-bottom: 5px solid var(--prim-color);
-  outline: 2px solid var(--ligh-brown);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-radius: 6px;
+  box-shadow: -3px 3px 7px 1px var(--ligh-brown);
+  overflow-y: scroll;
   overflow-y: scroll;
 }
 #side-notes:focus {

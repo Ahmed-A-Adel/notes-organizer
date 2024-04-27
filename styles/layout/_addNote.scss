@@ -7,8 +7,11 @@
   text-align: center;
 
   background-color: var(--prim-color);
-  outline: 2px solid var(--ligh-brown);
   transition: outline 0.2s;
+  border-radius: 2rem;
+  border-bottom-left-radius: 4rem;
+  box-shadow: -3px 3px 6px var(--ligh-brown);
+  overflow: hidden;
 }
 .add-note:focus-visible {
   outline: 2px solid black;
@@ -45,8 +48,6 @@
 #add-note__title {
   grid-column: 1 /-1;
   padding-bottom: 2rem;
-
-  border-bottom: 3px solid var(--ligh-brown);
 }
 
 #add-note__content {
@@ -74,14 +75,10 @@
   justify-content: space-evenly;
   align-items: center;
 
-  color: var(--dark-red);
-  font-size: 2rem;
-  background-color: var(--prim-color);
-  background-image: linear-gradient(
-    to top,
-    rgba(255, 255, 255, 0.548),
-    var(--prim-color)
-  );
-  text-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
-  border-left: 2px solid var(--ligh-brown);
+  background-color: var(--second-color);
+  // // background-image: linear-gradient(
+  //   to top,
+  //   rgba(255, 255, 255, 0.548),
+  //   var(--prim-color)
+  // );
 }

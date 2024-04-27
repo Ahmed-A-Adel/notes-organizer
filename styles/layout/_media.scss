@@ -7,6 +7,17 @@
     grid-template-rows: 1fr 20%;
     gap: var(--margin);
   }
+  .add-note {
+    grid-template-rows: auto 1fr 10%;
+    grid-template-columns: 1fr;
+    &__nav {
+      display: flex;
+      grid-column: 1/2;
+      grid-row: 3/4;
+    }
+  }
+  .side-notes {
+  }
   .prev-note:hover .prev-note__content,
   .prev-note:focus .prev-note__content {
     opacity: 1;

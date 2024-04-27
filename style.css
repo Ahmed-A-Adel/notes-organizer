@@ -3,13 +3,16 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem;
+  padding: 1rem 1rem 2rem;
   background-color: var(--second-color);
   color: var(--ligh-brown);
   text-transform: capitalize;
   text-align: center;
   overflow: hidden;
   font-size: 2rem;
+  box-shadow: 0px 0px 3px 3px rgb(255, 255, 255);
+  box-shadow: -2px 2px 3px 0px rgba(95, 34, 1, 0.482);
+  border-radius: 4px;
 }
 .prev-note button {
   border: none;
@@ -85,7 +88,7 @@ html {
   --half-padding: 0.5rem;
   --margin: 2rem;
   --shadow: 0 0 5px rgba(0, 0, 0, 0.322);
-  --prim-color: rgb(246, 164, 64);
+  --prim-color: rgb(247, 158, 51);
   --second-color: bisque;
   --ligh-brown: rgb(209, 84, 16);
   --green: rgb(22, 99, 22);
@@ -212,7 +215,9 @@ nav {
   justify-content: center;
   gap: 0.5rem;
   box-shadow: 0 -5px 5px var(--prim-color);
+  box-shadow: 0 -4px 9px rgb(178, 77, 4);
   background-image: linear-gradient(to right, black, rgb(143, 59, 10));
+  background-image: linear-gradient(to right, black, rgb(178, 77, 4));
 }
 .footer-index a,
 .footer-index a:link,
@@ -234,9 +239,11 @@ nav {
   gap: var(--margin);
   padding: var(--padding);
   background-color: var(--prim-color);
-  border-top: 5px solid var(--prim-color);
-  border-bottom: 5px solid var(--prim-color);
-  outline: 2px solid var(--ligh-brown);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-radius: 6px;
+  box-shadow: -3px 3px 7px 1px var(--ligh-brown);
+  overflow-y: scroll;
   overflow-y: scroll;
 }
 
@@ -258,8 +265,11 @@ nav {
   align-items: stretch;
   text-align: center;
   background-color: var(--prim-color);
-  outline: 2px solid var(--ligh-brown);
   transition: outline 0.2s;
+  border-radius: 2rem;
+  border-bottom-left-radius: 4rem;
+  box-shadow: -3px 3px 6px var(--ligh-brown);
+  overflow: hidden;
 }
 
 .add-note:focus-visible {
@@ -297,7 +307,6 @@ nav {
 #add-note__title {
   grid-column: 1/-1;
   padding-bottom: 2rem;
-  border-bottom: 3px solid var(--ligh-brown);
 }
 
 #add-note__content {
@@ -325,12 +334,7 @@ nav {
   display: grid;
   justify-content: space-evenly;
   align-items: center;
-  color: var(--dark-red);
-  font-size: 2rem;
-  background-color: var(--prim-color);
-  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.548), var(--prim-color));
-  text-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
-  border-left: 2px solid var(--ligh-brown);
+  background-color: var(--second-color);
 }
 
 .body-index {
@@ -358,6 +362,15 @@ nav {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 20%;
     gap: var(--margin);
+  }
+  .add-note {
+    grid-template-rows: auto 1fr 10%;
+    grid-template-columns: 1fr;
+  }
+  .add-note__nav {
+    display: flex;
+    grid-column: 1/2;
+    grid-row: 3/4;
   }
   .prev-note:hover .prev-note__content,
   .prev-note:focus .prev-note__content {
@@ -431,7 +444,6 @@ footer {
 .add-note__nav {
   color: var(--dark-red);
   font-size: 2rem;
-  background-color: var(--prim-color);
   text-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
 }
 
