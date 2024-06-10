@@ -7,3 +7,9 @@
   justify-content: end;
   gap: 1rem;
 }
+.flex-grow {
+  flex: 1;
+}
+.flex-column {
+  flex-direction: column;
+}

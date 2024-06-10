@@ -10,12 +10,12 @@ const colorNote = document.getElementById("color-note");
 const prevNote = document.getElementsByClassName(".prev-note");
 //------------ Main section Add Note & Side Note ---------------
 const addNote = document.getElementById("add-note");
-const addNoteContainer = document.getElementsByClassName(
-  "add-note__container"
-)[0];
+const addNoteContainer = document.getElementById("add-note__container");
 const addNoteTitle = document.getElementById("add-note__title");
-const addNoteContent = document.getElementById("add-note__content");
+const addNoteContent = document.querySelector(".add-note__content");
+const addNoteInput = document.getElementById("add-note__input");
 const addNoteList = document.querySelector(".add-note__list");
+const addNoteNav = document.querySelector(".add-note__nav");
 const sideNotes = document.getElementById("side-notes");
 const sideNotesList = document.getElementById("side-notes__list");
 const timeNow = document.getElementById("time-now");
@@ -46,6 +46,7 @@ const state = {
   ],
   darkmode: false,
   listMode: false,
+  tagMode: false,
   listItems: [],
   date: "",
   time: "",
@@ -273,11 +274,31 @@ function sideNotesHandler(e) {
   }
 }
 // ______________________________________________________________
+function setCursorEditable(editableElem, index, position = 1) {
+  let range = document.createRange();
+  let sel = window.getSelection();
+  range.setStart(editableElem.childNodes[index], position);
+  range.collapse(true);
+
+  sel.removeAllRanges();
+  sel.addRange(range);
+  editableElem.focus();
+}
+// ______________________________________________________________
 function tagNoteHandler() {
-  const noteSplited = addNoteContent.value.split(" ");
-  noteSplited.push("#");
-  addNoteContent.value = noteSplited.join(" ");
-  addNoteContent.focus();
+  state.tagMode = !state.tagMode;
+  const addNoteContainer = document.querySelector("#add-note__container");
+  const addNoteContent =
+    addNoteContainer.children[addNoteContainer.childElementCount - 1];
+  const span = document.createElement("span");
+  span.classList.add("add-note__statement");
+  span.innerText = " ";
+  const tag = document.createElement("span");
+  tag.classList.add("add-note__tag");
+  tag.innerText = "#";
+  addNoteContent.appendChild(tag);
+  addNoteContent.appendChild(span);
+  setCursorEditable(tag, 0, 1);
 }
 // ______________________________________________________________
 window.addEventListener("load", loadNotes);
@@ -291,9 +312,70 @@ sideNotesList.addEventListener("click", sideNotesHandler);
 tagNote.addEventListener("click", tagNoteHandler);
 // ______________________________________________________________
 listNote.addEventListener("click", (e) => {
-  const oldText = addNoteContent.value;
-  const newText = `1-\n 2-\n 3-\n`;
-  const newNote = `${oldText} \n ${newText}`;
-  addNoteContent.value = newNote;
-  // state.listMode = !state.listMode;
+  // const newText = `1-\n 2-\n 3-\n`;
+  // addNoteContent.value = newNote;
+  if (state.listMode) {
+    addNoteContent.classList.add("flex-grow");
+    addNoteList.classList.remove("flex-grow");
+    const contentText = addNoteContent.value;
+    const listText = addNoteList.innerText;
+    document.getElementById("list").innerHTML = addNoteList.innerHTML;
+    console.log(addNoteList.innerHTML);
+    const newNote = `${contentText} \n ${listText}`;
+
+    addNoteContent.value = newNote;
+    addNoteList.innerText = "";
+  } else {
+    addNoteContent.classList.remove("flex-grow");
+    addNoteList.classList.add("flex-grow");
+    const listItem = document.createElement("li");
+    // const input = document.createElement("input");
+    // listItem.appendChild(input);
+    listItem.tabIndex = 2;
+    listItem.contentEditable = true;
+    listItem.classList.add("add-note__list__item");
+
+    addNoteList.appendChild(listItem);
+    addNoteList.focus();
+    // addNoteList.children[0].children[0].focus();
+  }
+  state.listMode = !state.listMode;
 });
+// ______________________________________________________________
+window.addEventListener("keypress", (e) => {
+  if (
+    e.target.parentElement.className == "add-note__list__item" &&
+    e.key === "Enter"
+  ) {
+    const listItem = document.createElement("li");
+    // const input = document.createElement("input");
+    // listItem.appendChild(input);
+    listItem.tabIndex = 2;
+    listItem.contentEditable = true;
+    listItem.classList.add("add-note__list__item");
+    addNoteList.appendChild(listItem);
+    addNoteList.children[addNoteList.children.length - 1].children[0].focus();
+  }
+  // else if (e.key === "Enter") {
+  //   e.preventDefault();
+  // }
+});
+// ______________________________________________________________
+
+addNoteContainer.addEventListener("keypress", (e) => {
+  if (state.tagMode) {
+    if (e.key == " ") {
+      const addNoteContainer = document.querySelector("#add-note__container");
+      const addNoteContent =
+        addNoteContainer.children[addNoteContainer.childElementCount - 1];
+
+      // addNoteContent.innerHTML.slice(0, -4);
+      const length = addNoteContent.childNodes.length - 1;
+      console.log(length, addNoteContent.childNodes[length]);
+      setCursorEditable(addNoteContent, length);
+
+      state.tagMode = false;
+    }
+  }
+});
+// on click on addNoteContainer set the addNoteContentNode index

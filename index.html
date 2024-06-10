@@ -58,15 +58,20 @@
         </div>
 
         <!------------ ADD NOTE CONTENT INPUT ------------>
-        <textarea
+        <div
+          class="content-container"
+          id="add-note__container"
           contenteditable="true"
-          id="add-note__content"
-          placeholder="content"
-        ></textarea>
+        >
+          <div class="add-note__content">
+            <span class="add-note__statement">&nbsp;</span>
+          </div>
+        </div>
+
         <!------------ ADD NOTE CONTENT INPUT ------------>
 
         <!------------ ADD NOTE ACTION BUTTONS ------------>
-        <ul class="add-note__nav">
+        <ul class="add-note__nav" id="add-note__nav">
           <li id="save-note" title="save">&#10003;</li>
           <li id="list-note" title="list">&#9776;</li>
           <li id="tag-note" title="tag">#</li>
