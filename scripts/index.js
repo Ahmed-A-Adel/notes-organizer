@@ -112,12 +112,27 @@ function getFromStorage(notes) {
   return notesObj;
 }
 // ______________________________________________________________
+function resetAddNote(title = true) {
+  const addNoteContainer = document.querySelector("#add-note__container");
+  addNoteContainer.innerHTML = "";
+  const addNoteContent = document.createElement("div");
+  addNoteContent.classList.add("add-note__content");
+  const span = document.createElement("span");
+  span.classList.add("add-note__statement");
+  span.innerHTML = "&nbsp";
+  addNoteContent.appendChild(span);
+  addNoteContainer.appendChild(addNoteContent);
+  setCursorEditable(span, 0, 0);
+  if (title) {
+    const addNoteTitle = document.getElementById("add-note__title");
+    addNoteTitle.value = "";
+  }
+}
+// ______________________________________________________________
 function renderNotes(notes) {
   state.notes = notes;
   // only the first 10 notes to show in the sidebar
   sideNotesList.innerHTML = notesToHtml(notes.slice(0, 10));
-  addNoteTitle.value = "";
-  addNoteContent.value = "";
 }
 // ______________________________________________________________
 function loadNotes() {
@@ -125,6 +140,7 @@ function loadNotes() {
   renderNotes(notes);
   addNoteTitle.focus();
 }
+
 // ______________________________________________________________
 function addNoteHandler(event) {
   event.preventDefault();
@@ -137,16 +153,17 @@ function addNoteHandler(event) {
 
   // ---------------- Save Note When Edit ------------------------
   if (state.notes.some((note) => note.edit)) {
-    const tags = addNoteContent.value
-      .split(" ")
-      .filter((tag) => tag[0] === "#");
+    const markup = document.querySelector("#add-note__container").innerHTML;
+    const content = document.querySelector(".add-note__content").innerText;
+    const tags = content.split(" ").filter((tag) => tag[0] === "#");
     const note = state.notes.filter((note) => note.edit)[0];
     const slicedNotes = state.notes.filter((note) => !note.edit);
     const notes = [
       {
         ...note,
         title: addNoteTitle.value,
-        content: addNoteContent.value,
+        content: content,
+        markup,
         edit: false,
         tags,
       },
@@ -155,6 +172,7 @@ function addNoteHandler(event) {
     renderNotes(notes);
     addToStorage(notes);
     toggleTime("now");
+    resetAddNote();
     return null;
   }
   // ---------------- Save Note When Edit ------------------------
@@ -162,12 +180,15 @@ function addNoteHandler(event) {
   // ---------------- Add New Note ------------------------
   const noteId = new Uint32Array(1);
   crypto.getRandomValues(noteId);
-  const tags = addNoteContent.value.split(" ").filter((tag) => tag[0] === "#");
+  const markup = document.querySelector("#add-note__container").innerHTML;
+  const content = document.querySelector(".add-note__content").innerText;
+  const tags = content.split(" ").filter((tag) => tag[0] === "#");
   const notes = getFromStorage("notes") || state.notes;
   const newNote = {
     id: noteId[0],
     title: addNoteTitle.value,
-    content: addNoteContent.value,
+    content,
+    markup,
     date: state.date,
     time: state.time,
     complate: true,
@@ -178,20 +199,26 @@ function addNoteHandler(event) {
   const newNotes = notes ? [newNote, ...notes] : [newNote, ...state.notes];
   renderNotes(newNotes);
   addToStorage(newNotes);
+  resetAddNote();
   timeNote.innerText = state.time;
   dateNote.innerText = state.date;
   // ---------------- Add New Note ------------------------
 }
 // ______________________________________________________________
 const clearNoteHandler = () => {
-  if (addNoteContent.value !== "") addNoteContent.value = "";
-  else addNoteTitle.value = "";
+  const addNoteContainer = document.querySelector("#add-note__container");
+  if (addNoteContainer.innerText != false) {
+    resetAddNote(false);
+  } else {
+    addNoteTitle.value = "";
+  }
 };
 // ______________________________________________________________
 function editSideNote(id, pen) {
   const pens = document.getElementsByClassName("pen-in");
   const lines = document.getElementsByClassName("pen-line-in");
   const note = state.notes.filter((note) => note.id == id)[0];
+  const container = document.querySelector("#add-note__container");
   const notes = [
     ...state.notes
       .filter((note) => note.id != id)
@@ -209,9 +236,8 @@ function editSideNote(id, pen) {
 
   // ____________ Reset AddNote inputes _______
   if (note.edit) {
-    addNoteTitle.value = "";
-    addNoteContent.value = "";
     state.notes = notes;
+    resetAddNote();
     // --------- Animation ------------------
     pen.icon.classList.remove("pen-in");
     pen.line.classList.remove("pen-line-in");
@@ -220,7 +246,7 @@ function editSideNote(id, pen) {
   } else {
     // _______ Display current Note _________
     addNoteTitle.value = note.title;
-    addNoteContent.value = note.content;
+    container.innerHTML = note.markup;
     state.notes = notes;
     // --------- Animation ------------------
     pen.icon.classList.add("pen-in");
@@ -231,17 +257,16 @@ function editSideNote(id, pen) {
     dateNote.innerText = note.date;
     toggleTime("note");
   }
-  addNoteContent.focus();
 }
 // ______________________________________________________________
 function deleteSideNote(id) {
   const note = state.notes.filter((note) => note.id == id)[0];
   const notes = [...state.notes.filter((note) => note.id != id)];
   const notesHtml = notesToHtml(notes.slice(0, 10));
+
   // --------------------------------------------------------
   if (note.edit) {
-    addNoteTitle.value = "";
-    addNoteContent.value = "";
+    resetAddNote();
   }
   state.notes = notes;
   addToStorage(notes);
@@ -312,18 +337,15 @@ sideNotesList.addEventListener("click", sideNotesHandler);
 tagNote.addEventListener("click", tagNoteHandler);
 // ______________________________________________________________
 listNote.addEventListener("click", (e) => {
-  // const newText = `1-\n 2-\n 3-\n`;
-  // addNoteContent.value = newNote;
   if (state.listMode) {
     addNoteContent.classList.add("flex-grow");
     addNoteList.classList.remove("flex-grow");
-    const contentText = addNoteContent.value;
+    const contentText = addNoteContainer.innerHTML;
     const listText = addNoteList.innerText;
     document.getElementById("list").innerHTML = addNoteList.innerHTML;
-    console.log(addNoteList.innerHTML);
     const newNote = `${contentText} \n ${listText}`;
 
-    addNoteContent.value = newNote;
+    addNoteContainer.innerHTML = newNote;
     addNoteList.innerText = "";
   } else {
     addNoteContent.classList.remove("flex-grow");
@@ -371,7 +393,6 @@ addNoteContainer.addEventListener("keypress", (e) => {
 
       // addNoteContent.innerHTML.slice(0, -4);
       const length = addNoteContent.childNodes.length - 1;
-      console.log(length, addNoteContent.childNodes[length]);
       setCursorEditable(addNoteContent, length);
 
       state.tagMode = false;
