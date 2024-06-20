@@ -144,6 +144,9 @@ function loadNotes() {
 // ______________________________________________________________
 function addNoteHandler(event) {
   event.preventDefault();
+  const markup = document.querySelector("#add-note__container").innerHTML;
+  const content = document.querySelector("#add-note__container").innerText;
+  const tags = content.split(" ").filter((tag) => tag[0] === "#");
 
   // ---------------- Authntication ------------------------------
   if (/^\s/.test(addNoteTitle.value, "g")) return null;
@@ -153,9 +156,6 @@ function addNoteHandler(event) {
 
   // ---------------- Save Note When Edit ------------------------
   if (state.notes.some((note) => note.edit)) {
-    const markup = document.querySelector("#add-note__container").innerHTML;
-    const content = document.querySelector(".add-note__content").innerText;
-    const tags = content.split(" ").filter((tag) => tag[0] === "#");
     const note = state.notes.filter((note) => note.edit)[0];
     const slicedNotes = state.notes.filter((note) => !note.edit);
     const notes = [
@@ -180,9 +180,6 @@ function addNoteHandler(event) {
   // ---------------- Add New Note ------------------------
   const noteId = new Uint32Array(1);
   crypto.getRandomValues(noteId);
-  const markup = document.querySelector("#add-note__container").innerHTML;
-  const content = document.querySelector(".add-note__content").innerText;
-  const tags = content.split(" ").filter((tag) => tag[0] === "#");
   const notes = getFromStorage("notes") || state.notes;
   const newNote = {
     id: noteId[0],
