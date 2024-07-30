@@ -1,9 +1,9 @@
 // ------------ Nav List ---------------------------------------
-const saveNote = document.getElementById("save-note");
-const listNote = document.getElementById("list-note");
-const tagNote = document.getElementById("tag-note");
-const doneNote = document.getElementById("done-note");
-const clearNote = document.getElementById("clear-note");
+const saveNote = document.getElementById("note__save");
+const listNote = document.getElementById("note__add-list");
+const pointNote = document.getElementById("note__add-point");
+const tagNote = document.getElementById("note__add-tag");
+const clearNote = document.getElementById("note__clear");
 const editNote = document.getElementById("edit-note");
 const deleteNote = document.getElementById("delete-note");
 const colorNote = document.getElementById("color-note");
@@ -47,6 +47,7 @@ const state = {
   darkmode: false,
   listMode: false,
   tagMode: false,
+  addPoint: false,
   listItems: [],
   date: "",
   time: "",
@@ -129,6 +130,23 @@ function resetAddNote(title = true) {
   }
 }
 // ______________________________________________________________
+function resetAddNote(title = true) {
+  const addNoteContainer = document.querySelector("#add-note__container");
+  addNoteContainer.innerHTML = "";
+  const addNoteContent = document.createElement("div");
+  addNoteContent.classList.add("add-note__content");
+  const span = document.createElement("span");
+  span.classList.add("add-note__statement");
+  span.innerHTML = "&nbsp";
+  addNoteContent.appendChild(span);
+  addNoteContainer.appendChild(addNoteContent);
+  setCursorEditable(span, 0, 0);
+  if (title) {
+    const addNoteTitle = document.getElementById("add-note__title");
+    addNoteTitle.value = "";
+  }
+}
+// ______________________________________________________________
 function renderNotes(notes) {
   state.notes = notes;
   // only the first 10 notes to show in the sidebar
@@ -164,6 +182,8 @@ function addNoteHandler(event) {
         title: addNoteTitle.value,
         content: content,
         markup,
+        content: content,
+        markup,
         edit: false,
         tags,
       },
@@ -184,6 +204,8 @@ function addNoteHandler(event) {
   const newNote = {
     id: noteId[0],
     title: addNoteTitle.value,
+    content,
+    markup,
     content,
     markup,
     date: state.date,
@@ -264,6 +286,7 @@ function deleteSideNote(id) {
   // --------------------------------------------------------
   if (note.edit) {
     resetAddNote();
+    resetAddNote();
   }
   state.notes = notes;
   addToStorage(notes);
@@ -323,6 +346,24 @@ function tagNoteHandler() {
   setCursorEditable(tag, 0, 1);
 }
 // ______________________________________________________________
+function pointNoteHandler() {
+  state.addPoint = true;
+  const addNoteContainer = document.querySelector("#add-note__container");
+  const div = document.createElement("div");
+  div.classList.add("point-container");
+  const h2 = document.createElement("h2");
+  h2.classList.add("add-note__heading");
+  h2.innerHTML = "&nbsp";
+  h2.style.minHeight = "30px";
+  const p = document.createElement("p");
+  p.classList.add("add-note__content");
+  p.innerHTML = "&nbsp";
+  div.appendChild(h2);
+  div.appendChild(p);
+  addNoteContainer.appendChild(div);
+  setCursorEditable(h2, 0, 0);
+}
+// ______________________________________________________________
 window.addEventListener("load", loadNotes);
 // ______________________________________________________________
 saveNote.addEventListener("click", addNoteHandler);
@@ -332,6 +373,8 @@ clearNote.addEventListener("click", clearNoteHandler);
 sideNotesList.addEventListener("click", sideNotesHandler);
 // ______________________________________________________________
 tagNote.addEventListener("click", tagNoteHandler);
+// ______________________________________________________________
+pointNote.addEventListener("click", pointNoteHandler);
 // ______________________________________________________________
 listNote.addEventListener("click", (e) => {
   if (state.listMode) {
@@ -381,19 +424,34 @@ window.addEventListener("keypress", (e) => {
 });
 // ______________________________________________________________
 
+// addNoteContainer.addEventListener("keypress", (e) => {
+//   if (state.tagMode) {
+//     if (e.key == " ") {
+//       const addNoteContainer = document.querySelector("#add-note__container");
+//       const addNoteContent =
+//         addNoteContainer.children[addNoteContainer.childElementCount - 1];
+
+//       // addNoteContent.innerHTML.slice(0, -4);
+//       const length = addNoteContent.childNodes.length - 1;
+//       setCursorEditable(addNoteContent, length);
+
+//       state.tagMode = false;
+//     }
+//   }
+// });
 addNoteContainer.addEventListener("keypress", (e) => {
-  if (state.tagMode) {
-    if (e.key == " ") {
-      const addNoteContainer = document.querySelector("#add-note__container");
+  if (e.key == "Enter") {
+    if (state.addPoint) {
+      e.preventDefault();
+      const addNoteContentNodes =
+        document.querySelectorAll(".add-note__content");
       const addNoteContent =
-        addNoteContainer.children[addNoteContainer.childElementCount - 1];
-
-      // addNoteContent.innerHTML.slice(0, -4);
-      const length = addNoteContent.childNodes.length - 1;
-      setCursorEditable(addNoteContent, length);
-
-      state.tagMode = false;
+        addNoteContentNodes[addNoteContentNodes.length - 1];
+      console.log(addNoteContentNodes, addNoteContent);
+      const length = addNoteContentNodes.length - 1;
+      setCursorEditable(addNoteContent, 0, 0);
     }
+    state.addPoint = false;
   }
 });
 // on click on addNoteContainer set the addNoteContentNode index

@@ -83,9 +83,17 @@
   background-color: inherit;
   text-transform: capitalize;
   outline: none;
+  padding: 0 0 1rem 2rem;
+}
+.add-note__heading {
+  color: var(--black);
+  min-height: 3ch;
+  text-decoration: underline 1px solid black;
 }
 .add-note__content {
   min-height: 3ch;
+  color: var(--white);
+  text-shadow: var(--shadow);
 }
 .add-note__statement {
   display: inline-block;
