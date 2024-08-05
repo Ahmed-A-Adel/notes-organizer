@@ -17,6 +17,7 @@ const addNoteInput = document.getElementById("add-note__input");
 const addNoteList = document.querySelector(".add-note__list");
 const addNoteNav = document.querySelector(".add-note__nav");
 const sideNotes = document.getElementById("side-notes");
+const sideNotesBtn = document.querySelector("#side-notes .side-notes__btn");
 const sideNotesList = document.getElementById("side-notes__list");
 const timeNow = document.getElementById("time-now");
 const timeNote = document.getElementById("time-note");
@@ -316,7 +317,17 @@ function sideNotesHandler(e) {
         icon: target.parentElement,
         target,
       });
+      break;
   }
+}
+
+// ______________________________________________________________
+function toggleSideNotes(e) {
+  const target = e.target;
+  target.parentElement.previousElementSibling.classList.toggle("span-add-note");
+  target.parentElement.classList.toggle("hide-notes-aside");
+  target.nextElementSibling.classList.toggle("hide-notes-list");
+  target.classList.toggle("hide-notes-btn");
 }
 // ______________________________________________________________
 function setCursorEditable(editableElem, index, position = 1) {
@@ -370,7 +381,9 @@ saveNote.addEventListener("click", addNoteHandler);
 // ______________________________________________________________
 clearNote.addEventListener("click", clearNoteHandler);
 // ______________________________________________________________
-sideNotesList.addEventListener("click", sideNotesHandler);
+sideNotes.addEventListener("click", sideNotesHandler);
+// ______________________________________________________________
+sideNotesBtn.addEventListener("click", toggleSideNotes);
 // ______________________________________________________________
 tagNote.addEventListener("click", tagNoteHandler);
 // ______________________________________________________________

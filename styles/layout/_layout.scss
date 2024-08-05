@@ -4,9 +4,10 @@
 }
 
 .main-index {
-  display: grid;
-  grid-template-columns: 1fr 25%;
-  justify-content: center;
+  display: flex;
+  // grid-template-columns: 1fr 25%;
+  // grid-template-rows: 100%;
+  justify-content: space-between;
   column-gap: var(--margin);
   margin: var(--margin);
 }

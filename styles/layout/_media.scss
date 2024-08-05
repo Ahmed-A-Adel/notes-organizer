@@ -1,22 +1,58 @@
+@media screen and (min-width: 720px) {
+  .span-add-note {
+    width: 97%;
+  }
+  .hide-notes-aside {
+    width: 3% !important;
+    grid-template-columns: 1fr;
+  }
+  .hide-notes-btn {
+    transform: rotateY(180deg) translateX(30%);
+    justify-self: start;
+  }
+}
 @media screen and (max-width: 720px) {
+  .span-add-note {
+    height: 97%;
+  }
   .body-index {
     grid-template-rows: 10vh 80vh 10vh;
   }
   .main-index {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 20%;
+    flex-direction: column;
     gap: var(--margin);
   }
   .add-note {
     grid-template-rows: auto 1fr 10%;
     grid-template-columns: 1fr;
+    width: 100%;
+    min-height: 60%;
+    max-height: 100%;
+
     &__nav {
       display: flex;
       grid-column: 1/2;
       grid-row: 3/4;
     }
   }
-  .side-notes {
+  #side-notes {
+    width: 100%;
+    height: 35%;
+    grid-auto-flow: row;
+    grid-template-columns: auto;
+  }
+  .hide-notes-aside {
+    height: 3% !important;
+    grid-template-columns: 1fr;
+  }
+  .side-notes__btn {
+    align-self: flex-start;
+    justify-self: center;
+    position: absolute;
+    transform: rotateZ(-270deg) translateX(-50%);
+  }
+  .hide-notes-btn {
+    transform: rotateZ(270deg) translateX(50%);
   }
   .prev-note:hover .prev-note__content,
   .prev-note:focus .prev-note__content {

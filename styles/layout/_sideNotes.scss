@@ -1,21 +1,36 @@
 #side-notes {
+  width: 25%;
   display: grid;
-  gap: var(--margin);
-  padding: var(--padding);
-
+  grid-auto-flow: column;
+  grid-auto-columns: 10% 1fr;
   background-color: var(--prim-color);
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-radius: 6px;
   box-shadow: -3px 3px 7px 1px var(--ligh-brown);
-  overflow-y: scroll;
-  overflow-y: scroll;
+  transition: var(--transition);
 }
 #side-notes:focus {
   outline: 2px solid black;
+}
+.list-container {
+  padding: var(--padding);
+  overflow-y: scroll;
+  transition: var(--transition);
 }
 #side-notes__list {
   display: flex;
   flex-direction: column;
   gap: var(--margin);
+}
+.side-notes__btn {
+  position: relative;
+  align-self: center;
+  justify-self: end;
+
+  font-size: 5rem;
+  color: rgb(255, 255, 255);
+  text-shadow: 0 0 5px rgb(255, 255, 255);
+  cursor: pointer;
+  transition: var(--transition);
 }
