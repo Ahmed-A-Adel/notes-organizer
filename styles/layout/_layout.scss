@@ -1,16 +1,27 @@
 .body-index {
+  // display: grid;
+  // grid-template-rows: 15vh auto 10vh;
+  height: 100vh;
   display: grid;
-  grid-template-rows: 15vh 75vh 10vh;
+  align-items: stretch;
+  overflow: hidden;
 }
-
+.nav-index {
+  opacity: 1;
+  height: 10vh;
+}
 .main-index {
   display: flex;
+  height: 72vh;
   // grid-template-columns: 1fr 25%;
   // grid-template-rows: 100%;
   justify-content: space-between;
   column-gap: var(--margin);
   margin: var(--margin);
+  align-self: center;
 }
 .footer-index {
+  min-height: auto;
   grid-column: 1/-1;
+  opacity: 1;
 }

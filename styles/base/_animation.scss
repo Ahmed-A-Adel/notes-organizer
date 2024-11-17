@@ -19,3 +19,14 @@
 .pen-in {
   transform: rotateY(180deg) translateX(50%);
 }
+.nav-index {
+  transition: all 0.1s;
+  opacity: 1;
+}
+.main-index {
+  transition: height 0.2s;
+}
+.footer-index {
+  transition: all 0.1s;
+  opacity: 1;
+}

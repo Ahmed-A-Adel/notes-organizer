@@ -18,3 +18,26 @@
   opacity: 0;
   display: none;
 }
+
+.full-view {
+  // display: grid;
+  height: 100vh;
+  & .nav-index {
+    opacity: 0;
+    height: 2vh;
+    padding: 0;
+    & > * {
+      display: none;
+    }
+  }
+  & .main-index {
+    height: 90.8vh;
+  }
+  & .footer-index {
+    opacity: 0;
+    height: 4vh;
+    & > * {
+      display: none;
+    }
+  }
+}
