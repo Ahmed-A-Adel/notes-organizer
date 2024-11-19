@@ -50,6 +50,7 @@ const state = {
   listMode: false,
   tagMode: false,
   addPoint: false,
+  fullView: false,
   listItems: [],
   date: "",
   time: "",
@@ -386,7 +387,10 @@ function pointNoteHandler() {
   setCursorEditable(h2, 0, 0);
 }
 // ______________________________________________________________
-function addNoteFullViewHandler() {
+function fullViewHandler() {
+  state.fullView = !state.fullView;
+  document.querySelector(".full-view--false").classList.toggle("hidden");
+  document.querySelector(".full-view--true").classList.toggle("hidden");
   document.querySelector(".body-index").classList.toggle("full-view");
   if (sideNotes.classList.contains("hide-notes-aside")) return null;
   toggleSideNotes();
@@ -408,7 +412,7 @@ pointNote.addEventListener("click", pointNoteHandler);
 // ______________________________________________________________
 sideNotesBtn.addEventListener("click", toggleSideNotes);
 // ______________________________________________________________
-addNoteFullView.addEventListener("click", addNoteFullViewHandler);
+addNoteFullView.addEventListener("click", fullViewHandler);
 // ______________________________________________________________
 listNote.addEventListener("click", (e) => {
   if (state.listMode) {

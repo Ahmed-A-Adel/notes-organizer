@@ -41,3 +41,24 @@
     }
   }
 }
+#note__full-view {
+  position: relative;
+  // background-color: green;
+  width: 2.5rem;
+  height: 2.5rem;
+  & .full-view--true {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  & .full-view--false {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+.hidden {
+  opacity: 0;
+}
