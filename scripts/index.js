@@ -185,8 +185,6 @@ function addNoteHandler(event) {
         title: addNoteTitle.value,
         content: content,
         markup,
-        content: content,
-        markup,
         edit: false,
         tags,
       },
@@ -371,6 +369,7 @@ function tagNoteHandler() {
 // ______________________________________________________________
 function pointNoteHandler() {
   state.addPoint = true;
+  state.listMode = false;
   const addNoteContainer = document.querySelector("#add-note__container");
   const div = document.createElement("div");
   div.classList.add("point-container");
@@ -415,51 +414,44 @@ sideNotesBtn.addEventListener("click", toggleSideNotes);
 addNoteFullView.addEventListener("click", fullViewHandler);
 // ______________________________________________________________
 listNote.addEventListener("click", (e) => {
-  if (state.listMode) {
-    addNoteContent.classList.add("flex-grow");
-    addNoteList.classList.remove("flex-grow");
-    const contentText = addNoteContainer.innerHTML;
-    const listText = addNoteList.innerText;
-    document.getElementById("list").innerHTML = addNoteList.innerHTML;
-    const newNote = `${contentText} \n ${listText}`;
-
-    addNoteContainer.innerHTML = newNote;
-    addNoteList.innerText = "";
-  } else {
-    addNoteContent.classList.remove("flex-grow");
-    addNoteList.classList.add("flex-grow");
+  if (!state.listMode) {
+    const addNoteContainer = document.querySelector("#add-note__container");
+    const list = document.createElement("ol");
     const listItem = document.createElement("li");
-    // const input = document.createElement("input");
-    // listItem.appendChild(input);
-    listItem.tabIndex = 2;
-    listItem.contentEditable = true;
-    listItem.classList.add("add-note__list__item");
-
-    addNoteList.appendChild(listItem);
-    addNoteList.focus();
-    // addNoteList.children[0].children[0].focus();
+    list.style.listStyleType = "A";
+    list.classList.add("add-note__list");
+    listItem.classList.add("add-note__list-item");
+    listItem.innerHTML = "&nbsp";
+    list.appendChild(listItem);
+    addNoteContainer.appendChild(list);
+    setCursorEditable(listItem, 0, 0);
+  } else {
+    const div = document.createElement("div");
+    div.innerHTML = "&nbsp";
+    addNoteContainer.appendChild(div);
+    setCursorEditable(div, 0, 0);
   }
   state.listMode = !state.listMode;
 });
 // ______________________________________________________________
-window.addEventListener("keypress", (e) => {
-  if (
-    e.target.parentElement.className == "add-note__list__item" &&
-    e.key === "Enter"
-  ) {
-    const listItem = document.createElement("li");
-    // const input = document.createElement("input");
-    // listItem.appendChild(input);
-    listItem.tabIndex = 2;
-    listItem.contentEditable = true;
-    listItem.classList.add("add-note__list__item");
-    addNoteList.appendChild(listItem);
-    addNoteList.children[addNoteList.children.length - 1].children[0].focus();
-  }
-  // else if (e.key === "Enter") {
-  //   e.preventDefault();
-  // }
-});
+// window.addEventListener("keypress", (e) => {
+//   if (
+//     e.target.parentElement.className == "add-note__list__item" &&
+//     e.key === "Enter"
+//   ) {
+//     const listItem = document.createElement("li");
+//     // const input = document.createElement("input");
+//     // listItem.appendChild(input);
+//     listItem.tabIndex = 2;
+//     listItem.contentEditable = true;
+//     listItem.classList.add("add-note__list__item");
+//     addNoteList.appendChild(listItem);
+//     addNoteList.children[addNoteList.children.length - 1].children[0].focus();
+//   }
+//   // else if (e.key === "Enter") {
+//   //   e.preventDefault();
+//   // }
+// });
 // ______________________________________________________________
 
 // addNoteContainer.addEventListener("keypress", (e) => {
