@@ -119,31 +119,11 @@ function getFromStorage(notes) {
 function resetAddNote(title = true) {
   const addNoteContainer = document.querySelector("#add-note__container");
   addNoteContainer.innerHTML = "";
-  const addNoteContent = document.createElement("div");
+  const addNoteContent = document.createElement("p");
   addNoteContent.classList.add("add-note__content");
-  const span = document.createElement("span");
-  span.classList.add("add-note__statement");
-  span.innerHTML = "&nbsp";
-  addNoteContent.appendChild(span);
+  addNoteContent.innerHTML = "&nbsp";
   addNoteContainer.appendChild(addNoteContent);
-  setCursorEditable(span, 0, 0);
-  if (title) {
-    const addNoteTitle = document.getElementById("add-note__title");
-    addNoteTitle.value = "";
-  }
-}
-// ______________________________________________________________
-function resetAddNote(title = true) {
-  const addNoteContainer = document.querySelector("#add-note__container");
-  addNoteContainer.innerHTML = "";
-  const addNoteContent = document.createElement("div");
-  addNoteContent.classList.add("add-note__content");
-  const span = document.createElement("span");
-  span.classList.add("add-note__statement");
-  span.innerHTML = "&nbsp";
-  addNoteContent.appendChild(span);
-  addNoteContainer.appendChild(addNoteContent);
-  setCursorEditable(span, 0, 0);
+  setCursorEditable(addNoteContent, 0, 0);
   if (title) {
     const addNoteTitle = document.getElementById("add-note__title");
     addNoteTitle.value = "";

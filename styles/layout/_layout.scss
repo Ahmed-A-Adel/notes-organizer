@@ -13,12 +13,20 @@
 .main-index {
   display: flex;
   height: 72vh;
-  // grid-template-columns: 1fr 25%;
-  // grid-template-rows: 100%;
   justify-content: space-between;
   column-gap: var(--margin);
   margin: var(--margin);
   align-self: center;
+}
+.title-container {
+  position: relative;
+}
+.date-container {
+  position: absolute;
+  width: 100%;
+}
+#add-note__title {
+  padding-block: 2rem;
 }
 .footer-index {
   min-height: auto;

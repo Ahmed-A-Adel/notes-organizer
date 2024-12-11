@@ -5,7 +5,6 @@
   grid-template-columns: 1fr auto;
   justify-items: stretch;
   align-items: stretch;
-  text-align: center;
 
   background-color: var(--prim-color);
   transition: outline 0.2s;
@@ -22,30 +21,20 @@
   border-top: 3px solid var(--ligh-brown);
 }
 
-#add-note__input,
-.add-note textarea {
+#add-note__input {
   // padding: 1rem 2rem;
   box-sizing: border-box;
   height: 6ch;
   // grid-column: 1/ 2;
-
-  font-family: serif;
-  color: white;
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.365);
 }
 #add-note__title {
   width: 100%;
-
-  font-size: 3rem;
-  font-weight: lighter;
-  text-transform: uppercase;
-  text-align: center;
 
   background-color: inherit;
   border: none;
 }
 .add-note input {
-  // width: auto;s
+  // width: auto;
   background-color: inherit;
   border: none;
 }
@@ -62,50 +51,32 @@
   align-items: flex-start;
   overflow: auto;
 }
-.add-note__list {
-  padding: 1rem 2rem;
-  list-style-type: decimal;
-  text-align: left;
-  grid-column: 1/2;
-}
 
 .add-note__tag {
   background-color: rgb(236, 216, 65);
 }
-.add-note__list input {
-  // text-align: start;
-  // font-size: 1.2rem;
-}
+
 .content-container {
-  text-align: start;
   display: grid;
   align-items: start;
   align-content: start;
-  font-size: 2rem;
   background-color: inherit;
-  text-transform: capitalize;
   outline: none;
   padding: 0 0 1rem 2rem;
 }
+.point-container {
+  margin-bottom: var(--padding);
+}
 .add-note__heading {
-  color: var(--black);
   min-height: 3ch;
-  text-decoration: underline 1px solid black;
+  padding-bottom: 1rem;
 }
 .add-note__content {
   min-height: 3ch;
-  color: var(--white);
-  text-shadow: var(--shadow);
 }
-.add-note__statement {
-  display: inline-block;
-  color: green;
-}
+
 #add-note__input:focus {
   outline: none;
-}
-#add-note__time {
-  text-transform: uppercase;
 }
 
 .add-note__nav {

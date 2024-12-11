@@ -5,6 +5,11 @@
 
 .add-note {
   text-align: center;
+  color: var(--white);
+  text-shadow: var(--shadow);
+  & *::first-letter {
+    text-transform: uppercase;
+  }
 }
 
 .add-note__nav {
@@ -13,36 +18,43 @@
   text-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
 }
 
-#add-note__title,
-.add-note textarea {
-  font-family: serif;
-  color: white;
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.365);
-}
 #add-note__title {
+  font-family: serif;
+  color: inherit;
   font-size: 3rem;
   font-weight: lighter;
-  text-transform: uppercase;
   text-align: center;
-}
-.add-note__list input {
-  color: var(--black);
-  font-size: 1.5rem;
+  text-shadow: var(--shadow);
   text-transform: capitalize;
+
+  &::placeholder {
+    text-transform: capitalize;
+  }
 }
+
 .date-container {
-  color: var(--dark-red);
+  color: var(--white);
 }
 
 #add-note__time {
   text-transform: uppercase;
 }
 
-#add-note__content {
+#add-note__container {
   font-size: 2rem;
-  text-transform: capitalize;
 }
 
+.add-note__heading {
+  color: var(--black);
+  text-shadow: var(--shadow);
+  text-decoration: underline 1px solid black;
+}
+.add-note__list {
+  list-style-type: decimal;
+  text-align: left;
+  line-height: 3ch;
+  justify-self: center;
+}
 .footer-index {
   color: var(--prim-color);
   text-transform: capitalize;
