@@ -57,15 +57,18 @@ const state = {
 };
 
 // ------------ Functions ---------------------------------------
-function addTime(date) {
-  state.date = date.toLocaleDateString();
-  state.time = date.toLocaleTimeString();
-  dateNow.innerText = date.toLocaleDateString();
-  timeNow.innerText = date.toLocaleTimeString();
+function addTime(date, time) {
+  state.date = date;
+  state.time = time;
+  dateNow.innerText = date;
+  timeNow.innerText = time;
 }
 const callAddTime = setInterval(() => {
-  const date = new Date();
-  addTime(date);
+  const dateObject = new Date();
+  const date = dateObject.toLocaleDateString();
+  const time = dateObject.toLocaleTimeString();
+  const timeOutSec = `${time.split(" ")[0].slice(0, 4)} ${time.split(" ")[1]}`;
+  addTime(date, timeOutSec);
 });
 
 // ______________________________________________________________
