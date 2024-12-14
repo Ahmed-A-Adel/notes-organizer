@@ -119,6 +119,7 @@ function resetAddNote(title = true) {
     const addNoteTitle = document.getElementById("add-note__title");
     addNoteTitle.value = "";
   }
+  state.editMode = false;
 }
 // ______________________________________________________________
 function renderNotes(notes) {
