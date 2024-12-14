@@ -520,6 +520,10 @@ nav {
   transition: height 0.2s;
 }
 
+.date-container {
+  transition: opacity 0.2s;
+}
+
 .footer-index {
   transition: all 0.1s;
   opacity: 1;

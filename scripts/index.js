@@ -20,10 +20,10 @@ const addNoteNav = document.querySelector(".add-note__nav");
 const sideNotes = document.getElementById("side-notes");
 const sideNotesBtn = document.querySelector(".side-notes__btn");
 const sideNotesList = document.getElementById("side-notes__list");
-const timeNow = document.getElementById("time-now");
+const dateContainer = document.getElementById("date-container");
 const timeNote = document.getElementById("time-note");
-const dateNow = document.getElementById("date-now");
 const dateNote = document.getElementById("date-note");
+
 // ------------ App State --------------------------------------
 const state = {
   notes: [
@@ -47,6 +47,7 @@ const state = {
     },
   ],
   darkmode: false,
+  editMode: false,
   listMode: false,
   tagMode: false,
   addPoint: false,
@@ -60,8 +61,12 @@ const state = {
 function addTime(date, time) {
   state.date = date;
   state.time = time;
-  dateNow.innerText = date;
-  timeNow.innerText = time;
+  // Show Date & Time only on editMode
+  if (state.editMode) {
+    dateContainer.classList.remove("hidden");
+  } else {
+    dateContainer.classList.add("hidden");
+  }
 }
 const callAddTime = setInterval(() => {
   const dateObject = new Date();
@@ -70,23 +75,6 @@ const callAddTime = setInterval(() => {
   const timeOutSec = `${time.split(" ")[0].slice(0, 4)} ${time.split(" ")[1]}`;
   addTime(date, timeOutSec);
 });
-
-// ______________________________________________________________
-function toggleTime(time) {
-  switch (time) {
-    case "note":
-      timeNow.classList.add("remove");
-      dateNow.classList.add("remove");
-      timeNote.classList.remove("remove");
-      dateNote.classList.remove("remove");
-      break;
-    case "now":
-      timeNow.classList.remove("remove");
-      dateNow.classList.remove("remove");
-      timeNote.classList.add("remove");
-      dateNote.classList.add("remove");
-  }
-}
 // ______________________________________________________________
 const notesToHtml = (notes) =>
   notes
@@ -175,8 +163,8 @@ function addNoteHandler(event) {
     ];
     renderNotes(notes);
     addToStorage(notes);
-    toggleTime("now");
     resetAddNote();
+    state.editMode = false;
     return null;
   }
   // ---------------- Save Note When Edit ------------------------
@@ -245,7 +233,7 @@ function editSideNote(id, pen) {
     pen.icon.classList.remove("pen-in");
     pen.line.classList.remove("pen-line-in");
     // --------- Animation ------------------
-    toggleTime("now");
+    state.editMode = false;
   } else {
     // _______ Display current Note _________
     addNoteTitle.value = note.title;
@@ -258,7 +246,7 @@ function editSideNote(id, pen) {
     // --------- Display Date & Time --------
     timeNote.innerText = note.time;
     dateNote.innerText = note.date;
-    toggleTime("note");
+    state.editMode = true;
   }
 }
 // ______________________________________________________________
