@@ -109,18 +109,18 @@ function getFromStorage(notes) {
   return notesObj;
 }
 // ______________________________________________________________
-function resetAddNote(title = true) {
+function resetAddNote() {
   const addNoteContainer = document.querySelector("#add-note__container");
   addNoteContainer.innerHTML = "";
   const addNoteContent = document.createElement("p");
+  const addNoteTitle = document.getElementById("add-note__title");
+  addNoteTitle.value = "";
   addNoteContent.classList.add("add-note__content");
   addNoteContent.innerHTML = "&nbsp";
   addNoteContainer.appendChild(addNoteContent);
   setCursorEditable(addNoteContent, 0, 0);
-  if (title) {
-    const addNoteTitle = document.getElementById("add-note__title");
-    addNoteTitle.value = "";
-  }
+
+  state.editMode = false;
 }
 // ______________________________________________________________
 function renderNotes(notes) {
@@ -201,9 +201,9 @@ function addNoteHandler(event) {
 const clearNoteHandler = () => {
   const addNoteContainer = document.querySelector("#add-note__container");
   if (addNoteContainer.innerText != false) {
-    resetAddNote(false);
+    addNoteContainer.innerText = "";
   } else {
-    addNoteTitle.value = "";
+    resetAddNote();
   }
 };
 // ______________________________________________________________
@@ -262,7 +262,6 @@ function deleteSideNote(id) {
 
   // --------------------------------------------------------
   if (note.edit) {
-    resetAddNote();
     resetAddNote();
   }
   state.notes = notes;
