@@ -80,7 +80,9 @@ const notesToHtml = (notes) =>
   notes
     .map((note) => {
       const content = note.content.split(" ").slice(0, 9).join(" ");
-      return `<li tabindex="8" class="prev-note" id='${note.id}'>
+      return `<li onClick="prevNoteHandler(event)" tabindex="8" class="prev-note" id='${
+        note.id
+      }'>
         <div class="btn-container">
       <span  tabindex="9" title="edit" class="prev-note__edit">
       <button class="edit__icon">&#9998;
@@ -210,6 +212,8 @@ function editSideNote(id, pen) {
   const lines = document.getElementsByClassName("pen-line-in");
   const note = state.notes.filter((note) => note.id == id)[0];
   const container = document.querySelector("#add-note__container");
+  // ----- Reset All Notes Except the new one ------
+  // Set all notes edit to false
   const notes = [
     ...state.notes
       .filter((note) => note.id != id)
@@ -218,6 +222,7 @@ function editSideNote(id, pen) {
       }),
     { ...note, edit: !note.edit },
   ];
+  // Remove animation classes for pens & lines
   for (const pen of pens) {
     pen.classList.remove("pen-in");
   }
@@ -264,34 +269,6 @@ function deleteSideNote(id) {
   addToStorage(notes);
   sideNotesList.innerHTML = notesHtml;
 }
-// ______________________________________________________________
-function sideNotesHandler(e) {
-  const target = e.target;
-  const actionElement = target.parentElement.parentElement;
-  const parentNote = target.parentElement.parentElement.parentElement;
-  switch (target.classList[0]) {
-    case "prev-note__delete":
-      deleteSideNote(actionElement.id);
-      break;
-
-    case "edit__icon":
-      editSideNote(parentNote.id, {
-        icon: target,
-        line: target.firstElementChild,
-        target,
-      });
-      break;
-
-    case "edit__line":
-      editSideNote(parentNote.parentElement.id, {
-        line: target,
-        icon: target.parentElement,
-        target,
-      });
-      break;
-  }
-}
-
 // ______________________________________________________________
 function toggleSideNotes() {
   sideNotesBtn.parentElement.previousElementSibling.classList.toggle(
@@ -366,21 +343,42 @@ function fullViewHandler() {
   toggleSideNotes();
 }
 // ______________________________________________________________
+function prevNoteHandler(e) {
+  const target = e.target;
+  const currentTarget = e.currentTarget;
+
+  switch (target.classList[0]) {
+    case "prev-note__delete":
+      deleteSideNote(currentTarget.id);
+      break;
+
+    case "edit__icon":
+      editSideNote(currentTarget.id, {
+        icon: target,
+        line: target.firstElementChild,
+      });
+      break;
+
+    case "edit__line":
+      editSideNote(parentNote.id, {
+        line: target,
+        icon: target.parentElement,
+      });
+      break;
+  }
+}
+// ______________________________________________________________
 window.addEventListener("load", loadNotes);
 // ______________________________________________________________
 saveNote.addEventListener("click", addNoteHandler);
 // ______________________________________________________________
 clearNote.addEventListener("click", clearNoteHandler);
 // ______________________________________________________________
-sideNotes.addEventListener("click", sideNotesHandler);
-// ______________________________________________________________
 sideNotesBtn.addEventListener("click", toggleSideNotes);
 // ______________________________________________________________
 tagNote.addEventListener("click", tagNoteHandler);
 // ______________________________________________________________
 pointNote.addEventListener("click", pointNoteHandler);
-// ______________________________________________________________
-sideNotesBtn.addEventListener("click", toggleSideNotes);
 // ______________________________________________________________
 addNoteFullView.addEventListener("click", fullViewHandler);
 // ______________________________________________________________
