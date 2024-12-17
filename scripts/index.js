@@ -207,9 +207,14 @@ const clearNoteHandler = () => {
   }
 };
 // ______________________________________________________________
-function editSideNote(id, pen) {
+function editSideNote(target) {
+  const id = target.id;
   const pens = document.getElementsByClassName("pen-in");
   const lines = document.getElementsByClassName("pen-line-in");
+  const pen = target.querySelector(".edit__icon");
+  const line = target.querySelector(".edit__line");
+  const prevContents = document.querySelectorAll(".prev-note__content");
+  const prevContent = target.querySelector(".prev-note__content");
   const note = state.notes.filter((note) => note.id == id)[0];
   const container = document.querySelector("#add-note__container");
   // ----- Reset All Notes Except the new one ------
@@ -222,12 +227,15 @@ function editSideNote(id, pen) {
       }),
     { ...note, edit: !note.edit },
   ];
-  // Remove animation classes for pens & lines
+  // Remove animation classes for pens & lines & prev-contents
   for (const pen of pens) {
     pen.classList.remove("pen-in");
   }
   for (const line of lines) {
     line.classList.remove("pen-line-in");
+  }
+  for (const content of prevContents) {
+    content.classList.remove("span-content");
   }
 
   // ____________ Reset AddNote inputes _______
@@ -235,8 +243,9 @@ function editSideNote(id, pen) {
     state.notes = notes;
     resetAddNote();
     // --------- Animation ------------------
-    pen.icon.classList.remove("pen-in");
-    pen.line.classList.remove("pen-line-in");
+    pen.classList.remove("pen-in");
+    line.classList.remove("pen-line-in");
+    prevContent.classList.remove("span-content");
     // --------- Animation ------------------
     state.editMode = false;
   } else {
@@ -245,8 +254,9 @@ function editSideNote(id, pen) {
     container.innerHTML = note.markup;
     state.notes = notes;
     // --------- Animation ------------------
-    pen.icon.classList.add("pen-in");
-    pen.line.classList.add("pen-line-in");
+    pen.classList.add("pen-in");
+    line.classList.add("pen-line-in");
+    prevContent.classList.add("span-content");
     // --------- Animation ------------------
     // --------- Display Date & Time --------
     timeNote.innerText = note.time;
@@ -350,20 +360,8 @@ function prevNoteHandler(e) {
     case "prev-note__delete":
       deleteSideNote(currentTarget.id);
       break;
-
-    case "edit__icon":
-      editSideNote(currentTarget.id, {
-        icon: target,
-        line: target.firstElementChild,
-      });
-      break;
-
-    case "edit__line":
-      editSideNote(parentNote.id, {
-        line: target,
-        icon: target.parentElement,
-      });
-      break;
+    default:
+      editSideNote(currentTarget);
   }
 }
 // ______________________________________________________________
