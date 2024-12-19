@@ -1,3 +1,4 @@
+"use strict";
 // ------------ Nav List ---------------------------------------
 const saveNote = document.getElementById("note__save");
 const listNote = document.getElementById("note__add-list");
@@ -68,6 +69,7 @@ function addTime(date, time) {
     dateContainer.classList.add("hidden");
   }
 }
+
 const callAddTime = setInterval(() => {
   const dateObject = new Date();
   const date = dateObject.toLocaleDateString();
@@ -206,6 +208,7 @@ const clearNoteHandler = () => {
     resetAddNote();
   }
 };
+
 // ______________________________________________________________
 function editSideNote(target) {
   const id = target.id;
