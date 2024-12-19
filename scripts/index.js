@@ -59,9 +59,7 @@ const state = {
 };
 
 // ------------ Functions ---------------------------------------
-function addTime(date, time) {
-  state.date = date;
-  state.time = time;
+function toggleTime() {
   // Show Date & Time only on editMode
   if (state.editMode) {
     dateContainer.classList.remove("hidden");
@@ -70,13 +68,14 @@ function addTime(date, time) {
   }
 }
 
-const callAddTime = setInterval(() => {
+const addTime = setInterval(() => {
   const dateObject = new Date();
   const date = dateObject.toLocaleDateString();
   const time = dateObject.toLocaleTimeString();
   const timeOutSec = `${time.split(" ")[0].slice(0, 4)} ${time.split(" ")[1]}`;
-  addTime(date, timeOutSec);
-});
+  state.date = date;
+  state.time = timeOutSec;
+}, 1000);
 // ______________________________________________________________
 const notesToHtml = (notes) =>
   notes
@@ -251,6 +250,7 @@ function editSideNote(target) {
     prevContent.classList.remove("span-content");
     // --------- Animation ------------------
     state.editMode = false;
+    toggleTime();
   } else {
     // _______ Display current Note _________
     addNoteTitle.value = note.title;
@@ -265,6 +265,7 @@ function editSideNote(target) {
     timeNote.innerText = note.time;
     dateNote.innerText = note.date;
     state.editMode = true;
+    toggleTime();
   }
 }
 // ______________________________________________________________
