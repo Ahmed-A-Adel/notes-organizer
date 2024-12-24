@@ -168,6 +168,7 @@ function addNoteHandler(event) {
     addToStorage(notes);
     resetAddNote();
     state.editMode = false;
+    toggleTime();
     return null;
   }
   // ---------------- Save Note When Edit ------------------------
@@ -455,3 +456,20 @@ addNoteContainer.addEventListener("keypress", (e) => {
   }
 });
 // on click on addNoteContainer set the addNoteContentNode index
+
+const family = {
+  name: "ahmed",
+  members: ["son", "2 dougters", "father", "mother"],
+  salary: 10000,
+  rent: { oldRent: 550, newRrnt: 2000 },
+};
+const familyTwo = {
+  name: "ali",
+  members: ["3 son", "4 dougters", "father", "2 mother"],
+  salary: 8000,
+  rent: { oldRent: 550, newRrnt: 750 },
+};
+const [ahmed, , , , ali, restMembers] = [
+  ...family.members,
+  ...familyTwo.members,
+];
