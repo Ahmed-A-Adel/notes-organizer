@@ -1,4 +1,5 @@
 "use strict";
+import { state, addToStorage, getFromStorage, toggleTime } from "./modle.js";
 // ------------ Nav List ---------------------------------------
 const saveNote = document.getElementById("note__save");
 const listNote = document.getElementById("note__add-list");
@@ -26,95 +27,140 @@ const timeNote = document.getElementById("time-note");
 const dateNote = document.getElementById("date-note");
 
 // ------------ App State --------------------------------------
-const state = {
-  notes: [
-    {
-      id: 1,
-      title: "title 1",
-      content: "content",
-      complate: true,
-      tags: [],
-      edit: false,
-      order: 1,
-    },
-    {
-      id: 2,
-      title: "title 2",
-      content: "content",
-      complate: true,
-      tags: [],
-      edit: false,
-      order: 2,
-    },
-  ],
-  darkmode: false,
-  editMode: false,
-  listMode: false,
-  tagMode: false,
-  addPoint: false,
-  fullView: false,
-  listItems: [],
-  date: "",
-  time: "",
-};
+// const state = {
+//   notes: [
+//     {
+//       id: 1,
+//       title: "title 1",
+//       content: "content",
+//       complate: true,
+//       tags: [],
+//       edit: false,
+//       order: 1,
+//     },
+//     {
+//       id: 2,
+//       title: "title 2",
+//       content: "content",
+//       complate: true,
+//       tags: [],
+//       edit: false,
+//       order: 2,
+//     },
+//   ],
+//   darkmode: false,
+//   editMode: false,
+//   listMode: false,
+//   tagMode: false,
+//   addPoint: false,
+//   fullView: false,
+//   listItems: [],
+//   date: "",
+//   time: "",
+// };
 
-// ------------ Functions ---------------------------------------
-function toggleTime() {
-  // Show Date & Time only on editMode
-  if (state.editMode) {
-    dateContainer.classList.remove("hidden");
-  } else {
-    dateContainer.classList.add("hidden");
+//------------ Functions ---------------------------------------
+function prevNoteHandler(e) {
+  const target = e.target;
+  const currentTarget = e.currentTarget;
+
+  switch (target.classList[0]) {
+    case "prev-note__delete":
+      deleteSideNote(currentTarget.id);
+      break;
+    default:
+      editSideNote(currentTarget);
   }
 }
-
-const addTime = setInterval(() => {
-  const dateObject = new Date();
-  const date = dateObject.toLocaleDateString();
-  const time = dateObject.toLocaleTimeString();
-  const timeOutSec = `${time.split(" ")[0].slice(0, 4)} ${time.split(" ")[1]}`;
-  state.date = date;
-  state.time = timeOutSec;
-}, 1000);
 // ______________________________________________________________
-const notesToHtml = (notes) =>
-  notes
-    .map((note) => {
-      const content = note.content.split(" ").slice(0, 9).join(" ");
-      return `<li onClick="prevNoteHandler(event)" tabindex="8" class="prev-note" id='${
-        note.id
-      }'>
-        <div class="btn-container">
-      <span  tabindex="9" title="edit" class="prev-note__edit">
-      <button class="edit__icon">&#9998;
-      <div class="edit__line"></div>
-      </button>
-      </span>
-      <button tabindex="10" title="delete" class="prev-note__delete">&#10006;</button>
-      </div>
+// function toggleTime() {
+//   // Show Date & Time only on editMode
+//   if (state.editMode) {
+//     dateContainer.classList.remove("hidden");
+//   } else {
+//     dateContainer.classList.add("hidden");
+//   }
+// }
 
-      <span class="prev-note__title"> ${note.title}</span>
-      <span class="prev-note__content hidden"> "${
-        content || "waiting for inspiration"
-      }"</span>
-    </li>`;
-    })
-    .join(" ");
+// const addTime = setInterval(() => {
+//   const dateObject = new Date();
+//   const date = dateObject.toLocaleDateString();
+//   const time = dateObject.toLocaleTimeString();
+//   const timeOutSec = `${time.split(" ")[0].slice(0, 5)} ${time.split(" ")[1]}`;
+//   state.date = date;
+//   // state.time = time;
+//   state.time = timeOutSec;
+// }, 1000);
 // ______________________________________________________________
-function addToStorage(notes) {
-  const notesString = JSON.stringify(notes);
-  localStorage.setItem("notes", notesString);
-}
-function getFromStorage(notes) {
-  const notesObj = JSON.parse(localStorage.getItem(notes));
-  return notesObj;
-}
+const generatePrevNotes = (notes) => {
+  // +++ 1- Refactor this function to be more generic
+  // +++ 2- add DOM elements and HTML markup as Class props
+  const prevNotes = notes.map((note) => {
+    // Create prevNote element to inject html in it
+    const prevNote = document.createElement("li");
+    prevNote.classList.add("prev-note");
+    prevNote.id = note.id;
+    // Create prevNote element to inject html in it
+
+    const content = note.content.split(" ").slice(0, 9).join(" ");
+    const prevNoteChildren = `<div class="btn-container">
+    <span  tabindex="9" title="edit" class="prev-note__edit">
+    <button class="edit__icon">&#9998;
+    <div class="edit__line"></div>
+    </button>
+    </span>
+    <button tabindex="10" title="delete" class="prev-note__delete">&#10006;</button>
+    </div>
+    
+    <span class="prev-note__title"> ${note.title}</span>
+    <span class="prev-note__content hidden"> "${
+      content || "waiting for inspiration"
+    }"</span>`;
+
+    prevNote.innerHTML = prevNoteChildren;
+
+    prevNote.addEventListener("click", prevNoteHandler);
+    return prevNote;
+  });
+  // console.log(prevNote);
+  // ++++++++++++++++++++++++++++++++++++++++++++++
+  //   return `<li onClick="prevNoteHandler(event)" tabindex="8" class="prev-note" id='${
+  //     note.id
+  //   }'>
+  //       <div class="btn-container">
+  //     <span  tabindex="9" title="edit" class="prev-note__edit">
+  //     <button class="edit__icon">&#9998;
+  //     <div class="edit__line"></div>
+  //     </button>
+  //     </span>
+  //     <button tabindex="10" title="delete" class="prev-note__delete">&#10006;</button>
+  //     </div>
+
+  //     <span class="prev-note__title"> ${note.title}</span>
+  //     <span class="prev-note__content hidden"> "${
+  //       content || "waiting for inspiration"
+  //     }"</span>
+  //   </li>`;
+  // })
+  // .join(" ");
+  // console.log("HTML markup texst 🎈🎈🎈", prevNotes);
+  return prevNotes;
+};
+// ______________________________________________________________
+// function addToStorage(notes) {
+//   const notesString = JSON.stringify(notes);
+//   localStorage.setItem("notes", notesString);
+// }
+// function getFromStorage(notes) {
+//   const notesObj = JSON.parse(localStorage.getItem(notes));
+//   return notesObj;
+// }
 // ______________________________________________________________
 function resetAddNote() {
   const addNoteContainer = document.querySelector("#add-note__container");
-  addNoteContainer.innerHTML = "";
   const addNoteContent = document.createElement("p");
   const addNoteTitle = document.getElementById("add-note__title");
+  addNoteContainer.innerHTML = "";
   addNoteTitle.value = "";
   addNoteContent.classList.add("add-note__content");
   addNoteContent.innerHTML = "&nbsp";
@@ -124,21 +170,77 @@ function resetAddNote() {
   state.editMode = false;
 }
 // ______________________________________________________________
-function renderNotes(notes) {
+export function renderPrevNotes(notes) {
   state.notes = notes;
   // only the first 10 notes to show in the sidebar
-  sideNotesList.innerHTML = notesToHtml(notes.slice(0, 10));
+  sideNotesList.innerHTML = "";
+  generatePrevNotes(notes.slice(0, 10)).map((note) =>
+    sideNotesList.insertAdjacentElement("beforeend", note)
+  );
 }
 // ______________________________________________________________
-function loadNotes() {
-  const notes = getFromStorage("notes") || state.notes;
-  renderNotes(notes);
-  addNoteTitle.focus();
-}
+// function loadNotes() {
+//   const notes = getFromStorage("notes") || state.notes;
+//   renderPrevNotes(notes);
+//   addNoteTitle.focus();
+// }
 
+function editNoteHandler(state, notes, props) {
+  // const note = state.notes.filter((note) => note.edit)[0];
+  // const slicedNotes = state.notes.filter((note) => !note.edit);
+
+  const note = notes.filter((note) => note.edit)[0];
+  const slicedNotes = notes.filter((note) => !note.edit);
+  const newNotes = [
+    {
+      ...note,
+      ...props,
+      title: addNoteTitle.value,
+      edit: false,
+    },
+    ...slicedNotes,
+  ];
+  // Render to the View
+  renderPrevNotes(newNotes);
+  resetAddNote();
+  // Add To the Modle
+  addToStorage(newNotes);
+  state.editMode = false;
+  toggleTime();
+}
+function addNoteHandler(state, notes, props) {
+  // const notes = getFromStorage("notes") || state.notes;
+
+  // Custom made ID
+  const noteId = new Uint32Array(1);
+  crypto.getRandomValues(noteId);
+  // Custom made ID
+
+  const newNote = {
+    id: noteId[0],
+    title: addNoteTitle.value,
+    date: state.date,
+    time: state.time,
+    complate: true,
+    edit: false,
+    order: notes.length ?? +1,
+    ...props,
+  };
+  // Refactore this to only get the notes from the prop
+  const newNotes = notes ? [newNote, ...notes] : [newNote, ...state.notes];
+  // Render to the View
+  renderPrevNotes(newNotes);
+  resetAddNote();
+  timeNote.innerText = state.time;
+  dateNote.innerText = state.date;
+  // Add To the Modle
+  addToStorage(newNotes);
+}
 // ______________________________________________________________
-function addNoteHandler(event) {
+function saveNoteHandler() {
   event.preventDefault();
+
+  const notes = getFromStorage("notes") || state.notes;
   const markup = document.querySelector("#add-note__container").innerHTML;
   const content = document.querySelector("#add-note__container").innerText;
   const tags = content.split(" ").filter((tag) => tag[0] === "#");
@@ -151,52 +253,57 @@ function addNoteHandler(event) {
 
   // ---------------- Save Note When Edit ------------------------
   if (state.notes.some((note) => note.edit)) {
-    const note = state.notes.filter((note) => note.edit)[0];
-    const slicedNotes = state.notes.filter((note) => !note.edit);
-    const notes = [
-      {
-        ...note,
-        title: addNoteTitle.value,
-        content: content,
-        markup,
-        edit: false,
-        tags,
-      },
-      ...slicedNotes,
-    ];
-    renderNotes(notes);
-    addToStorage(notes);
-    resetAddNote();
-    state.editMode = false;
-    toggleTime();
-    return null;
+    editNoteHandler(state, notes, { content, markup, tags });
+    return;
+    // const note = state.notes.filter((note) => note.edit)[0];
+    // const slicedNotes = state.notes.filter((note) => !note.edit);
+    // const notes = [
+    //   {
+    //     ...note,
+    //     title: addNoteTitle.value,
+    //     content: content,
+    //     markup,
+    //     edit: false,
+    //     tags,
+    //   },
+    //   ...slicedNotes,
+    // ];
+    // // Render to the View
+    // renderPrevNotes(notes);
+    // resetAddNote();
+    // // Add To the Modle
+    // addToStorage(notes);
+    // state.editMode = false;
+    // toggleTime();
+    // return null;
   }
   // ---------------- Save Note When Edit ------------------------
 
   // ---------------- Add New Note ------------------------
-  const noteId = new Uint32Array(1);
-  crypto.getRandomValues(noteId);
-  const notes = getFromStorage("notes") || state.notes;
-  const newNote = {
-    id: noteId[0],
-    title: addNoteTitle.value,
-    content,
-    markup,
-    content,
-    markup,
-    date: state.date,
-    time: state.time,
-    complate: true,
-    tags,
-    edit: false,
-    order: notes.length ?? +1,
-  };
-  const newNotes = notes ? [newNote, ...notes] : [newNote, ...state.notes];
-  renderNotes(newNotes);
-  addToStorage(newNotes);
-  resetAddNote();
-  timeNote.innerText = state.time;
-  dateNote.innerText = state.date;
+  addNoteHandler(state, notes, { content, markup, tags });
+  // const noteId = new Uint32Array(1);
+  // crypto.getRandomValues(noteId);
+  // const notes = getFromStorage("notes") || state.notes;
+  // const newNote = {
+  //   id: noteId[0],
+  //   title: addNoteTitle.value,
+  //   content,
+  //   markup,
+  //   date: state.date,
+  //   time: state.time,
+  //   complate: true,
+  //   tags,
+  //   edit: false,
+  //   order: notes.length ?? +1,
+  // };
+  // const newNotes = notes ? [newNote, ...notes] : [newNote, ...state.notes];
+  // // Render to the View
+  // renderPrevNotes(newNotes);
+  // resetAddNote();
+  // timeNote.innerText = state.time;
+  // dateNote.innerText = state.date;
+  // // Add To the Modle
+  // addToStorage(newNotes);
   // ---------------- Add New Note ------------------------
 }
 // ______________________________________________________________
@@ -273,7 +380,7 @@ function editSideNote(target) {
 function deleteSideNote(id) {
   const note = state.notes.filter((note) => note.id == id)[0];
   const notes = [...state.notes.filter((note) => note.id != id)];
-  const notesHtml = notesToHtml(notes.slice(0, 10));
+  const notesHtml = generatePrevNotes(notes.slice(0, 10));
 
   // --------------------------------------------------------
   if (note.edit) {
@@ -281,7 +388,7 @@ function deleteSideNote(id) {
   }
   state.notes = notes;
   addToStorage(notes);
-  sideNotesList.innerHTML = notesHtml;
+  renderPrevNotes(notes);
 }
 // ______________________________________________________________
 function toggleSideNotes() {
@@ -356,23 +463,11 @@ function fullViewHandler() {
   if (sideNotes.classList.contains("hide-notes-aside")) return null;
   toggleSideNotes();
 }
-// ______________________________________________________________
-function prevNoteHandler(e) {
-  const target = e.target;
-  const currentTarget = e.currentTarget;
 
-  switch (target.classList[0]) {
-    case "prev-note__delete":
-      deleteSideNote(currentTarget.id);
-      break;
-    default:
-      editSideNote(currentTarget);
-  }
-}
+// // ______________________________________________________________
+// window.addEventListener("load", loadNotes);
 // ______________________________________________________________
-window.addEventListener("load", loadNotes);
-// ______________________________________________________________
-saveNote.addEventListener("click", addNoteHandler);
+saveNote.addEventListener("click", saveNoteHandler);
 // ______________________________________________________________
 clearNote.addEventListener("click", clearNoteHandler);
 // ______________________________________________________________
@@ -418,10 +513,9 @@ listNote.addEventListener("click", (e) => {
 //     listItem.classList.add("add-note__list__item");
 //     addNoteList.appendChild(listItem);
 //     addNoteList.children[addNoteList.children.length - 1].children[0].focus();
+//   } else if (e.key === "Enter") {
+//     e.preventDefault();
 //   }
-//   // else if (e.key === "Enter") {
-//   //   e.preventDefault();
-//   // }
 // });
 // ______________________________________________________________
 
@@ -440,36 +534,19 @@ listNote.addEventListener("click", (e) => {
 //     }
 //   }
 // });
-addNoteContainer.addEventListener("keypress", (e) => {
-  if (e.key == "Enter") {
-    if (state.addPoint) {
-      e.preventDefault();
-      const addNoteContentNodes =
-        document.querySelectorAll(".add-note__content");
-      const addNoteContent =
-        addNoteContentNodes[addNoteContentNodes.length - 1];
-      console.log(addNoteContentNodes, addNoteContent);
-      const length = addNoteContentNodes.length - 1;
-      setCursorEditable(addNoteContent, 0, 0);
-    }
-    state.addPoint = false;
-  }
-});
+// addNoteContainer.addEventListener("keypress", (e) => {
+//   if (e.key == "Enter") {
+//     if (state.addPoint) {
+//       e.preventDefault();
+//       const addNoteContentNodes =
+//         document.querySelectorAll(".add-note__content");
+//       const addNoteContent =
+//         addNoteContentNodes[addNoteContentNodes.length - 1];
+//       console.log(addNoteContentNodes, addNoteContent);
+//       const length = addNoteContentNodes.length - 1;
+//       setCursorEditable(addNoteContent, 0, 0);
+//     }
+//     state.addPoint = false;
+//   }
+// });
 // on click on addNoteContainer set the addNoteContentNode index
-
-const family = {
-  name: "ahmed",
-  members: ["son", "2 dougters", "father", "mother"],
-  salary: 10000,
-  rent: { oldRent: 550, newRrnt: 2000 },
-};
-const familyTwo = {
-  name: "ali",
-  members: ["3 son", "4 dougters", "father", "2 mother"],
-  salary: 8000,
-  rent: { oldRent: 550, newRrnt: 750 },
-};
-const [ahmed, , , , ali, restMembers] = [
-  ...family.members,
-  ...familyTwo.members,
-];
