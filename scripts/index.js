@@ -6,58 +6,16 @@ const listNote = document.getElementById("note__add-list");
 const pointNote = document.getElementById("note__add-point");
 const tagNote = document.getElementById("note__add-tag");
 const clearNote = document.getElementById("note__clear");
-const editNote = document.getElementById("edit-note");
-const deleteNote = document.getElementById("delete-note");
-const colorNote = document.getElementById("color-note");
-const prevNote = document.getElementsByClassName(".prev-note");
+
 //------------ Main section Add Note & Side Note ---------------
-const addNote = document.getElementById("add-note");
 const addNoteContainer = document.getElementById("add-note__container");
 const addNoteTitle = document.getElementById("add-note__title");
-const addNoteContent = document.querySelector(".add-note__content");
-const addNoteInput = document.getElementById("add-note__input");
-const addNoteList = document.querySelector(".add-note__list");
 const addNoteFullView = document.querySelector("#note__full-view");
-const addNoteNav = document.querySelector(".add-note__nav");
 const sideNotes = document.getElementById("side-notes");
 const sideNotesBtn = document.querySelector(".side-notes__btn");
 const sideNotesList = document.getElementById("side-notes__list");
-const dateContainer = document.getElementById("date-container");
 const timeNote = document.getElementById("time-note");
 const dateNote = document.getElementById("date-note");
-
-// ------------ App State --------------------------------------
-// const state = {
-//   notes: [
-//     {
-//       id: 1,
-//       title: "title 1",
-//       content: "content",
-//       complate: true,
-//       tags: [],
-//       edit: false,
-//       order: 1,
-//     },
-//     {
-//       id: 2,
-//       title: "title 2",
-//       content: "content",
-//       complate: true,
-//       tags: [],
-//       edit: false,
-//       order: 2,
-//     },
-//   ],
-//   darkmode: false,
-//   editMode: false,
-//   listMode: false,
-//   tagMode: false,
-//   addPoint: false,
-//   fullView: false,
-//   listItems: [],
-//   date: "",
-//   time: "",
-// };
 
 //------------ Functions ---------------------------------------
 function prevNoteHandler(e) {
@@ -72,25 +30,6 @@ function prevNoteHandler(e) {
       editSideNote(currentTarget);
   }
 }
-// ______________________________________________________________
-// function toggleTime() {
-//   // Show Date & Time only on editMode
-//   if (state.editMode) {
-//     dateContainer.classList.remove("hidden");
-//   } else {
-//     dateContainer.classList.add("hidden");
-//   }
-// }
-
-// const addTime = setInterval(() => {
-//   const dateObject = new Date();
-//   const date = dateObject.toLocaleDateString();
-//   const time = dateObject.toLocaleTimeString();
-//   const timeOutSec = `${time.split(" ")[0].slice(0, 5)} ${time.split(" ")[1]}`;
-//   state.date = date;
-//   // state.time = time;
-//   state.time = timeOutSec;
-// }, 1000);
 // ______________________________________________________________
 const generatePrevNotes = (notes) => {
   // +++ 1- Refactor this function to be more generic
@@ -122,39 +61,8 @@ const generatePrevNotes = (notes) => {
     prevNote.addEventListener("click", prevNoteHandler);
     return prevNote;
   });
-  // console.log(prevNote);
-  // ++++++++++++++++++++++++++++++++++++++++++++++
-  //   return `<li onClick="prevNoteHandler(event)" tabindex="8" class="prev-note" id='${
-  //     note.id
-  //   }'>
-  //       <div class="btn-container">
-  //     <span  tabindex="9" title="edit" class="prev-note__edit">
-  //     <button class="edit__icon">&#9998;
-  //     <div class="edit__line"></div>
-  //     </button>
-  //     </span>
-  //     <button tabindex="10" title="delete" class="prev-note__delete">&#10006;</button>
-  //     </div>
-
-  //     <span class="prev-note__title"> ${note.title}</span>
-  //     <span class="prev-note__content hidden"> "${
-  //       content || "waiting for inspiration"
-  //     }"</span>
-  //   </li>`;
-  // })
-  // .join(" ");
-  // console.log("HTML markup texst 🎈🎈🎈", prevNotes);
   return prevNotes;
 };
-// ______________________________________________________________
-// function addToStorage(notes) {
-//   const notesString = JSON.stringify(notes);
-//   localStorage.setItem("notes", notesString);
-// }
-// function getFromStorage(notes) {
-//   const notesObj = JSON.parse(localStorage.getItem(notes));
-//   return notesObj;
-// }
 // ______________________________________________________________
 function resetAddNote() {
   const addNoteContainer = document.querySelector("#add-note__container");
@@ -179,16 +87,7 @@ export function renderPrevNotes(notes) {
   );
 }
 // ______________________________________________________________
-// function loadNotes() {
-//   const notes = getFromStorage("notes") || state.notes;
-//   renderPrevNotes(notes);
-//   addNoteTitle.focus();
-// }
-
 function editNoteHandler(state, notes, props) {
-  // const note = state.notes.filter((note) => note.edit)[0];
-  // const slicedNotes = state.notes.filter((note) => !note.edit);
-
   const note = notes.filter((note) => note.edit)[0];
   const slicedNotes = notes.filter((note) => !note.edit);
   const newNotes = [
@@ -208,9 +107,8 @@ function editNoteHandler(state, notes, props) {
   state.editMode = false;
   toggleTime();
 }
+// ______________________________________________________________
 function addNoteHandler(state, notes, props) {
-  // const notes = getFromStorage("notes") || state.notes;
-
   // Custom made ID
   const noteId = new Uint32Array(1);
   crypto.getRandomValues(noteId);
@@ -237,7 +135,7 @@ function addNoteHandler(state, notes, props) {
   addToStorage(newNotes);
 }
 // ______________________________________________________________
-function saveNoteHandler() {
+function saveNoteHandler(event) {
   event.preventDefault();
 
   const notes = getFromStorage("notes") || state.notes;
@@ -255,55 +153,11 @@ function saveNoteHandler() {
   if (state.notes.some((note) => note.edit)) {
     editNoteHandler(state, notes, { content, markup, tags });
     return;
-    // const note = state.notes.filter((note) => note.edit)[0];
-    // const slicedNotes = state.notes.filter((note) => !note.edit);
-    // const notes = [
-    //   {
-    //     ...note,
-    //     title: addNoteTitle.value,
-    //     content: content,
-    //     markup,
-    //     edit: false,
-    //     tags,
-    //   },
-    //   ...slicedNotes,
-    // ];
-    // // Render to the View
-    // renderPrevNotes(notes);
-    // resetAddNote();
-    // // Add To the Modle
-    // addToStorage(notes);
-    // state.editMode = false;
-    // toggleTime();
-    // return null;
   }
   // ---------------- Save Note When Edit ------------------------
 
   // ---------------- Add New Note ------------------------
   addNoteHandler(state, notes, { content, markup, tags });
-  // const noteId = new Uint32Array(1);
-  // crypto.getRandomValues(noteId);
-  // const notes = getFromStorage("notes") || state.notes;
-  // const newNote = {
-  //   id: noteId[0],
-  //   title: addNoteTitle.value,
-  //   content,
-  //   markup,
-  //   date: state.date,
-  //   time: state.time,
-  //   complate: true,
-  //   tags,
-  //   edit: false,
-  //   order: notes.length ?? +1,
-  // };
-  // const newNotes = notes ? [newNote, ...notes] : [newNote, ...state.notes];
-  // // Render to the View
-  // renderPrevNotes(newNotes);
-  // resetAddNote();
-  // timeNote.innerText = state.time;
-  // dateNote.innerText = state.date;
-  // // Add To the Modle
-  // addToStorage(newNotes);
   // ---------------- Add New Note ------------------------
 }
 // ______________________________________________________________
@@ -378,9 +232,9 @@ function editSideNote(target) {
 }
 // ______________________________________________________________
 function deleteSideNote(id) {
+  // +++ Save the animation of edit note
   const note = state.notes.filter((note) => note.id == id)[0];
   const notes = [...state.notes.filter((note) => note.id != id)];
-  const notesHtml = generatePrevNotes(notes.slice(0, 10));
 
   // --------------------------------------------------------
   if (note.edit) {
@@ -534,19 +388,19 @@ listNote.addEventListener("click", (e) => {
 //     }
 //   }
 // });
-// addNoteContainer.addEventListener("keypress", (e) => {
-//   if (e.key == "Enter") {
-//     if (state.addPoint) {
-//       e.preventDefault();
-//       const addNoteContentNodes =
-//         document.querySelectorAll(".add-note__content");
-//       const addNoteContent =
-//         addNoteContentNodes[addNoteContentNodes.length - 1];
-//       console.log(addNoteContentNodes, addNoteContent);
-//       const length = addNoteContentNodes.length - 1;
-//       setCursorEditable(addNoteContent, 0, 0);
-//     }
-//     state.addPoint = false;
-//   }
-// });
+addNoteContainer.addEventListener("keypress", (e) => {
+  if (e.key == "Enter") {
+    if (state.addPoint) {
+      e.preventDefault();
+      const addNoteContentNodes =
+        document.querySelectorAll(".add-note__content");
+      const addNoteContent =
+        addNoteContentNodes[addNoteContentNodes.length - 1];
+      console.log(addNoteContentNodes, addNoteContent);
+      const length = addNoteContentNodes.length - 1;
+      setCursorEditable(addNoteContent, 0, 0);
+    }
+    state.addPoint = false;
+  }
+});
 // on click on addNoteContainer set the addNoteContentNode index
