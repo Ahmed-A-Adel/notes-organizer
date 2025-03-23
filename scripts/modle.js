@@ -1,6 +1,5 @@
-const addNoteTitle = document.getElementById("add-note__title");
-const dateContainer = document.getElementById("date-container");
-import { renderPrevNotes } from "./index.js";
+// const addNoteTitle = document.getElementById("add-note__title");
+// import { renderPrevNotes } from "./index.js";
 export const state = {
   notes: [
     {
@@ -26,32 +25,97 @@ export const state = {
   editMode: false,
   listMode: false,
   tagMode: false,
-  addPoint: false,
+  pointMode: false,
   fullView: false,
   listItems: [],
   date: "",
   time: "",
-  setNotes(notes) {
+  addNote(props) {
+    // Custom made ID
+    const noteId = new Uint32Array(1);
+    crypto.getRandomValues(noteId);
+    // Custom made ID
+
+    const newNote = {
+      id: noteId[0],
+      // title: addNoteTitle.value,
+      date: this.date,
+      time: this.time,
+      complate: true,
+      edit: false,
+      order: this.notes.length ?? +1,
+      ...props,
+    };
+    const newNotes = [newNote, ...this.notes];
+
+    addToStorage(newNotes);
+    this.notes = newNotes;
+
+    return newNotes;
+  },
+  saveNoteOnEdit(props) {
+    const note = this.notes.filter((note) => note.edit)[0];
+    const slicedNotes = this.notes.filter((note) => !note.edit);
+    const newNotes = [
+      {
+        ...note,
+        ...props,
+        // title: addNoteTitle.value,
+        edit: false,
+      },
+      ...slicedNotes,
+    ];
+
+    addToStorage(newNotes);
+    this.notes = newNotes;
+    this.toggleEditMode();
+    return newNotes;
+  },
+  editPrevNotes(note, id) {
+    // Save editNote (animation) on reload !!
+    const notes = [
+      ...state.notes
+        .filter((note) => note.id != id)
+        .map((note) => {
+          return { ...note, edit: false };
+        }),
+      { ...note, edit: !note.edit },
+    ];
     this.notes = notes;
   },
+  deletePrevNote(id) {
+    const notes = [...state.notes.filter((note) => note.id != id)];
+    state.notes = notes;
+    addToStorage(notes);
+    return notes;
+  },
+  toggleEditMode(boolean = !this.editMode) {
+    this.editMode = boolean;
+  },
+  toggleListMode(boolean = !this.listMode) {
+    this.listMode = boolean;
+  },
+  togglePointMode(boolean = !this.pointMode) {
+    this.pointMode = boolean;
+  },
+  toggleViewMode(boolean = !this.fullView) {
+    this.fullView = boolean;
+  },
+  toggleTagMode(boolean = !this.tagMode) {
+    this.tagMode = boolean;
+  },
 };
+//______________________________________________________________
 export function addToStorage(notes) {
   const notesString = JSON.stringify(notes);
   localStorage.setItem("notes", notesString);
 }
+//______________________________________________________________
 export function getFromStorage(notes) {
   const notesObj = JSON.parse(localStorage.getItem(notes));
   return notesObj;
 }
-export function toggleTime() {
-  // Show Date & Time only on editMode
-  if (state.editMode) {
-    dateContainer.classList.remove("hidden");
-  } else {
-    dateContainer.classList.add("hidden");
-  }
-}
-
+//______________________________________________________________
 setInterval(() => {
   const dateObject = new Date();
   const date = dateObject.toLocaleDateString();
@@ -60,10 +124,18 @@ setInterval(() => {
   state.date = date;
   state.time = timeOutSec;
 }, 1000);
-function loadNotes() {
+//______________________________________________________________
+export function loadNotes(addNoteTitle, renderPrevNotes) {
   const notes = getFromStorage("notes") || state.notes;
   renderPrevNotes(notes);
+  state.notes = notes;
   addNoteTitle.focus();
 }
+
+// export function loadNotes() {
+//   const notes = getFromStorage("notes") || state.notes;
+//   renderPrevNotes(notes);
+//   addNoteTitle.focus();
+// }
 //______________________________________________________________
-window.addEventListener("load", loadNotes);
+// window.addEventListener("load", loadNotes);
