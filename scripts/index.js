@@ -268,23 +268,8 @@ function fullViewHandler() {
 function loadNotesHandler() {
   loadNotes(addNoteTitle, renderPrevNotes);
 }
-
 // ______________________________________________________________
-saveNote.addEventListener("click", saveNoteHandler);
-// ______________________________________________________________
-clearNote.addEventListener("click", clearNoteHandler);
-// ______________________________________________________________
-sideNotesBtn.addEventListener("click", toggleSideNotes);
-// ______________________________________________________________
-tagNote.addEventListener("click", tagNoteHandler);
-// ______________________________________________________________
-pointNote.addEventListener("click", pointNoteHandler);
-// ______________________________________________________________
-addNoteFullView.addEventListener("click", fullViewHandler);
-//______________________________________________________________
-window.addEventListener("load", loadNotesHandler);
-// ______________________________________________________________
-listNote.addEventListener("click", (e) => {
+function listNoteHandler(e) {
   if (!state.listMode) {
     const addNoteContainer = document.querySelector("#add-note__container");
     const list = document.createElement("ol");
@@ -303,7 +288,40 @@ listNote.addEventListener("click", (e) => {
     setCursorEditable(div, 0, 0);
   }
   state.toggleListMode();
-});
+}
+// ______________________________________________________________
+function togglePointHandler(e) {
+  if (e.key == "Enter") {
+    if (state.pointMode) {
+      e.preventDefault();
+      const addNoteContentNodes =
+        document.querySelectorAll(".add-note__content");
+      const addNoteContent =
+        addNoteContentNodes[addNoteContentNodes.length - 1];
+      const length = addNoteContentNodes.length - 1;
+      setCursorEditable(addNoteContent, 0, 0);
+    }
+    state.togglePointMode(false);
+  }
+}
+//____________________________________________________
+saveNote.addEventListener("click", saveNoteHandler);
+// ______________________________________________________________
+clearNote.addEventListener("click", clearNoteHandler);
+// ______________________________________________________________
+sideNotesBtn.addEventListener("click", toggleSideNotes);
+// ______________________________________________________________
+tagNote.addEventListener("click", tagNoteHandler);
+// ______________________________________________________________
+pointNote.addEventListener("click", pointNoteHandler);
+// ______________________________________________________________
+addNoteFullView.addEventListener("click", fullViewHandler);
+//______________________________________________________________
+listNote.addEventListener("click", listNoteHandler);
+// ______________________________________________________________
+addNoteContainer.addEventListener("keypress", togglePointHandler);
+// ______________________________________________________________
+window.addEventListener("load", loadNotesHandler);
 // function hideSideNotes() {
 //   sideNotesBtn.parentElement.previousElementSibling.classList.add(
 //     "span-add-note"
@@ -397,19 +415,5 @@ listNote.addEventListener("click", (e) => {
 //   return newNotes;
 // }
 //______________________________________________________________
-addNoteContainer.addEventListener("keypress", (e) => {
-  if (e.key == "Enter") {
-    if (state.pointMode) {
-      e.preventDefault();
-      const addNoteContentNodes =
-        document.querySelectorAll(".add-note__content");
-      const addNoteContent =
-        addNoteContentNodes[addNoteContentNodes.length - 1];
-      console.log(addNoteContentNodes, addNoteContent);
-      const length = addNoteContentNodes.length - 1;
-      setCursorEditable(addNoteContent, 0, 0);
-    }
-    state.togglePointMode(false);
-  }
-});
+
 // on click on addNoteContainer set the addNoteContentNode index
