@@ -1,5 +1,5 @@
 "use strict";
-import { state, loadNotes, addToStorage, getFromStorage } from "./modle.js";
+import { state, loadNotes } from "./modle.js";
 // ------------ Nav List ---------------------------------------
 const saveNote = document.getElementById("note__save");
 const listNote = document.getElementById("note__add-list");
@@ -86,11 +86,9 @@ function resetAddNote() {
   setCursorEditable(addNoteContent, 0, 0);
 
   state.toggleEditMode(false);
-  // state.editMode = false;
 }
 // ______________________________________________________________
 export function renderPrevNotes(notes) {
-  // state.notes = notes;
   // only the first 10 notes to show in the sidebar
   sideNotesList.innerHTML = "";
   generatePrevNotes(notes.slice(0, 10)).map((note) =>
@@ -100,7 +98,6 @@ export function renderPrevNotes(notes) {
 // ______________________________________________________________
 function saveNoteHandler(event) {
   event.preventDefault();
-  // const notes = getFromStorage("notes") || state.notes;
   const title = document.getElementById("add-note__title").value;
   const content = document.querySelector("#add-note__container").innerText;
   const markup = document.querySelector("#add-note__container").innerHTML;
@@ -130,7 +127,6 @@ function saveNoteHandler(event) {
   resetAddNote();
   timeNote.innerText = state.time;
   dateNote.innerText = state.date;
-  // addNoteHandler(state, notes, { content, markup, tags });
   // ---------------- Add New Note ------------------------
 }
 // ______________________________________________________________
@@ -154,16 +150,6 @@ function editSideNote(target) {
   const prevNoteContent = target.querySelector(".prev-note__content");
   const note = state.notes.filter((note) => note.id == id)[0];
   const container = document.querySelector("#add-note__container");
-  // ----- Reset All Notes Except the new one ------
-  // Set all notes edit to false
-  // const notes = [
-  //   ...state.notes
-  //     .filter((note) => note.id != id)
-  //     .map((note) => {
-  //       return { ...note, edit: false };
-  //     }),
-  //   { ...note, edit: !note.edit },
-  // ];
   // Remove animation classes for pens & lines & prev-contents
   for (const pen of pens) {
     pen.classList.remove("pen-in");
@@ -177,7 +163,6 @@ function editSideNote(target) {
 
   // ____________ Reset AddNote inputes _______
   if (note.edit) {
-    // state.notes = notes;
     state.editPrevNotes(note, id);
     resetAddNote();
     // --------- Animation ------------------
@@ -185,14 +170,12 @@ function editSideNote(target) {
     line.classList.remove("pen-line-in");
     prevNoteContent.classList.remove("span-content");
     // --------- Animation ------------------
-    // state.editMode = false;
     state.toggleEditMode(false);
     showTimeOnEdit();
   } else {
     // _______ Display current Note _________
     addNoteTitle.value = note.title;
     container.innerHTML = note.markup;
-    // state.notes = notes;
     state.editPrevNotes(note, id);
     // --------- Animation ------------------
     pen.classList.add("pen-in");
@@ -202,7 +185,6 @@ function editSideNote(target) {
     // --------- Display Date & Time --------
     timeNote.innerText = note.time;
     dateNote.innerText = note.date;
-    // state.editMode = true;
     state.toggleEditMode(true);
     showTimeOnEdit();
   }
@@ -211,14 +193,10 @@ function editSideNote(target) {
 function deleteSideNote(id) {
   // +++ Save the animation of edit note
   const note = state.notes.filter((note) => note.id == id)[0];
-  // const notes = [...state.notes.filter((note) => note.id != id)];
-  // --------------------------------------------------------
+  const notes = state.deletePrevNote(id);
   if (note.edit) {
     resetAddNote();
   }
-  // state.notes = notes;
-  // addToStorage(notes);
-  const notes = state.deletePrevNote(id);
   renderPrevNotes(notes);
 }
 // ______________________________________________________________
@@ -244,7 +222,6 @@ function setCursorEditable(editableElem, index, position = 1) {
 }
 // ______________________________________________________________
 function tagNoteHandler() {
-  // state.tagMode = !state.tagMode;
   state.tagMode();
   const addNoteContainer = document.querySelector("#add-note__container");
   const addNoteContent =
@@ -261,8 +238,6 @@ function tagNoteHandler() {
 }
 // ______________________________________________________________
 function pointNoteHandler() {
-  // state.addPoint = true;
-  // state.listMode = false;
   state.togglePointMode(true);
   state.toggleListMode(false);
   const addNoteContainer = document.querySelector("#add-note__container");
