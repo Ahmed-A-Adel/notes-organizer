@@ -1,4 +1,3 @@
-// import { state } from "../modle.js";
 import {
   showTimeOnEditHandler,
   saveNoteHandler,
@@ -31,7 +30,6 @@ const timeNote = document.getElementById("time-note");
 // ------------ Functions ---------------------------------------
 export function showTimeOnEdit(editMode) {
   // Show Date & Time only on editMode
-  // if (state.editMode) {
   if (editMode) {
     dateContainer.classList.remove("hidden");
   } else {
@@ -47,7 +45,6 @@ function prevNoteHandler(e) {
   switch (target.classList[0]) {
     case "prev-note__delete":
       deleteSideNoteHandler(currentTarget.id);
-      // deleteSideNote(currentTarget.id);
       break;
     default:
       editSideNoteHandler(currentTarget);
@@ -98,7 +95,6 @@ export function resetAddNote(toggleEditMode) {
   addNoteContainer.appendChild(addNoteContent);
   setCursorEditable(addNoteContent, 0, 0);
   toggleEditMode(false);
-  // state.toggleEditMode(false);
 }
 // ______________________________________________________________
 export function renderPrevNotes(notes) {
@@ -124,12 +120,9 @@ export function saveNote(event, notes, time, date, saveNoteOnEdit, addNote) {
 
   // ---------------- Save Note When Edit ------------------------
   if (notes.some((note) => note.edit)) {
-    // if (state.notes.some((note) => note.edit)) {
     const newNotes = saveNoteOnEdit({ title, content, markup, tags });
-    // const newNotes = state.saveNoteOnEdit({ title, content, markup, tags });
     // Render to the View
     renderPrevNotes(newNotes);
-    // resetAddNote();
     resetAddNoteHandler();
     showTimeOnEditHandler(showTimeOnEdit);
     return null;
@@ -138,15 +131,12 @@ export function saveNote(event, notes, time, date, saveNoteOnEdit, addNote) {
 
   // ---------------- Add New Note ------------------------
   const newNotes = addNote({ title, content, markup, tags });
-  // const newNotes = state.addNote({ title, content, markup, tags });
+
   // Render to the View
   renderPrevNotes(newNotes);
-  // resetAddNote();
   resetAddNoteHandler();
   timeNote.innerText = time;
-  // timeNote.innerText = state.time;
   dateNote.innerText = date;
-  // dateNote.innerText = state.date;
   // ---------------- Add New Note ------------------------
 }
 // ______________________________________________________________
@@ -155,7 +145,6 @@ const clearNoteHandler = () => {
   if (addNoteContainer.innerText != false) {
     addNoteContainer.innerText = "";
   } else {
-    // resetAddNote();
     resetAddNoteHandler();
   }
 };
@@ -170,7 +159,6 @@ export function editSideNote(target, notes, editPrevNotes, toggleEditMode) {
   const prevNotesContent = document.querySelectorAll(".prev-note__content");
   const prevNoteContent = target.querySelector(".prev-note__content");
   const note = notes.filter((note) => note.id == id)[0];
-  // const note = state.notes.filter((note) => note.id == id)[0];
   const container = document.querySelector("#add-note__container");
   // Remove animation classes for pens & lines & prev-contents
   for (const pen of pens) {
@@ -186,8 +174,6 @@ export function editSideNote(target, notes, editPrevNotes, toggleEditMode) {
   // ____________ Reset AddNote inputes _______
   if (note.edit) {
     editPrevNotes(note, id);
-    // state.editPrevNotes(note, id);
-    // resetAddNote();
     resetAddNoteHandler();
     // --------- Animation ------------------
     pen.classList.remove("pen-in");
@@ -195,14 +181,12 @@ export function editSideNote(target, notes, editPrevNotes, toggleEditMode) {
     prevNoteContent.classList.remove("span-content");
     // --------- Animation ------------------
     toggleEditMode(false);
-    // state.toggleEditMode(false);
     showTimeOnEditHandler(showTimeOnEdit);
   } else {
     // _______ Display current Note _________
     addNoteTitle.value = note.title;
     container.innerHTML = note.markup;
     editPrevNotes(note, id);
-    // state.editPrevNotes(note, id);
     // --------- Animation ------------------
     pen.classList.add("pen-in");
     line.classList.add("pen-line-in");
@@ -212,7 +196,6 @@ export function editSideNote(target, notes, editPrevNotes, toggleEditMode) {
     timeNote.innerText = note.time;
     dateNote.innerText = note.date;
     toggleEditMode(true);
-    // state.toggleEditMode(true);
     showTimeOnEditHandler(showTimeOnEdit);
   }
 }
@@ -220,11 +203,8 @@ export function editSideNote(target, notes, editPrevNotes, toggleEditMode) {
 export function deleteSideNote(id, notes, deletePrevNote) {
   // +++ Save the animation of edit note
   const note = notes.filter((note) => note.id == id)[0];
-  // const note = state.notes.filter((note) => note.id == id)[0];
   const newNotes = deletePrevNote(id);
-  // const notes = state.deletePrevNote(id);
   if (note.edit) {
-    // resetAddNote();
     resetAddNoteHandler();
   }
   renderPrevNotes(newNotes);
@@ -253,7 +233,6 @@ function setCursorEditable(editableElem, index, position = 1) {
 // ______________________________________________________________
 export function tagNote(toggleTagMode) {
   toggleTagMode();
-  // state.tagMode();
   const addNoteContainer = document.querySelector("#add-note__container");
   const addNoteContent =
     addNoteContainer.children[addNoteContainer.childElementCount - 1];
@@ -270,9 +249,7 @@ export function tagNote(toggleTagMode) {
 // ______________________________________________________________
 export function pointNote(togglePointMode, toggleListMode) {
   togglePointMode(true);
-  // state.togglePointMode(true);
   toggleListMode(false);
-  // state.toggleListMode(false);
   const addNoteContainer = document.querySelector("#add-note__container");
   const div = document.createElement("div");
   div.classList.add("point-container");
@@ -291,7 +268,6 @@ export function pointNote(togglePointMode, toggleListMode) {
 // ______________________________________________________________
 export function fullView(toggleViewMode) {
   toggleViewMode();
-  // state.toggleViewMode();
   document.querySelector(".full-view--false").classList.toggle("hidden");
   document.querySelector(".full-view--true").classList.toggle("hidden");
   document.querySelector(".body-index").classList.toggle("full-view");
@@ -301,7 +277,6 @@ export function fullView(toggleViewMode) {
 // ______________________________________________________________
 export function listNote(e, listMode, toggleListMode) {
   if (!listMode) {
-    // if (!state.listMode) {
     const addNoteContainer = document.querySelector("#add-note__container");
     const list = document.createElement("ol");
     const listItem = document.createElement("li");
@@ -319,13 +294,11 @@ export function listNote(e, listMode, toggleListMode) {
     setCursorEditable(div, 0, 0);
   }
   toggleListMode();
-  // state.toggleListMode();
 }
 // ______________________________________________________________
 export function togglePoint(e, pointMode, togglePointMode) {
   if (e.key == "Enter") {
     if (pointMode) {
-      // if (state.pointMode) {
       e.preventDefault();
       const addNoteContentNodes =
         document.querySelectorAll(".add-note__content");
@@ -335,7 +308,6 @@ export function togglePoint(e, pointMode, togglePointMode) {
       setCursorEditable(addNoteContent, 0, 0);
     }
     togglePointMode(false);
-    // state.togglePointMode(false);
   }
 }
 //____________________________________________________

@@ -1,5 +1,3 @@
-// const addNoteTitle = document.getElementById("add-note__title");
-// import { renderPrevNotes } from "./index.js";
 export const state = {
   notes: [
     {
@@ -38,7 +36,6 @@ export const state = {
 
     const newNote = {
       id: noteId[0],
-      // title: addNoteTitle.value,
       date: this.date,
       time: this.time,
       complate: true,
@@ -60,7 +57,6 @@ export const state = {
       {
         ...note,
         ...props,
-        // title: addNoteTitle.value,
         edit: false,
       },
       ...slicedNotes,
@@ -131,11 +127,3 @@ export function loadNotes(addNoteTitle, renderPrevNotes) {
   state.notes = notes;
   addNoteTitle.focus();
 }
-
-// export function loadNotes() {
-//   const notes = getFromStorage("notes") || state.notes;
-//   renderPrevNotes(notes);
-//   addNoteTitle.focus();
-// }
-//______________________________________________________________
-// window.addEventListener("load", loadNotes);
