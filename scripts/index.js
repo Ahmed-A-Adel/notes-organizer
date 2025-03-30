@@ -1,18 +1,23 @@
 "use strict";
 import { state, loadNotes } from "./modle.js";
 import {
-  renderPrevNotes,
+  // renderPrevNotes,
   showTimeOnEdit,
   resetAddNote,
   saveNote,
-  editSideNote,
-  deleteSideNote,
+  // editSideNote,
+  // deleteSideNote,
   tagNote,
   togglePoint,
   pointNote,
   fullView,
   listNote,
 } from "./views/addNoteView.js";
+import {
+  editSideNote,
+  deleteSideNote,
+  renderPrevNotes,
+} from "./views/sideNoteView.js";
 
 //------------ Main section Add Note & Side Note ---------------
 const addNoteTitle = document.getElementById("add-note__title");
