@@ -102,16 +102,6 @@ export const state = {
     this.tagMode = boolean;
   },
 };
-// //______________________________________________________________
-// export function addToStorage(items,name) {
-//   const itemsString = JSON.stringify(items);
-//   localStorage.setItem(name, itemsString);
-// }
-// //______________________________________________________________
-// export function getFromStorage(name) {
-//   const itemsObj = JSON.parse(localStorage.getItem(name));
-//   return itemsObj;
-// }
 //______________________________________________________________
 setInterval(() => {
   const dateObject = new Date();
