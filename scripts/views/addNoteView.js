@@ -9,6 +9,7 @@ import {
   listNoteHandler,
 } from "../index.js";
 import { renderPrevNotes } from "./sideNoteView.js";
+import { setCursorEditable } from "../helpers.js";
 
 // ------------ Nav List ---------------------------------------
 const saveNoteBtn = document.getElementById("note__save");
@@ -92,16 +93,16 @@ const clearNoteHandler = () => {
 };
 
 // ______________________________________________________________
-function setCursorEditable(editableElem, index, position = 1) {
-  let range = document.createRange();
-  let sel = window.getSelection();
-  range.setStart(editableElem.childNodes[index], position);
-  range.collapse(true);
+// function setCursorEditable(editableElem, index, position = 1) {
+//   let range = document.createRange();
+//   let sel = window.getSelection();
+//   range.setStart(editableElem.childNodes[index], position);
+//   range.collapse(true);
 
-  sel.removeAllRanges();
-  sel.addRange(range);
-  editableElem.focus();
-}
+//   sel.removeAllRanges();
+//   sel.addRange(range);
+//   editableElem.focus();
+// }
 // ______________________________________________________________
 export function tagNote(toggleTagMode) {
   toggleTagMode();
