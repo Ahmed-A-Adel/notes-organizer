@@ -1,12 +1,9 @@
 "use strict";
 import { state, loadNotes } from "./modle.js";
 import {
-  // renderPrevNotes,
   showTimeOnEdit,
   resetAddNote,
   saveNote,
-  // editSideNote,
-  // deleteSideNote,
   tagNote,
   togglePoint,
   pointNote,
