@@ -1,3 +1,4 @@
+import { addToStorage, getFromStorage } from "./helpers.js";
 export const state = {
   notes: [
     {
@@ -45,7 +46,7 @@ export const state = {
     };
     const newNotes = [newNote, ...this.notes];
 
-    addToStorage(newNotes);
+    addToStorage("notes", newNotes);
     this.notes = newNotes;
 
     return newNotes;
@@ -62,7 +63,7 @@ export const state = {
       ...slicedNotes,
     ];
 
-    addToStorage(newNotes);
+    addToStorage("notes", newNotes);
     this.notes = newNotes;
     this.toggleEditMode();
     return newNotes;
@@ -82,7 +83,7 @@ export const state = {
   deletePrevNote(id) {
     const notes = [...state.notes.filter((note) => note.id != id)];
     state.notes = notes;
-    addToStorage(notes);
+    addToStorage("notes", notes);
     return notes;
   },
   toggleEditMode(boolean = !this.editMode) {
@@ -101,16 +102,16 @@ export const state = {
     this.tagMode = boolean;
   },
 };
-//______________________________________________________________
-export function addToStorage(notes) {
-  const notesString = JSON.stringify(notes);
-  localStorage.setItem("notes", notesString);
-}
-//______________________________________________________________
-export function getFromStorage(notes) {
-  const notesObj = JSON.parse(localStorage.getItem(notes));
-  return notesObj;
-}
+// //______________________________________________________________
+// export function addToStorage(items,name) {
+//   const itemsString = JSON.stringify(items);
+//   localStorage.setItem(name, itemsString);
+// }
+// //______________________________________________________________
+// export function getFromStorage(name) {
+//   const itemsObj = JSON.parse(localStorage.getItem(name));
+//   return itemsObj;
+// }
 //______________________________________________________________
 setInterval(() => {
   const dateObject = new Date();
