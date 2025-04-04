@@ -9,15 +9,17 @@ import {
   pointNote,
   fullView,
   listNote,
+  addNoteTitle,
 } from "./views/addNoteView.js";
 import {
   editSideNote,
   deleteSideNote,
   renderPrevNotes,
+  toggleSideNotes,
 } from "./views/sideNoteView.js";
 
 //------------ Main section Add Note & Side Note ---------------
-const addNoteTitle = document.getElementById("add-note__title");
+// const addNoteTitle = document.getElementById("add-note__title");
 //------------ Main section Add Note & Side Note ---------------
 
 //------------ Functions ---------------------------------------
@@ -69,11 +71,19 @@ export function pointNoteHandler(e) {
 }
 //______________________________________________________________;
 export function fullViewHandler(e) {
-  fullView(state.toggleViewMode.bind(state));
+  fullView(
+    state.toggleViewMode.bind(state),
+    state.fullView,
+    state.sideNotesMode
+  );
   //______________________________________________________________;
 }
 export function listNoteHandler(e) {
   listNote(e, state.listMode, state.toggleListMode.bind(state));
+}
+//______________________________________________________________;
+export function toggleSideNotesHandler() {
+  toggleSideNotes(state.toggleSideNotesMode.bind(state));
 }
 //______________________________________________________________;
 function loadNotesHandler() {

@@ -3,6 +3,7 @@ import {
   resetAddNoteHandler,
   editSideNoteHandler,
   deleteSideNoteHandler,
+  toggleSideNotesHandler,
 } from "../index.js";
 import { showTimeOnEdit } from "./addNoteView.js";
 
@@ -132,7 +133,7 @@ export function deleteSideNote(id, notes, deletePrevNote) {
   renderPrevNotes(newNotes);
 }
 // ______________________________________________________________
-function toggleSideNotes() {
+export function toggleSideNotes(toggleSideNotesMode) {
   // Any visual effect should be knowing in the State!!!
   sideNotesBtn.parentElement.previousElementSibling.classList.toggle(
     "span-add-note"
@@ -140,7 +141,8 @@ function toggleSideNotes() {
   sideNotesBtn.parentElement.classList.toggle("hide-notes-aside");
   sideNotesBtn.nextElementSibling.classList.toggle("hide-notes-list");
   sideNotesBtn.classList.toggle("hide-notes-btn");
+  toggleSideNotesMode();
 }
 
 // ______________________________________________________________
-sideNotesBtn.addEventListener("click", toggleSideNotes);
+sideNotesBtn.addEventListener("click", toggleSideNotesHandler);

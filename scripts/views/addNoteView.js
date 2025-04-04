@@ -7,6 +7,7 @@ import {
   pointNoteHandler,
   fullViewHandler,
   listNoteHandler,
+  toggleSideNotesHandler,
 } from "../index.js";
 import { renderPrevNotes } from "./sideNoteView.js";
 import { setCursorEditable } from "../helpers.js";
@@ -25,6 +26,7 @@ const sideNotes = document.getElementById("side-notes");
 const dateContainer = document.getElementById("date-container");
 const dateNote = document.getElementById("date-note");
 const timeNote = document.getElementById("time-note");
+
 // ------------ Functions ---------------------------------------
 export function showTimeOnEdit(editMode) {
   // Show Date & Time only on editMode
@@ -127,13 +129,17 @@ export function pointNote(togglePointMode, toggleListMode) {
   setCursorEditable(h2, 0, 0);
 }
 // ______________________________________________________________
-export function fullView(toggleViewMode) {
+export function fullView(toggleViewMode, viewmode, sideNotesMode) {
   toggleViewMode();
   document.querySelector(".full-view--false").classList.toggle("hidden");
   document.querySelector(".full-view--true").classList.toggle("hidden");
   document.querySelector(".body-index").classList.toggle("full-view");
-  if (sideNotes.classList.contains("hide-notes-aside")) return null;
-  toggleSideNotes();
+  // ----------------------------------------------------------------
+
+  // if (sideNotes.classList.contains("hide-notes-aside")) return null;
+  // ----------------------------------------------------------------
+  if (viewmode && !sideNotesMode) toggleSideNotesHandler();
+  if (!viewmode && sideNotesMode) toggleSideNotesHandler();
 }
 // ______________________________________________________________
 export function listNote(e, listMode, toggleListMode) {

@@ -26,6 +26,7 @@ export const state = {
   tagMode: false,
   pointMode: false,
   fullView: false,
+  sideNotesMode: true,
   listItems: [],
   date: "",
   time: "",
@@ -100,6 +101,9 @@ export const state = {
   },
   toggleTagMode(boolean = !this.tagMode) {
     this.tagMode = boolean;
+  },
+  toggleSideNotesMode(boolean = !this.sideNotesMode) {
+    this.sideNotesMode = boolean;
   },
 };
 //______________________________________________________________
