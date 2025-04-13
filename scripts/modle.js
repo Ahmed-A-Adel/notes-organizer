@@ -1,5 +1,4 @@
 import { addToStorage, getFromStorage } from "./helpers.js";
-// transform state object into class and transform gloabl functions into class methods
 class State {
   darkmode = false;
   editMode = false;
@@ -53,7 +52,6 @@ class State {
 
     addToStorage("notes", newNotes);
     this.notes = newNotes;
-    console.log("addNote", this);
     return newNotes;
   }
   saveNoteOnEdit(props) {
@@ -63,12 +61,7 @@ class State {
       {
         ...note,
         ...props,
-        // id: note.id,
-        date: this.date,
-        time: this.time,
-        complate: true,
         edit: false,
-        order: this.notes.length ?? +1,
       },
       ...slicedNotes,
     ];
@@ -76,7 +69,6 @@ class State {
     addToStorage("notes", newNotes);
     this.notes = newNotes;
     this.toggleMode("editMode");
-    console.log(this, "saveNoteOnEdit");
     return newNotes;
   }
   editPrevNotes(note, id) {
@@ -89,57 +81,20 @@ class State {
         }),
       { ...note, edit: !note.edit },
     ];
-    // console.log("edit notes", this.notes, note, id);
     this.notes = notes;
-    console.log("editPrevNotes", this);
     return notes;
   }
   deletePrevNote(id) {
     const notes = [...state.notes.filter((note) => note.id != id)];
     state.notes = notes;
     addToStorage("notes", notes);
-    console.log("deletePrevNote", this);
     return notes;
   }
-  // group all handlers into one generic one that set the state
-  // toggleEditMode(boolean = !this.editMode) {
-  //   this.editMode = boolean;
-  //   return boolean;
-  // }
-  // toggleListMode(boolean = !this.listMode) {
-  //   this.listMode = boolean;
-  //   return boolean;
-  // }
-  // togglePointMode(boolean = !this.pointMode) {
-  //   this.pointMode = boolean;
-  //   return boolean;
-  // }
-  // toggleViewMode(boolean = !this.fullViewMode) {
-  //   this.fullViewMode = boolean;
-  //   return boolean;
-  // }
-  // toggleTagMode(boolean = !this.tagMode) {
-  //   this.tagMode = boolean;
-  //   return boolean;
-  // }
-  // toggleSideNotesMode(boolean = !this.sideNotesMode) {
-  //   this.sideNotesMode = boolean;
-  //   return boolean;
-  // }
-  toggleMode(name, value = "", newNotes = {}) {
+
+  toggleMode(name, value = "") {
     const oldValue = state[name];
     const inValue = typeof value == "boolean" ? value : !oldValue;
     this[name] = inValue;
-    // ---------- Only toggling mode NO state mutation!!! --------
-
-    // const newState = newNotes
-    //   ? (state = { ...state, ...newNotes, [name]: inValue })
-    //   : (state = { ...state, [name]: inValue });
-    // const newState = { ...state, ...newNotes, [name]: inValue };
-    // newNotes[0] ? (this.notes = newNotes) : "";
-    console.log("toggleMode", this);
-    // return this.notes;
-    // console.log("old Value", oldValue, "new", inValue);
   }
   getMode(name) {
     const value = this[name];
@@ -151,7 +106,6 @@ class State {
     const notes = getFromStorage("notes") || this.notes;
     renderPrevNotes(notes, handlersObj);
     this.notes = notes;
-    console.log("loadNotes", this);
   }
   updateNotes(notes) {
     this.notes = notes;
@@ -162,25 +116,6 @@ class State {
   }
 }
 
-// export function toggleMode(name, value = "", newNotes = {}) {
-//   const oldValue = state[name];
-//   const inValue = typeof value == "boolean" ? value : !oldValue;
-//   // const newState = newNotes
-//   //   ? (state = { ...state, ...newNotes, [name]: inValue })
-//   //   : (state = { ...state, [name]: inValue });
-//   // const newState = { ...state, ...newNotes, [name]: inValue };
-//   state[name] = inValue;
-//   console.log(state);
-//   newNotes[0] ? (state.notes = newNotes) : "";
-//   console.log(state);
-//   return state.notes;
-//   // console.log("old Value", oldValue, "new", inValue);
-// }
-// export function getMode(name) {
-//   const value = state[name];
-//   // console.log(name, ":", value);
-//   return value;
-// }
 const state = new State();
 //______________________________________________________________
 setInterval(() => {
@@ -192,11 +127,4 @@ setInterval(() => {
   state.time = timeOutSec;
 }, 1000);
 //______________________________________________________________
-// export function loadNotes(renderPrevNotes, handlersObj) {
-//   // this function should be in the controller (index.js)
-//   const notes = getFromStorage("notes") || state.notes;
-//   renderPrevNotes(notes, handlersObj);
-//   state.notes = notes;
-//   console.log(notes);
-// }
 export default state;

@@ -1,19 +1,5 @@
-// Transform into a class and
-// ______________________________________________________________
-import // showTimeOnEditHandler,
-// saveNoteHandler,
-// resetAddNoteHandler,
-// tagNoteHandler,
-// togglePointHandler,
-// pointNoteHandler,
-// fullViewHandler,
-// listNoteHandler,
-// toggleSideNotesHandler,
-"../index.js";
-// import { renderPrevNotes } from "./sideNoteView.js";
 import { setCursorEditable } from "../helpers.js";
 
-// const sideNotesBtn = document.querySelector(".side-notes__btn");
 // ------------ Add Note Btn ----------------------------------
 const saveNoteBtn = document.getElementById("note__save");
 const listNoteBtn = document.getElementById("note__add-list");
@@ -25,17 +11,12 @@ const clearNoteBtn = document.getElementById("note__clear");
 const addNoteContainer = document.getElementById("add-note__container");
 const addNoteTitle = document.getElementById("add-note__title");
 const addNoteFullView = document.querySelector("#note__full-view");
-const sideNotes = document.getElementById("side-notes");
 const dateContainer = document.getElementById("date-container");
 const dateNote = document.getElementById("date-note");
 const timeNote = document.getElementById("time-note");
 const sideNotesBtn = document.querySelector(".side-notes__btn");
 const sideNotesList = document.getElementById("side-notes__list");
-// const dateNote = document.getElementById("date-note");
-// const timeNote = document.getElementById("time-note");
-// const addNoteTitle = document.getElementById("add-note__title");
 class AddNoteView {
-  #notes;
   #deletePrevNotes;
   #editPrevNotes;
   #getMode;
@@ -84,7 +65,6 @@ class AddNoteView {
 
       prevNote.innerHTML = prevNoteChildren;
 
-      // prevNote.addEventListener("click", this.prevNoteHandler);
       prevNote.addEventListener("click", (e) => this.prevNoteHandler(e, notes));
       return prevNote;
     });
@@ -93,7 +73,6 @@ class AddNoteView {
 
   // ______________________________________________________________
   renderPrevNotes(notes = {}, handlersObj = {}) {
-    // if (notes) this.#notes = notes;
     // only the first 10 notes to show in the sidebar
     sideNotesList.innerHTML = "";
     this.generatePrevNotes(notes.slice(0, 10)).map((note) =>
@@ -109,7 +88,6 @@ class AddNoteView {
         updateNotes,
         getNotes,
       } = handlersObj;
-      this.#notes = notes;
       this.#getMode = getMode;
       this.#toggleMode = toggleMode;
       this.#editPrevNotes = editPrevNotes;
@@ -123,7 +101,6 @@ class AddNoteView {
   // ______________________________________________________________
   editSideNote(target) {
     const notes = this.#getNotes();
-    // let notes = this.#notes;
     const id = target.id;
     const pen = target.querySelector(".edit__icon");
     const line = target.querySelector(".edit__line");
@@ -144,13 +121,9 @@ class AddNoteView {
       noteContent.classList.remove("span-content");
     }
     // ____________ Reset AddNote inputes _______
-    console.log(notes, note.edit);
     if (note.edit) {
       const notes = this.#editPrevNotes(note, id);
       this.#updateNotes(notes);
-      // this.#notes = notes;
-      console.log(notes);
-
       this.resetAddNote();
       // --------- Animation ------------------
       pen.classList.remove("pen-in");
@@ -158,23 +131,13 @@ class AddNoteView {
       prevNoteContent.classList.remove("span-content");
       // --------- Animation ------------------
       this.#toggleMode("editMode", false);
-      // notes = this.#toggleMode("editMode", false, notes);
-      // console.log(notes);
-
       this.showTimeOnEdit();
-      // showTimeOnEditHandler(showTimeOnEdit);
     } else {
       // _______ Display current Note _________
       addNoteTitle.value = note.title;
       container.innerHTML = note.markup;
       const notes = this.#editPrevNotes(note, id);
       this.#updateNotes(notes);
-      // this.#notes = notes;
-      console.log(notes);
-
-      // this.#editPrevNotes(note, id);
-      // this.#notes = this.#editPrevNotes(note, id);
-
       // --------- Animation ------------------
       pen.classList.add("pen-in");
       line.classList.add("pen-line-in");
@@ -184,17 +147,11 @@ class AddNoteView {
       timeNote.innerText = note.time;
       dateNote.innerText = note.date;
       this.#toggleMode("editMode", true);
-      // notes = this.#toggleMode("editMode", true, notes);
-      // console.log(notes);
-
-      // showTimeOnEditHandler(showTimeOnEdit);
       this.showTimeOnEdit();
     }
   }
   // ______________________________________________________________
-  // deleteSideNote(id, notes, deletePrevNote) {
   deleteSideNote(id) {
-    // const notes = this.#notes;
     const notes = this.#getNotes();
     const newNotes = this.#deletePrevNotes(id);
     const note = notes.filter((note) => note.id == id)[0];
@@ -241,8 +198,6 @@ class AddNoteView {
     setCursorEditable(addNoteContent, 0, 0);
     this.#toggleMode("editMode", false);
     this.showTimeOnEdit();
-    // toggleMode("editMode", false);
-    // this.#toggleMode = toggleMode;
   }
   // ______________________________________________________________
   saveNote(event, _, time, date, saveNoteOnEdit, addNote) {
@@ -252,7 +207,6 @@ class AddNoteView {
     const markup = document.querySelector("#add-note__container").innerHTML;
     const tags = content.split(" ").filter((tag) => tag[0] === "#");
     const notes = this.#getNotes();
-    // const notes = this.#notes;
     // ---------------- Authntication ------------------------------
     if (/^\s/.test(addNoteTitle.value, "g")) return null;
     // -------------------------------------------------------------
@@ -260,25 +214,19 @@ class AddNoteView {
     // ---------------- Authntication ------------------------------
 
     // ---------------- Save Note When Edit ------------------------
-    // console.log(notes, this.#notes);
-    // WE Need to pass the updated note to be saved
     if (notes.some((note) => note.edit)) {
       const newNotes = saveNoteOnEdit({ title, content, markup, tags });
-      console.log("on edit", newNotes);
       // Render to the View
       this.renderPrevNotes(newNotes);
       this.resetAddNote();
-      // showTimeOnEditHandler(showTimeOnEdit);
       this.showTimeOnEdit();
       this.#updateNotes(newNotes);
-      // this.#notes = newNotes;
       return null;
     }
     // ---------------- Save Note When Edit ------------------------
 
     // ---------------- Add New Note ------------------------
     const newNotes = addNote({ title, content, markup, tags });
-    console.log("new nots", newNotes);
     // Render to the View
     this.renderPrevNotes(newNotes);
     this.resetAddNote();
@@ -286,7 +234,6 @@ class AddNoteView {
     dateNote.innerText = date;
     // ---------------- Add New Note ------------------------
     this.#updateNotes(newNotes);
-    // this.#notes = newNotes;
   }
   // ______________________________________________________________
   clearNote = () => {
@@ -298,8 +245,7 @@ class AddNoteView {
     }
   };
   // ______________________________________________________________
-  tagNote(toggleMode) {
-    // this.#toggleMode = toggleMode;
+  tagNote() {
     this.#toggleMode("tagMode");
     const addNoteContainer = document.querySelector("#add-note__container");
     const addNoteContent =
@@ -315,12 +261,10 @@ class AddNoteView {
     setCursorEditable(tag, 0, 1);
   }
   // ______________________________________________________________
-  // pointNote(togglePointMode, toggleListMode, pointMode, currState) {
-  pointNote(toggleMode) {
+  pointNote() {
     this.#toggleMode("pointMode", true);
     this.#toggleMode("listMode", false);
-    // toggleMode("pointMode", true);
-    // toggleMode("listMode", false);
+
     const addNoteContainer = document.querySelector("#add-note__container");
     const div = document.createElement("div");
     div.classList.add("point-container");
@@ -338,26 +282,20 @@ class AddNoteView {
   }
   // ______________________________________________________________
   toggleFullView(toggleMode, getMode) {
-    // add toggleSideNotesMode as a privet field???
-    // fix auto misToggling side notes when toggle oerder change .
-    // toggleViewMode();
     this.#toggleMode("fullViewMode");
-    // toggleMode("fullViewMode");
+    // ----------------------------------------------------------------
     const fullViewMode = getMode("fullViewMode");
     const sideNotesMode = getMode("sideNotesMode");
     document.querySelector(".full-view--false").classList.toggle("hidden");
     document.querySelector(".full-view--true").classList.toggle("hidden");
     document.querySelector(".body-index").classList.toggle("full-view");
     // ----------------------------------------------------------------
-
-    // if (sideNotes.classList.contains("hide-notes-aside")) return null;
-    // ----------------------------------------------------------------
     if (fullViewMode && sideNotesMode) this.toggleSideNotes(toggleMode);
 
     if (!fullViewMode && !sideNotesMode) this.toggleSideNotes(toggleMode);
   }
   // ______________________________________________________________
-  listNote(getMode, toggleMode) {
+  listNote() {
     const listMode = this.#getMode("listMode");
     if (!listMode) {
       const addNoteContainer = document.querySelector("#add-note__container");
@@ -379,7 +317,7 @@ class AddNoteView {
     this.#toggleMode("listMode");
   }
   // ______________________________________________________________
-  togglePoint(e, getMode, toggleMode) {
+  togglePoint(e) {
     const pointMode = this.#getMode("pointMode");
     if (e.key == "Enter") {
       if (pointMode) {
@@ -405,19 +343,6 @@ class AddNoteView {
       this.toggleSideNotes(toggleMode);
     });
   }
-  deleteSideNoteHandler(id, notes, deletePrevNote) {
-    // this.#notes = notes;
-    this.#deletePrevNotes = deletePrevNote;
-    // this.sideNotesBtn.addEventListener("click", () => {
-    //   this.deleteSideNote(id,notes,deletePrevNote);
-    // });
-  }
-  // sideNotesHandler(notes, toggleMode) {
-  //   // this.#notes = notes;
-  //   // this.sideNotesList.addEventListener("click", (e) => {
-  //   //   this.prevNoteHandler(e);
-  //   // });
-  // }
   listNotesHandler(getMode, toggleMode) {
     listNoteBtn.addEventListener("click", () => {
       this.listNote(getMode, toggleMode);
@@ -451,200 +376,5 @@ class AddNoteView {
       this.togglePoint(e, pointMode, togglePointMode);
     });
   }
-  // renderPrevNotesHandler(notes) {
-  //   this.#notes = notes;
-  //   this.renderPrevNotes();
-  // }
 }
-
-// // ------------ Nav List ---------------------------------------
-// const saveNoteBtn = document.getElementById("note__save");
-// const listNoteBtn = document.getElementById("note__add-list");
-// const pointNoteBtn = document.getElementById("note__add-point");
-// const tagNoteBtn = document.getElementById("note__add-tag");
-// const clearNoteBtn = document.getElementById("note__clear");
-// //------------ Main section Add Note & Side Note ---------------
-// const addNoteContainer = document.getElementById("add-note__container");
-// export const addNoteTitle = document.getElementById("add-note__title");
-// const addNoteFullView = document.querySelector("#note__full-view");
-// const sideNotes = document.getElementById("side-notes");
-// const dateContainer = document.getElementById("date-container");
-// const dateNote = document.getElementById("date-note");
-// const timeNote = document.getElementById("time-note");
-
-// ------------ Functions ---------------------------------------
-// export function showTimeOnEdit(editMode) {
-//   // Show Date & Time only on editMode
-//   if (editMode) {
-//     dateContainer.classList.remove("hidden");
-//   } else {
-//     dateContainer.classList.add("hidden");
-//   }
-// }
-// ______________________________________________________________
-// export function resetAddNote(toggleEditMode) {
-//   const addNoteContainer = document.querySelector("#add-note__container");
-//   const addNoteContent = document.createElement("p");
-//   const addNoteTitle = document.getElementById("add-note__title");
-//   addNoteContainer.innerHTML = "";
-//   addNoteTitle.value = "";
-//   addNoteContent.classList.add("add-note__content");
-//   addNoteContent.innerHTML = "&nbsp";
-//   addNoteContainer.appendChild(addNoteContent);
-//   setCursorEditable(addNoteContent, 0, 0);
-//   toggleEditMode(false);
-// }
-// ______________________________________________________________
-// export function saveNote(event, notes, time, date, saveNoteOnEdit, addNote) {
-//   event.preventDefault();
-//   const title = document.getElementById("add-note__title").value;
-//   const content = document.querySelector("#add-note__container").innerText;
-//   const markup = document.querySelector("#add-note__container").innerHTML;
-//   const tags = content.split(" ").filter((tag) => tag[0] === "#");
-
-//   // ---------------- Authntication ------------------------------
-//   if (/^\s/.test(addNoteTitle.value, "g")) return null;
-//   // -------------------------------------------------------------
-//   if (!addNoteTitle.value) return null;
-//   // ---------------- Authntication ------------------------------
-
-//   // ---------------- Save Note When Edit ------------------------
-//   if (notes.some((note) => note.edit)) {
-//     const newNotes = saveNoteOnEdit({ title, content, markup, tags });
-//     // Render to the View
-//     renderPrevNotes(newNotes);
-//     // this.resetAddNote();
-//     showTimeOnEditHandler(showTimeOnEdit);
-//     return null;
-//   }
-// ---------------- Save Note When Edit ------------------------
-
-// ---------------- Add New Note ------------------------
-//   const newNotes = addNote({ title, content, markup, tags });
-
-//   // Render to the View
-//   renderPrevNotes(newNotes);
-//   // this.resetAddNote();
-//   timeNote.innerText = time;
-//   dateNote.innerText = date;
-//   // ---------------- Add New Note ------------------------
-// }
-// ______________________________________________________________
-// const clearNoteHandler = () => {
-//   const addNoteContainer = document.querySelector("#add-note__container");
-//   if (addNoteContainer.innerText != false) {
-//     addNoteContainer.innerText = "";
-//   } else {
-//     // this.resetAddNote();
-//   }
-// };
-// ______________________________________________________________
-// export function tagNote(toggleTagMode) {
-//   toggleTagMode();
-//   const addNoteContainer = document.querySelector("#add-note__container");
-//   const addNoteContent =
-//     addNoteContainer.children[addNoteContainer.childElementCount - 1];
-//   const span = document.createElement("span");
-//   span.classList.add("add-note__statement");
-//   span.innerText = " ";
-//   const tag = document.createElement("span");
-//   tag.classList.add("add-note__tag");
-//   tag.innerText = "#";
-//   addNoteContent.appendChild(tag);
-//   addNoteContent.appendChild(span);
-//   setCursorEditable(tag, 0, 1);
-// }
-// ______________________________________________________________
-// export function pointNote(togglePointMode, toggleListMode) {
-//   togglePointMode(true);
-//   toggleListMode(false);
-//   const addNoteContainer = document.querySelector("#add-note__container");
-//   const div = document.createElement("div");
-//   div.classList.add("point-container");
-//   const h2 = document.createElement("h2");
-//   h2.classList.add("add-note__heading");
-//   h2.innerHTML = "&nbsp";
-//   h2.style.minHeight = "30px";
-//   const p = document.createElement("p");
-//   p.classList.add("add-note__content");
-//   p.innerHTML = "&nbsp";
-//   div.appendChild(h2);
-//   div.appendChild(p);
-//   addNoteContainer.appendChild(div);
-//   setCursorEditable(h2, 0, 0);
-// }
-// ______________________________________________________________
-// export function fullView(toggleViewMode, viewmode, sideNotesMode) {
-//   toggleViewMode();
-//   document.querySelector(".full-view--false").classList.toggle("hidden");
-//   document.querySelector(".full-view--true").classList.toggle("hidden");
-//   document.querySelector(".body-index").classList.toggle("full-view");
-// ----------------------------------------------------------------
-
-// if (sideNotes.classList.contains("hide-notes-aside")) return null;
-// ----------------------------------------------------------------
-//   if (viewmode && !sideNotesMode) toggleSideNotesHandler();
-//   if (!viewmode && sideNotesMode) toggleSideNotesHandler();
-// }
-// ______________________________________________________________
-// export function listNote(e, listMode, toggleListMode) {
-//   if (!listMode) {
-//     const addNoteContainer = document.querySelector("#add-note__container");
-//     const list = document.createElement("ol");
-//     const listItem = document.createElement("li");
-//     list.style.listStyleType = "A";
-//     list.classList.add("add-note__list");
-//     listItem.classList.add("add-note__list-item");
-//     listItem.innerHTML = "&nbsp";
-//     list.appendChild(listItem);
-//     addNoteContainer.appendChild(list);
-//     setCursorEditable(listItem, 0, 0);
-//   } else {
-//     const div = document.createElement("div");
-//     div.innerHTML = "&nbsp";
-//     addNoteContainer.appendChild(div);
-//     setCursorEditable(div, 0, 0);
-//   }
-//   toggleListMode();
-// }
-// ______________________________________________________________
-// export function togglePoint(e, pointMode, togglePointMode) {
-//   if (e.key == "Enter") {
-//     if (pointMode) {
-//       e.preventDefault();
-//       const addNoteContentNodes =
-//         document.querySelectorAll(".add-note__content");
-//       const addNoteContent =
-//         addNoteContentNodes[addNoteContentNodes.length - 1];
-//       const length = addNoteContentNodes.length - 1;
-//       setCursorEditable(addNoteContent, 0, 0);
-//     }
-//     togglePointMode(false);
-//   }
-// }
-//____________________________________________________
-// saveNoteBtn.addEventListener("click", (event) => {
-//   saveNoteHandler(event);
-// });
-// ______________________________________________________________
-// clearNoteBtn.addEventListener("click", clearNoteHandler);
-// ______________________________________________________________
-// tagNoteBtn.addEventListener("click", tagNoteHandler);
-// ______________________________________________________________
-// pointNoteBtn.addEventListener("click", pointNoteHandler);
-// ______________________________________________________________
-// addNoteFullView.addEventListener("click", fullViewHandler);
-//______________________________________________________________
-// listNoteBtn.addEventListener("click", listNoteHandler);
-// ______________________________________________________________
-// addNoteContainer.addEventListener("keypress", togglePointHandler);
-// ______________________________________________________________
-// sideNotesBtn.addEventListener("click", toggleSideNotesHandler);
-
-// export function toggleSideNotesHandler(sideNotesMode) {
-//   sideNotesBtn.addEventListener("click", () => {
-//     toggleSideNotes(sideNotesMode);
-//   });
-// }
-
 export default new AddNoteView();
