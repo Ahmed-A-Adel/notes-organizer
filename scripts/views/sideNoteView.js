@@ -1,4 +1,3 @@
-import { setCursorEditable } from "../helpers.js";
 import { AddNoteView } from "./addNoteView.js";
 //------------ Main section Add Note & Side Note ---------------
 const addNoteTitle = document.getElementById("add-note__title");
@@ -185,5 +184,3 @@ class SideNoteView extends AddNoteView {
   }
 }
 export default new SideNoteView();
-
-// console.log(new SideNoteView().getNotes());

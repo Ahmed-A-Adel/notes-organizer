@@ -4,24 +4,9 @@ import addNoteView from "./views/addNoteView.js";
 import sideNoteView from "./views/sideNoteView.js";
 //______________________________________________________________;
 function loadNotesHandler() {
-  // state.loadNotes(addNoteView.renderPrevNotes.bind(addNoteView), {
-  //   getMode: state.getMode.bind(state),
-  //   toggleMode: state.toggleMode.bind(state),
-  //   editPrevNotes: state.editPrevNotes.bind(state),
-  //   deletePrevNote: state.deletePrevNote.bind(state),
-  //   updateNotes: state.updateNotes.bind(state),
-  //   getNotes: state.getNotes.bind(state),
-  // });
   state.loadNotes(sideNoteView.renderPrevNotes.bind(sideNoteView));
 }
-// addNoteView({
-//   getMode: state.getMode.bind(state),
-//   toggleMode: state.toggleMode.bind(state),
-//   editPrevNotes: state.editPrevNotes.bind(state),
-//   deletePrevNote: state.deletePrevNote.bind(state),
-//   updateNotes: state.updateNotes.bind(state),
-//   getNotes: state.getNotes.bind(state),
-// });
+
 addNoteView.setDefault({
   getMode: state.getMode.bind(state),
   toggleMode: state.toggleMode.bind(state),
@@ -42,7 +27,6 @@ sideNoteView.setDefault({
 window.addEventListener("load", loadNotesHandler);
 //------------ Event Listeners ---------------------------------
 sideNoteView.toggleSideNotesHandler(state.toggleMode.bind(state));
-// addNoteView.toggleSideNotesHandler(state.toggleMode.bind(state));
 addNoteView.saveNoteHandler(
   state.notes,
   state.time,
