@@ -29,7 +29,6 @@ class SideNoteView extends AddNoteView {
     this.deletePrevNotes = deletePrevNote;
     this.updateNotes = updateNotes;
     this.getNotes = getNotes;
-    // }
   }
   toggleSideOnFull() {
     // ----------------------------------------------------------------
@@ -87,7 +86,7 @@ class SideNoteView extends AddNoteView {
   }
 
   // ______________________________________________________________
-  renderPrevNotes(notes = {}, handlersObj = {}) {
+  renderPrevNotes(notes = {}) {
     // only the first 10 notes to show in the sidebar
     sideNotesList.innerHTML = "";
     this.generatePrevNotes(notes.slice(0, 10)).map((note) =>

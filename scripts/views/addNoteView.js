@@ -8,6 +8,7 @@ const tagNoteBtn = document.getElementById("note__add-tag");
 const clearNoteBtn = document.getElementById("note__clear");
 // ------------ Add Note Btn ----------------------------------
 //------------ Main section Add Note --------------------------
+const addNote = document.getElementById("add-note");
 const addNoteContainer = document.getElementById("add-note__container");
 const addNoteTitle = document.getElementById("add-note__title");
 const addNoteFullView = document.querySelector("#note__full-view");
@@ -54,6 +55,11 @@ export class AddNoteView {
     }
   }
   // ______________________________________________________________
+  addNote(event) {
+    event.preventDefault();
+    console.log("prevent !!");
+  }
+  // ______________________________________________________________
   resetAddNote() {
     const addNoteContent = document.createElement("p");
     addNoteContainer.innerHTML = "";
@@ -66,7 +72,8 @@ export class AddNoteView {
     this.showTimeOnEdit();
   }
   // ______________________________________________________________
-  saveNote(event, _, time, date, saveNoteOnEdit, addNote, renderPrevNotes) {
+  saveNote(event, saveNoteOnEdit, addNote, renderPrevNotes) {
+    console.log(event);
     event.preventDefault();
     const title = document.getElementById("add-note__title").value;
     const content = document.querySelector("#add-note__container").innerText;
@@ -82,25 +89,22 @@ export class AddNoteView {
     // ---------------- Save Note When Edit ------------------------
     if (notes.some((note) => note.edit)) {
       const newNotes = saveNoteOnEdit({ title, content, markup, tags });
-      // Render to the View
+      // Render to the sideNoteView
       renderPrevNotes(newNotes);
-      this.resetAddNote();
-      this.showTimeOnEdit();
       this.updateNotes(newNotes);
-      console.log();
+      this.showTimeOnEdit();
+      this.resetAddNote();
       return null;
     }
     // ---------------- Save Note When Edit ------------------------
 
     // ---------------- Add New Note ------------------------
     const newNotes = addNote({ title, content, markup, tags });
-    // Render to the View
+    // Render to the sideNoteView
     renderPrevNotes(newNotes);
-    this.resetAddNote();
-    timeNote.innerText = time;
-    dateNote.innerText = date;
-    // ---------------- Add New Note ------------------------
     this.updateNotes(newNotes);
+    this.resetAddNote();
+    // ---------------- Add New Note ------------------------
   }
   // ______________________________________________________________
   clearNote = () => {
@@ -194,45 +198,44 @@ export class AddNoteView {
     }
   }
   // ______________________________________________________________
-  saveNoteHandler(notes, time, date, saveNoteOnEdit, addNote, renderPrevNotes) {
+  addNoteHandler() {
+    addNote.addEventListener("submit", (event) => {
+      this.addNote(event);
+    });
+  }
+  saveNoteHandler(saveNoteOnEdit, addNote, renderPrevNotes) {
     saveNoteBtn.addEventListener("click", (event) => {
-      this.saveNote(
-        event,
-        notes,
-        time,
-        date,
-        saveNoteOnEdit,
-        addNote,
-        renderPrevNotes
-      );
+      this.saveNote(event, saveNoteOnEdit, addNote, renderPrevNotes);
     });
   }
-  listNotesHandler(getMode, toggleMode) {
+  listNotesHandler() {
     listNoteBtn.addEventListener("click", () => {
-      this.listNote(getMode, toggleMode);
+      this.listNote();
     });
   }
-  clearNoteHandler(toggleMode) {
+  clearNoteHandler() {
     clearNoteBtn.addEventListener("click", () => {
-      this.clearNote(toggleMode);
+      this.clearNote();
     });
   }
-  resetAddNoteHandler(toggleMode) {
-    this.toggleMode = toggleMode;
+  clearAddNoteHandler() {
+    clearNoteBtn.addEventListener("click", () => {
+      this.clearNote();
+    });
   }
-  toggleFullViewHandler(toggleMode, getMode) {
+  toggleFullViewHandler() {
     addNoteFullView.addEventListener("click", () => {
-      this.toggleFullView(toggleMode, getMode);
+      this.toggleFullView();
     });
   }
-  tagNoteHandler(toggleMode) {
+  tagNoteHandler() {
     tagNoteBtn.addEventListener("click", () => {
-      this.tagNote(toggleMode);
+      this.tagNote();
     });
   }
-  pointNoteHandler(toggleMode, getMode) {
+  pointNoteHandler() {
     pointNoteBtn.addEventListener("click", () => {
-      this.pointNote(toggleMode, getMode);
+      this.pointNote();
     });
   }
   togglePointHandler(pointMode, togglePointMode) {
