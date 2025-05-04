@@ -8,7 +8,7 @@ const tagNoteBtn = document.getElementById("note__add-tag");
 const clearNoteBtn = document.getElementById("note__clear");
 // ------------ Add Note Btn ----------------------------------
 //------------ Main section Add Note --------------------------
-const addNote = document.getElementById("add-note");
+const addNoteForm = document.getElementById("add-note");
 const addNoteContainer = document.getElementById("add-note__container");
 const addNoteTitle = document.getElementById("add-note__title");
 const addNoteFullView = document.querySelector("#note__full-view");
@@ -19,7 +19,7 @@ const timeNote = document.getElementById("time-note");
 //------------ Main section Add Note --------------------------
 
 export class AddNoteView {
-  constructor(props) {}
+  constructor() {}
   setDefault(objectFileds) {
     // setting the default fields
     const {
@@ -37,7 +37,6 @@ export class AddNoteView {
     this.updateNotes = updateNotes;
     this.getNotes = getNotes;
   }
-
   // ______________________________________________________________
   showTimeOnEdit() {
     // change name to toggleTime
@@ -49,10 +48,10 @@ export class AddNoteView {
     }
   }
   // ______________________________________________________________
-  addNote(event) {
-    event.preventDefault();
-    console.log("prevent !!");
-  }
+  // addNote(event) {
+  //   event.preventDefault();
+  //   console.log("prevent !!");
+  // }
   // ______________________________________________________________
   resetAddNote() {
     const addNoteContent = document.createElement("p");
@@ -66,8 +65,7 @@ export class AddNoteView {
     this.showTimeOnEdit();
   }
   // ______________________________________________________________
-  saveNote(event, saveNoteOnEdit, addNote, renderPrevNotes) {
-    console.log(event);
+  saveNote(event, saveNote) {
     event.preventDefault();
     const title = document.getElementById("add-note__title").value;
     const content = document.querySelector("#add-note__container").innerText;
@@ -82,10 +80,11 @@ export class AddNoteView {
 
     // ---------------- Save Note When Edit ------------------------
     if (notes.some((note) => note.edit)) {
-      const newNotes = saveNoteOnEdit({ title, content, markup, tags });
+      // const newNotes = saveNoteOnEdit({ title, content, markup, tags });
+      saveNote({ title, content, markup, tags }, true);
       // Render to the sideNoteView
-      renderPrevNotes(newNotes);
-      this.updateNotes(newNotes);
+      // renderPrevNotes(newNotes);
+      // this.updateNotes(newNotes);
       this.showTimeOnEdit();
       this.resetAddNote();
       return null;
@@ -93,10 +92,11 @@ export class AddNoteView {
     // ---------------- Save Note When Edit ------------------------
 
     // ---------------- Add New Note ------------------------
-    const newNotes = addNote({ title, content, markup, tags });
+    saveNote({ title, content, markup, tags });
+    // const newNotes = addNote({ title, content, markup, tags });
     // Render to the sideNoteView
-    renderPrevNotes(newNotes);
-    this.updateNotes(newNotes);
+    // renderPrevNotes(newNotes);
+    // this.updateNotes(newNotes);
     this.resetAddNote();
     // ---------------- Add New Note ------------------------
   }
@@ -192,16 +192,32 @@ export class AddNoteView {
     }
   }
   // ______________________________________________________________
-  addNoteHandler() {
-    addNote.addEventListener("submit", (event) => {
-      this.addNote(event);
+  // addNoteHandler(saveNote) {
+  //   addNoteForm.addEventListener("submit", (event) => {
+  //     this.addNote(event);
+  //     this.saveNote(event, saveNote);
+  //   });
+  // }
+  // addNoteHandler(saveNoteOnEdit, addNote, renderPrevNotes) {
+  //   addNoteForm.addEventListener("submit", (event) => {
+  //     this.addNote(event);
+  //     this.saveNote(event, saveNoteOnEdit, addNote, renderPrevNotes);
+  //   });
+  // }
+  saveNoteHandler(saveNote) {
+    addNoteForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      this.saveNote(event, saveNote);
     });
-  }
-  saveNoteHandler(saveNoteOnEdit, addNote, renderPrevNotes) {
     saveNoteBtn.addEventListener("click", (event) => {
-      this.saveNote(event, saveNoteOnEdit, addNote, renderPrevNotes);
+      this.saveNote(event, saveNote);
     });
   }
+  // saveNoteHandler(saveNoteOnEdit, addNote, renderPrevNotes) {
+  //   saveNoteBtn.addEventListener("click", (event) => {
+  //     this.saveNote(event, saveNoteOnEdit, addNote, renderPrevNotes);
+  //   });
+  // }
   listNotesHandler() {
     listNoteBtn.addEventListener("click", () => {
       this.listNote();

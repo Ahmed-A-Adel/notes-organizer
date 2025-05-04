@@ -20,24 +20,36 @@ function loadNotesHandler() {
 //______________________________________________________________;
 // Filter view methods to do only one specific action and the left actions like updateding the state and side effects will be handled here in the contoller
 // the methods that doesn't need callBAck handler should be called in the view constructor
+function controlAddNote(props, edit = false) {
+  let newNotes = edit ? state.saveNoteOnEdit(props) : state.addNote(props);
+  sideNoteView.renderPrevNotes(newNotes);
+  state.updateNotes(newNotes);
+}
+//_____________________________________________________`_________;
+
 function init() {
   addNoteView.setDefault(stateMethods);
   sideNoteView.setDefault(stateMethods);
   sideNoteView.toggleSideNotesHandler();
   sideNoteView.toggleSideOnFullHandler();
-  addNoteView.addNoteHandler();
-  addNoteView.saveNoteHandler(
-    state.saveNoteOnEdit.bind(state),
-    state.addNote.bind(state),
-    sideNoteView.renderPrevNotes.bind(sideNoteView)
-  );
+  // addNoteView.addNoteHandler(
+  //   state.saveNoteOnEdit.bind(state),
+  //   state.addNote.bind(state),
+  //   sideNoteView.renderPrevNotes.bind(sideNoteView)
+  // );
+  addNoteView.saveNoteHandler(controlAddNote);
+  // addNoteView.saveNoteHandler(
+  //   state.saveNoteOnEdit.bind(state),
+  //   state.addNote.bind(state),
+  //   sideNoteView.renderPrevNotes.bind(sideNoteView)
+  // );
   addNoteView.listNotesHandler();
   addNoteView.toggleFullViewHandler();
   addNoteView.tagNoteHandler();
   addNoteView.clearAddNoteHandler();
   addNoteView.togglePointHandler();
   addNoteView.pointNoteHandler();
-  addNoteView.addNoteHandler();
+  // addNoteView.addNoteHandler(controlAddNote);
 }
 //------------ Event Listeners ---------------------------------
 window.addEventListener("load", loadNotesHandler);

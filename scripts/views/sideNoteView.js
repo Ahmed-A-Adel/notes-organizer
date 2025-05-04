@@ -98,6 +98,7 @@ class SideNoteView extends AddNoteView {
   // ______________________________________________________________
   editSideNote(target) {
     const notes = this.getNotes();
+    console.log(notes);
     const id = target.id;
     const pen = target.querySelector(".edit__icon");
     const line = target.querySelector(".edit__line");
