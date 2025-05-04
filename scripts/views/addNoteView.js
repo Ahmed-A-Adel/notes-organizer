@@ -19,12 +19,6 @@ const timeNote = document.getElementById("time-note");
 //------------ Main section Add Note --------------------------
 
 export class AddNoteView {
-  deletePrevNotes;
-  editPrevNotes;
-  getMode;
-  toggleMode;
-  updateNotes;
-  getNotes;
   constructor(props) {}
   setDefault(objectFileds) {
     // setting the default fields

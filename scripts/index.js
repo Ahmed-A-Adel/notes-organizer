@@ -3,6 +3,8 @@ import state from "./modle.js";
 import addNoteView from "./views/addNoteView.js";
 import sideNoteView from "./views/sideNoteView.js";
 //______________________________________________________________;
+// Take the common methods and props from all views to a single parent view.
+// Shared fileds name yet specefic to one class would give us a true power of using inherited methods from parent without defining them
 const stateMethods = {
   getMode: state.getMode.bind(state),
   toggleMode: state.toggleMode.bind(state),
@@ -16,6 +18,8 @@ function loadNotesHandler() {
   state.loadNotes(sideNoteView.renderPrevNotes.bind(sideNoteView));
 }
 //______________________________________________________________;
+// Filter view methods to do only one specific action and the left actions like updateding the state and side effects will be handled here in the contoller
+// the methods that doesn't need callBAck handler should be called in the view constructor
 function init() {
   addNoteView.setDefault(stateMethods);
   sideNoteView.setDefault(stateMethods);
@@ -39,4 +43,3 @@ function init() {
 window.addEventListener("load", loadNotesHandler);
 //------------ Event Listeners ---------------------------------
 init();
-// form.onsubmit = addNoteView.addNoteHandler;

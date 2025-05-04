@@ -101,10 +101,9 @@ class State {
     console.log("getMode", name, ":", value);
     return value;
   }
-  loadNotes(renderPrevNotes, handlersObj) {
-    // this function should be in the controller (index.js)
+  loadNotes(renderPrevNotes) {
     const notes = getFromStorage("notes") || this.notes;
-    renderPrevNotes(notes, handlersObj);
+    renderPrevNotes(notes);
     this.notes = notes;
   }
   updateNotes(notes) {

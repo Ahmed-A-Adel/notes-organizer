@@ -10,11 +10,24 @@ export function setCursorEditable(editableElem, index, position = 1) {
 }
 //______________________________________________________________
 export function addToStorage(name, items) {
-  const itemsString = JSON.stringify(items);
-  localStorage.setItem(name, itemsString);
+  try {
+    if (!name) throw new Error("name is not defined ✨");
+    const itemsString = JSON.stringify(items);
+    localStorage.setItem(name, itemsString);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 //______________________________________________________________
 export function getFromStorage(name) {
-  const itemsObj = JSON.parse(localStorage.getItem(name));
-  return itemsObj;
+  try {
+    const itemsObj = JSON.parse(localStorage.getItem(name));
+    if (!itemsObj || itemsObj == null)
+      throw new Error(`items of ${name} are not defined ✨`);
+    return itemsObj;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
