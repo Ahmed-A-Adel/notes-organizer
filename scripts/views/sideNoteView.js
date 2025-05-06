@@ -1,13 +1,17 @@
-import { AddNoteView } from "./addNoteView.js";
+// import { AddNoteView } from "./addNoteView.js";
+import { View } from "./View.js";
+// import addNoteView from "./addNoteView";
+
 //------------ Main section Add Note & Side Note ---------------
 const addNoteTitle = document.getElementById("add-note__title");
 const dateNote = document.getElementById("date-note");
 const timeNote = document.getElementById("time-note");
 const sideNotesBtn = document.querySelector(".side-notes__btn");
-const sideNotesList = document.getElementById("side-notes__list");
-const addNoteFullView = document.querySelector("#note__full-view");
+// const sideNotesList = document.getElementById("side-notes__list");
+// const addNoteFullView = document.querySelector("#note__full-view");
 
-class SideNoteView extends AddNoteView {
+// class SideNoteView extends AddNoteView {
+class SideNoteView extends View {
   //------------ Main section Add Note & Side Note ---------------
   constructor() {
     super();
@@ -52,48 +56,48 @@ class SideNoteView extends AddNoteView {
     }
   }
   // ______________________________________________________________
-  generatePrevNotes(notes) {
-    // +++ 1- Refactor this  to be more generic
-    // +++ 2- add DOM elements and HTML markup as Class props
-    const prevNotes = notes.map((note) => {
-      // Create prevNote element to inject html in it
-      const prevNote = document.createElement("li");
-      prevNote.classList.add("prev-note");
-      prevNote.id = note.id;
-      // Create prevNote element to inject html in it
+  // generatePrevNotes(notes) {
+  //   // +++ 1- Refactor this  to be more generic
+  //   // +++ 2- add DOM elements and HTML markup as Class props
+  //   const prevNotes = notes.map((note) => {
+  //     // Create prevNote element to inject html in it
+  //     const prevNote = document.createElement("li");
+  //     prevNote.classList.add("prev-note");
+  //     prevNote.id = note.id;
+  //     // Create prevNote element to inject html in it
 
-      const content = note.content.split(" ").slice(0, 9).join(" ");
-      const prevNoteChildren = `<div class="btn-container">
-      <span  tabindex="9" title="edit" class="prev-note__edit">
-      <button class="edit__icon">&#9998;
-      <div class="edit__line"></div>
-      </button>
-      </span>
-      <button tabindex="10" title="delete" class="prev-note__delete">&#10006;</button>
-      </div>
-      
-      <span class="prev-note__title"> ${note.title}</span>
-      <span class="prev-note__content hidden"> "${
-        content || "waiting for inspiration"
-      }"</span>`;
+  //     const content = note.content.split(" ").slice(0, 9).join(" ");
+  //     const prevNoteChildren = `<div class="btn-container">
+  //     <span  tabindex="9" title="edit" class="prev-note__edit">
+  //     <button class="edit__icon">&#9998;
+  //     <div class="edit__line"></div>
+  //     </button>
+  //     </span>
+  //     <button tabindex="10" title="delete" class="prev-note__delete">&#10006;</button>
+  //     </div>
 
-      prevNote.innerHTML = prevNoteChildren;
+  //     <span class="prev-note__title"> ${note.title}</span>
+  //     <span class="prev-note__content hidden"> "${
+  //       content || "waiting for inspiration"
+  //     }"</span>`;
 
-      prevNote.addEventListener("click", (e) => this.prevNoteHandler(e, notes));
-      return prevNote;
-    });
-    return prevNotes;
-  }
+  //     prevNote.innerHTML = prevNoteChildren;
 
-  // ______________________________________________________________
-  renderPrevNotes(notes = {}) {
-    // only the first 10 notes to show in the sidebar
-    sideNotesList.innerHTML = "";
-    this.generatePrevNotes(notes.slice(0, 10)).map((note) =>
-      sideNotesList.insertAdjacentElement("beforeend", note)
-    );
-    addNoteTitle.focus();
-  }
+  //     prevNote.addEventListener("click", (e) => this.prevNoteHandler(e, notes));
+  //     return prevNote;
+  //   });
+  //   return prevNotes;
+  // }
+
+  // // ______________________________________________________________
+  // renderPrevNotes(notes = {}) {
+  //   // only the first 10 notes to show in the sidebar
+  //   sideNotesList.innerHTML = "";
+  //   this.generatePrevNotes(notes.slice(0, 10)).map((note) =>
+  //     sideNotesList.insertAdjacentElement("beforeend", note)
+  //   );
+  //   addNoteTitle.focus();
+  // }
 
   // ______________________________________________________________
   editSideNote(target) {
@@ -129,6 +133,7 @@ class SideNoteView extends AddNoteView {
       prevNoteContent.classList.remove("span-content");
       // --------- Animation ------------------
       this.toggleMode("editMode", false);
+      console.log(this);
       this.showTimeOnEdit();
     } else {
       // _______ Display current Note _________
@@ -177,10 +182,10 @@ class SideNoteView extends AddNoteView {
       this.toggleSideNotes();
     });
   }
-  toggleSideOnFullHandler() {
-    addNoteFullView.addEventListener("click", () => {
-      this.toggleSideOnFull();
-    });
-  }
+  // toggleSideOnFullHandler() {
+  //   addNoteFullView.addEventListener("click", () => {
+  //     this.toggleSideOnFull();
+  //   });
+  // }
 }
 export default new SideNoteView();

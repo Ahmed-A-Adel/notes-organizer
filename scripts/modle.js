@@ -1,4 +1,5 @@
 import { addToStorage, getFromStorage } from "./helpers.js";
+// transform Class State into object and see the change.
 class State {
   darkmode = false;
   editMode = false;
@@ -85,14 +86,14 @@ class State {
     return notes;
   }
   deletePrevNote(id) {
-    const notes = [...state.notes.filter((note) => note.id != id)];
-    state.notes = notes;
+    const notes = [...this.notes.filter((note) => note.id != id)];
+    this.notes = notes;
     addToStorage("notes", notes);
     return notes;
   }
 
   toggleMode(name, value = "") {
-    const oldValue = state[name];
+    const oldValue = this[name];
     const inValue = typeof value == "boolean" ? value : !oldValue;
     this[name] = inValue;
   }
