@@ -23,8 +23,10 @@ export class View {
     this.updateNotes = updateNotes;
     this.getNotes = getNotes;
   }
+  // showTimeOnEdit() {
   showTimeOnEdit() {
     // change name to toggleTime
+    // Make it toggles despites editMode
     // Show Date & Time only on editMode
     if (this.getMode("editMode")) {
       dateContainer.classList.remove("hidden");
@@ -33,7 +35,7 @@ export class View {
     }
   }
   //_________________________________________________________
-  resetAddNote() {
+  resetAddNote(editMode) {
     const addNoteContent = document.createElement("p");
     addNoteContainer.innerHTML = "";
     addNoteTitle.value = "";
@@ -42,7 +44,7 @@ export class View {
     addNoteContainer.appendChild(addNoteContent);
     setCursorEditable(addNoteContent, 0, 0);
     this.toggleMode("editMode", false);
-    this.showTimeOnEdit();
+    this.showTimeOnEdit(editMode);
   }
   //_________________________________________________________
   generatePrevNotes(notes) {
