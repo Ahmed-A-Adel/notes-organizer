@@ -32,12 +32,7 @@
     <!--_________________________ MAIN SECTION _____________________-->
     <main class="main-index">
       <!------------ ADD NOTE SECTION ----------->
-      <form
-        onsubmit="addNoteHandler(event)"
-        class="add-note"
-        id="add-note"
-        tabindex="5"
-      >
+      <form class="add-note" id="add-note" tabindex="5">
         <div class="title-container">
           <!------------ ADD NOTE DATE & TIME ------------>
           <div class="date-container hidden" id="date-container">
@@ -102,5 +97,11 @@
     </footer>
     <!--________________________FOOTER _____________________________-->
   </body>
-  <script src="./scripts/index.js"></script>
+  <!-- <script src="./scripts/index.js"></script> -->
+  <script src="./scripts/index.js" type="module"></script>
+  <!-- coemment the lefted scripts -->
+  <script src="./scripts/helpers.js" type="module"></script>
+  <script src="./scripts/modle.js" type="module"></script>
+  <script src="./scripts/views/addNoteView.js" type="module"></script>
+  <script src="./scripts/views/sideNoteView.js" type="module"></script>
 </html>

@@ -15,6 +15,7 @@
   box-shadow: 0px 0px 3px 3px rgb(255, 255, 255);
   box-shadow: -2px 2px 3px 0px rgba(95, 34, 1, 0.482);
   border-radius: 4px;
+  cursor: pointer;
 
   button {
     border: none;
@@ -53,8 +54,7 @@
   overflow: hidden;
   flex-basis: 0px;
 }
-.prev-note:hover .prev-note__content,
-.prev-note:focus .prev-note__content {
+.prev-note:hover .prev-note__content {
   opacity: 1;
   flex-basis: 70px;
 }
