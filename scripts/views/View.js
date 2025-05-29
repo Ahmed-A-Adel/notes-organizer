@@ -83,8 +83,14 @@ export class View {
   // ______________________________________________________________
   renderPrevNotes(notes = {}) {
     // only the first 10 notes to show in the sidebar
+
+    // this.generatePrevNotes(notes.slice(0, 10)).map((note) =>
+    //   sideNotesList.insertAdjacentElement("beforeend", note)
+    // );
+
+    // show all notes instead of only just 10
     sideNotesList.innerHTML = "";
-    this.generatePrevNotes(notes.slice(0, 10)).map((note) =>
+    this.generatePrevNotes(notes).map((note) =>
       sideNotesList.insertAdjacentElement("beforeend", note)
     );
     addNoteTitle.focus();
