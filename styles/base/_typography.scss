@@ -5,7 +5,8 @@
 
 .add-note {
   text-align: center;
-  color: var(--white);
+  // color: var(--white);
+  color: var(--black);
   text-shadow: var(--shadow);
   & *::first-letter {
     text-transform: uppercase;
@@ -33,7 +34,8 @@
 }
 
 .date-container {
-  color: var(--white);
+  // color: var(--white);
+  color: gray;
 }
 
 #add-note__time {
