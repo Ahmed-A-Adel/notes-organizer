@@ -3,11 +3,13 @@
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 10% 1fr;
-  background-color: var(--prim-color);
+  // background-color: var(--prim-color);
+  background-color: transparent;
+
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-radius: 6px;
-  box-shadow: -3px 3px 7px 1px var(--ligh-brown);
+  // box-shadow: -3px 3px 7px 1px var(--ligh-brown);
   transition: var(--transition);
 }
 #side-notes:focus {
@@ -29,8 +31,9 @@
   justify-self: end;
 
   font-size: 5rem;
-  color: rgb(255, 255, 255);
-  text-shadow: 0 0 5px rgb(255, 255, 255);
+  // color: rgb(255, 255, 255);
+  color: var(--black);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.616);
   cursor: pointer;
   transition: var(--transition);
 }

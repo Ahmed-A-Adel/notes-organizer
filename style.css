@@ -4,22 +4,21 @@
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem 1rem 2rem;
-  background-color: var(--second-color);
-  color: var(--ligh-brown);
+  background-color: rgba(116, 106, 100, 0.4392156863);
+  color: rgb(248, 248, 248);
   text-transform: capitalize;
   text-align: center;
   overflow: hidden;
   font-size: 2rem;
-  box-shadow: 0px 0px 3px 3px rgb(255, 255, 255);
-  box-shadow: -2px 2px 3px 0px rgba(95, 34, 1, 0.482);
-  border-radius: 4px;
+  text-shadow: 0 0 5px rgba(58, 55, 53, 0.71);
+  box-shadow: 0px 0px 2px 2px rgba(10, 9, 9, 0.2);
   cursor: pointer;
 }
 .prev-note button {
   border: none;
   font-size: inherit;
   background-color: transparent;
-  color: var(--ligh-brown);
+  color: var(--black);
   cursor: pointer;
 }
 
@@ -160,7 +159,7 @@ nav {
   position: absolute;
   bottom: 0;
   left: 0%;
-  background-color: rgb(194, 113, 8);
+  background-color: var(--black);
   transform: translateX(100%);
   transition: transform 0.3s;
 }
@@ -244,11 +243,10 @@ nav {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 10% 1fr;
-  background-color: var(--prim-color);
+  background-color: transparent;
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-radius: 6px;
-  box-shadow: -3px 3px 7px 1px var(--ligh-brown);
   transition: var(--transition);
 }
 
@@ -273,8 +271,8 @@ nav {
   align-self: center;
   justify-self: end;
   font-size: 5rem;
-  color: rgb(255, 255, 255);
-  text-shadow: 0 0 5px rgb(255, 255, 255);
+  color: var(--black);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.616);
   cursor: pointer;
   transition: var(--transition);
 }
