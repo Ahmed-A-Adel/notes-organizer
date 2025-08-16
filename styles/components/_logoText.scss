@@ -3,12 +3,14 @@
   position: relative;
   transform: translateY(-60%);
 
-  color: rgb(255, 255, 255);
+  // color: rgb(255, 255, 255);
+  color: rgb(41, 5, 5);
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 4vh;
   text-decoration: none;
   text-transform: uppercase;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.614);
+  // text-shadow: 0 0 5px rgba(255, 255, 255, 0.614);
+  text-shadow: 0 0 5px rgb(140 119 119 / 61%);
   cursor: pointer;
 }
 

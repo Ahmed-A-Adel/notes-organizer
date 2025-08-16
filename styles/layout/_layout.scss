@@ -4,15 +4,15 @@
   height: 100vh;
   display: grid;
   align-items: stretch;
-  overflow: hidden;
+  // overflow: hidden;
 }
 .nav-index {
   opacity: 1;
-  height: 10vh;
+  // height: 10vh;
 }
 .main-index {
   display: flex;
-  height: 72vh;
+  height: 76vh;
   justify-content: space-between;
   column-gap: var(--margin);
   margin: var(--margin);

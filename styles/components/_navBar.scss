@@ -8,8 +8,10 @@ nav {
 
   font-family: "Courier New", Courier, onospace;
   text-transform: uppercase;
-  background-color: var(--prim-color);
-  box-shadow: 0 5px 6px 0px white;
+  // background-color: var(--prim-color);
+  background-color: transparent;
+  // box-shadow: 0 5px 6px 0px white;
+  box-shadow: 0 5px 6px 0px #00000047;
 }
 
 .nav-index__links {
@@ -22,16 +24,19 @@ nav {
   & a {
     padding: 1rem;
 
-    color: white;
+    // color: white;
+    color: var(--dark-red);
     text-shadow: var(--shadow);
     text-emphasis: open;
+    text-decoration: none;
     transition: text-shadow 0.2s;
   }
   & a:active,
   a:hover,
   a:focus {
     outline: none;
-    text-shadow: 0px 0px 5px #fff;
+    // text-shadow: 0px 0px 5px #fff;
+    text-shadow: 0px 0px 5px var(--dark-red);
     text-emphasis: circle;
   }
 }
