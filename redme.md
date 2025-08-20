@@ -12,3 +12,6 @@
 4- add feedback panel whenever edit and leav note.
 5- make the font size bigger and add space to paragraphs to be more readable .
 6- update the layout to be more foucsed on writing, and look more modern.
+7- Add content placeholder to addNote
+8- add page scrolling with display of number of pages.
+9- remove the footer.
