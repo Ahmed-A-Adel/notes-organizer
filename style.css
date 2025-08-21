@@ -548,6 +548,14 @@ body {
   font-size: 1.6rem;
 }
 
+.content-container {
+  scrollbar-width: none;
+  --ms-overflow-style: none;
+}
+.content-container ::-webkit-scrollbar {
+  display: none;
+}
+
 footer {
   padding: 1rem;
 }

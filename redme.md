@@ -15,3 +15,5 @@
 7- Add content placeholder to addNote
 8- add page scrolling with display of number of pages.
 9- remove the footer.
+10- add descriptive word to addNote tools nav.
+11- adjust the writing layout based on every featuer.
