@@ -23,6 +23,8 @@
 
 .prev-note__title {
   text-transform: uppercase;
+  color: black;
+  text-shadow: 0 0 black;
 }
 
 .prev-note__edit {
@@ -323,7 +325,7 @@ nav {
 
 #add-note__title {
   grid-column: 2/-1;
-  padding-bottom: 2rem;
+  margin-block: 2rem;
 }
 
 .content-container {
@@ -345,17 +347,23 @@ nav {
   padding: 0 0 1rem 2rem;
 }
 
-.point-container {
-  margin-bottom: var(--padding);
+.add-note__list-item {
+  font-size: 2.5rem;
+  line-height: 1.7;
 }
 
 .add-note__heading {
   min-height: 3ch;
-  padding-bottom: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
 }
 
 .add-note__content {
   min-height: 3ch;
+}
+
+.add-note__list {
+  padding: 1rem;
 }
 
 #add-note__input:focus {
@@ -568,10 +576,14 @@ footer {
 .add-note {
   text-align: center;
   color: var(--black);
-  text-shadow: var(--shadow);
 }
 .add-note *::first-letter {
   text-transform: uppercase;
+}
+
+.content-container {
+  line-height: 1.5;
+  font-size: 2.5rem;
 }
 
 .add-note__nav {
@@ -583,7 +595,7 @@ footer {
 #add-note__title {
   font-family: serif;
   color: inherit;
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: lighter;
   text-align: center;
   text-shadow: var(--shadow);
@@ -594,21 +606,20 @@ footer {
 }
 
 .date-container {
-  color: gray;
+  font-size: 1.8rem;
+  letter-spacing: 2.5px;
+  color: #403737;
 }
 
 #add-note__time {
   text-transform: uppercase;
 }
 
-#add-note__container {
-  font-size: 2rem;
-}
-
 .add-note__heading {
-  color: var(--black);
-  text-shadow: var(--shadow);
-  text-decoration: underline 1px solid black;
+  font-size: 3.5rem;
+  color: #771d29;
+  border-bottom: 2px solid;
+  text-decoration: none;
 }
 
 .add-note__list {

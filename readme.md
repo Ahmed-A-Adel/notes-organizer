@@ -17,3 +17,7 @@
 9- remove the footer.
 10- add descriptive word to addNote tools nav.
 11- adjust the writing layout based on every featuer.
+12- change text-selection color to black.
+13- in mobile mode on perv note click hide prev notes list.
+14- fix elements layout in the begaining and after addPoint or list.
+15- make the addNote title scrollable.

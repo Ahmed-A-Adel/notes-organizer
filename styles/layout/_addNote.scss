@@ -49,7 +49,7 @@
 
 #add-note__title {
   grid-column: 2 /-1;
-  padding-bottom: 2rem;
+  margin-block: 2rem;
 }
 .content-container {
   display: flex;
@@ -69,15 +69,26 @@
   outline: none;
   padding: 0 0 1rem 2rem;
 }
+.add-note__list-item {
+  font-size: 2.5rem;
+  line-height: 1.7;
+}
 .point-container {
-  margin-bottom: var(--padding);
+  // margin-bottom: var(--padding);
+  // margin-block: 2rem;
 }
 .add-note__heading {
   min-height: 3ch;
-  padding-bottom: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  // padding-block: 2rem;
 }
 .add-note__content {
   min-height: 3ch;
+}
+
+.add-note__list {
+  padding: 1rem;
 }
 
 #add-note__input:focus {
