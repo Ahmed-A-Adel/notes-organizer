@@ -21,3 +21,5 @@
 13- in mobile mode on perv note click hide prev notes list.
 14- fix elements layout in the begaining and after addPoint or list.
 15- make the addNote title scrollable.
+16- copy a selection of text and make them a point structure like
+"by targeting the first element to be the heading and the rest the content."

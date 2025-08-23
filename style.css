@@ -283,7 +283,7 @@ nav {
 .add-note {
   width: 75%;
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 1fr;
   grid-template-columns: auto 1fr;
   justify-items: stretch;
   align-items: stretch;
@@ -297,6 +297,10 @@ nav {
 
 .add-note:focus-visible {
   outline: 2px solid black;
+}
+
+.add-note__wrapper {
+  overflow: auto;
 }
 
 .add-note__title {
@@ -447,7 +451,7 @@ nav {
     gap: var(--margin);
   }
   .add-note {
-    grid-template-rows: auto 1fr 10%;
+    grid-template-rows: 1fr auto;
     grid-template-columns: 1fr;
     width: 100%;
     min-height: 60%;
@@ -556,11 +560,11 @@ body {
   font-size: 1.6rem;
 }
 
-.content-container {
+.add-note__wrapper {
   scrollbar-width: none;
   --ms-overflow-style: none;
 }
-.content-container ::-webkit-scrollbar {
+.add-note__wrapper ::-webkit-scrollbar {
   display: none;
 }
 

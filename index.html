@@ -33,33 +33,37 @@
     <main class="main-index">
       <!------------ ADD NOTE SECTION ----------->
       <form class="add-note" id="add-note" tabindex="5">
-        <div class="title-container">
-          <!------------ ADD NOTE DATE & TIME ------------>
-          <div class="date-container hidden" id="date-container">
-            <div id="add-note__date">
-              <span id="date-note"></span>
+        <div class="add-note__wrapper">
+          <!------------ ADD NOTE TITLE SECTION ----------->
+          <div class="title-container">
+            <!------------ ADD NOTE DATE & TIME ------------>
+            <div class="date-container hidden" id="date-container">
+              <div id="add-note__date">
+                <span id="date-note"></span>
+              </div>
+              <div id="add-note__time">
+                <span id="time-note"></span>
+              </div>
             </div>
-            <div id="add-note__time">
-              <span id="time-note"></span>
-            </div>
+            <!------------ ADD NOTE DATE & TIME ------------>
+
+            <!------------ ADD NOTE TITLE INPUT ------------>
+            <input type="text" id="add-note__title" placeholder="title" />
+            <!------------ ADD NOTE TITLE INPUT ------------>
           </div>
-          <!------------ ADD NOTE DATE & TIME ------------>
+          <!------------ ADD NOTE TITLE SECTION ----------->
 
-          <!------------ ADD NOTE TITLE INPUT ------------>
-          <input type="text" id="add-note__title" placeholder="title" />
-          <!------------ ADD NOTE TITLE INPUT ------------>
+          <!------------ ADD NOTE CONTENT SECTION ------------>
+          <div
+            class="content-container"
+            id="add-note__container"
+            contenteditable="true"
+          >
+            <p class="add-note__content">&nbsp;</p>
+          </div>
+
+          <!------------ ADD NOTE CONTENT SECTION ------------>
         </div>
-
-        <!------------ ADD NOTE CONTENT INPUT ------------>
-        <div
-          class="content-container"
-          id="add-note__container"
-          contenteditable="true"
-        >
-          <p class="add-note__content">&nbsp;</p>
-        </div>
-
-        <!------------ ADD NOTE CONTENT INPUT ------------>
 
         <!------------ ADD NOTE ACTION BUTTONS ------------>
         <ul class="add-note__nav" id="add-note__nav">
